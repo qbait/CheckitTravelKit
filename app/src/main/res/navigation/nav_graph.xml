@@ -9,12 +9,20 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_splashFragment_to_searchFragment"
+            android:id="@+id/next_action"
             app:destination="@+id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="eu.szwiec.checkittravelkit.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@+id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="eu.szwiec.checkittravelkit.InfoFragment"
+        android:label="InfoFragment" />
 </navigation>
