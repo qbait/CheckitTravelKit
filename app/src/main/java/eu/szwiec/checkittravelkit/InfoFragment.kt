@@ -15,7 +15,7 @@ class InfoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val id = InfoFragmentArgs.fromBundle(arguments).id
+        val id = InfoFragmentArgs.fromBundle(arguments).countryId
         tv.text = id
     }
 }

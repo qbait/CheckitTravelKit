@@ -20,7 +20,7 @@ class SearchFragment : Fragment() {
 
         button.setOnClickListener {
             val action = SearchFragmentDirections.nextAction()
-            action.setId("PL")
+            action.setCountryId("PL")
             view.findNavController().navigate(action)
         }
     }

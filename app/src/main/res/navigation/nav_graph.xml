@@ -27,7 +27,7 @@
         android:label="fragment_info"
         tools:layout="@layout/fragment_info">
         <argument
-            android:name="id"
+            android:name="countryId"
             android:defaultValue="US"
             app:argType="string" />
     </fragment>
