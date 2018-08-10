@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_info.*
 
 class InfoFragment : Fragment() {
@@ -16,6 +17,10 @@ class InfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val id = InfoFragmentArgs.fromBundle(arguments).countryId
-        tv.text = id
+        //tv.text = id
+
+        toolbar.setNavigationOnClickListener {
+            it.findNavController().navigateUp()
+        }
     }
 }

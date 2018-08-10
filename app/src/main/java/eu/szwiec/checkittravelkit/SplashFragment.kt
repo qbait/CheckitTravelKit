@@ -18,7 +18,7 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (false) {
+        if (true) {
             view.findNavController().navigate(R.id.next_action)
         } else {
             Handler().postDelayed({
