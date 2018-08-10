@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "eu.szwiec.checkittravelkit"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -19,19 +19,43 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding.enabled = true
 }
 
 dependencies {
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion"
-
-    implementation 'com.google.android.material:material:1.0.0-rc01'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
     implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
     implementation 'androidx.cardview:cardview:1.0.0-rc01'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi_kotlin"
+    implementation 'androidx.room:room-runtime:2.0.0-rc01'
+    kapt 'androidx.room:room-compiler:2.0.0-rc01'
+//    implementation "androidx.core:core-ktx:$versions.ktx"
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-rc01'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0-rc01'
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$versions.binding_collection_adapter"
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$versions.binding_collection_adapter"
+    implementation "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    implementation "com.airbnb.android:lottie:$versions.lottie"
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "com.jakewharton.timber:timber:$versions.timber"
+    implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
+    implementation "com.google.firebase:firebase-core:$versions.firebase_core"
 
-    // Navigation
-
-    implementation 'android.arch.navigation:navigation-fragment-ktx:' + rootProject.navigationVersion
-    implementation 'android.arch.navigation:navigation-ui-ktx:' + rootProject.navigationVersion
+    testImplementation "junit:junit:$versions.junit"
+    testImplementation "org.mockito:mockito-core:$versions.mockito"
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 }

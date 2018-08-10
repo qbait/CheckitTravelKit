@@ -1,9 +1,7 @@
  // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext {
-        kotlinVersion = '1.2.60'
-    }
+    ext.kotlin_version = "1.2.60"
     repositories {
         google()
         jcenter()
@@ -11,7 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-beta04'
         classpath 'android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha04'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -29,12 +27,25 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
- ext {
-     supportLibVersion = "27.1.1"
-     runnerVersion = "0.5"
-     rulesVersion = "0.5"
-     espressoVersion = "2.2.2"
-     navigationVersion = "1.0.0-alpha04"
-     constraintLayoutVersion = "1.1.0"
- }
+ ext.versions = [:]
+ versions.support = "27.1.1"
+ versions.navigation = "1.0.0-alpha04"
+ versions.arch_core = "1.1.1"
+ versions.arch_room = "1.1.0-beta3"
+ versions.constraint_layout = "1.1.0"
+ versions.retrofit = "2.4.0"
+ versions.ktx = "0.3"
+ versions.binding_collection_adapter = "2.2.0"
+ versions.threetenabp = "1.1.0"
+ versions.dagger = "2.15"
+ versions.lottie = "2.5.4"
+ versions.glide = "4.7.1"
+ versions.timber = "4.7.0"
+ versions.crashlytics = "2.9.3"
+ versions.firebase_core = "16.0.0"
+ versions.moshi_kotlin = "1.6.0"
+ versions.junit = "4.12"
+ versions.espresso = "3.0.1"
+ versions.test_runner = "1.0.1"
+ versions.mockito = "2.11.0"
 
