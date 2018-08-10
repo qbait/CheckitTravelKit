@@ -12,8 +12,7 @@
             android:id="@+id/next_action"
             app:clearTask="true"
             app:destination="@+id/searchFragment"
-            app:enterAnim="@anim/nav_default_pop_enter_anim"
-            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+            app:exitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
