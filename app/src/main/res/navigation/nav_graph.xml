@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@+id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
         android:name="eu.szwiec.checkittravelkit.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/next_action"
-            app:destination="@+id/searchFragment" />
+            app:destination="@+id/searchFragment"
+            app:clearTask="true" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

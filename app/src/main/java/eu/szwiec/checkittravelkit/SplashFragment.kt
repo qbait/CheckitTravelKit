@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 
 class SplashFragment : Fragment() {
 
@@ -18,8 +18,12 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Handler().postDelayed({
-            findNavController(view).navigate(R.id.next_action)
-        }, 2000)
+        if (false) {
+            view.findNavController().navigate(R.id.next_action)
+        } else {
+            Handler().postDelayed({
+                view.findNavController().navigate(R.id.next_action)
+            }, 2000)
+        }
     }
 }
