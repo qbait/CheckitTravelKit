@@ -31,7 +31,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_searchFragment_to_infoFragment">
+                            <entry key="next_action">
                               <value>
                                 <LayoutPositions />
                               </value>

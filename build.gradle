@@ -35,7 +35,7 @@ task clean(type: Delete) {
  versions.constraint_layout = "1.1.0"
  versions.retrofit = "2.4.0"
  versions.ktx = "0.3"
- versions.binding_collection_adapter = "2.2.0"
+ versions.binding_collection_adapter = "3.0.0-beta1"
  versions.threetenabp = "1.1.0"
  versions.dagger = "2.15"
  versions.lottie = "2.5.4"
