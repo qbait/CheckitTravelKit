@@ -24,5 +24,11 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="eu.szwiec.checkittravelkit.InfoFragment"
-        android:label="InfoFragment" />
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info">
+        <argument
+            android:name="id"
+            android:defaultValue="US"
+            app:argType="string" />
+    </fragment>
 </navigation>
