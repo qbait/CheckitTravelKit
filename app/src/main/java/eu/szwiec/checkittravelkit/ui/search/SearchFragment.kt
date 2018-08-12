@@ -1,4 +1,4 @@
-package eu.szwiec.checkittravelkit
+package eu.szwiec.checkittravelkit.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import eu.szwiec.checkittravelkit.R
+import eu.szwiec.checkittravelkit.SearchFragmentDirections
 import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment : Fragment() {

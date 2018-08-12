@@ -5,7 +5,7 @@
     app:startDestination="@+id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="eu.szwiec.checkittravelkit.SplashFragment"
+        android:name="eu.szwiec.checkittravelkit.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="eu.szwiec.checkittravelkit.SearchFragment"
+        android:name="eu.szwiec.checkittravelkit.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="eu.szwiec.checkittravelkit.InfoFragment"
+        android:name="eu.szwiec.checkittravelkit.ui.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info">
         <argument

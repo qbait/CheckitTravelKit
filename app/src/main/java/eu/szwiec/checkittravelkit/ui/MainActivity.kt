@@ -1,7 +1,8 @@
-package eu.szwiec.checkittravelkit
+package eu.szwiec.checkittravelkit.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import eu.szwiec.checkittravelkit.R
 
 class MainActivity : AppCompatActivity() {
 
