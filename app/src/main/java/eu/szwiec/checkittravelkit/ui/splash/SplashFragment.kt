@@ -17,10 +17,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
 
-    val viewModel: SplashViewModel by viewModel()
+    private val viewModel: SplashViewModel by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val binding: FragmentSplashBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false)
         binding.let {
