@@ -1,15 +1,103 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="InfoRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginRight">@dimen/info_row_margin_right</item>
+    </style>
+
+    <style name="InfoRow.Vaccination">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginLeft">@dimen/info_icon_width</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="Icon">
+        <item name="android:layout_width">@dimen/info_icon_width</item>
+        <item name="android:layout_height">@dimen/info_icon_height</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:tint">@color/colorAccent</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="InfoText">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="InfoText.PhoneNumber">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:clickable">true</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_marginLeft">-12dp</item>
+    </style>
+
+    <style name="InfoText.VaccinationTitle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="InfoText.VaccinationDescription">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <style name="Plug">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:tint">@color/colorPrimary</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="WelcomeText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/semi_transparent_white</item>
+    </style>
+
+    <style name="AutoComplete">
+        <item name="android:textColorHint">@color/semi_transparent_white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:inputType">textCapWords</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <style name="AutoComplete.Origin">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AutoComplete.Destination">
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="FaveRecyclerView">
+        <item name="android:requiresFadingEdge">vertical</item>
+        <item name="android:fadingEdgeLength">@dimen/fave_footer_height</item>
+    </style>
 
 </resources>

@@ -1,5 +1,13 @@
 <resources>
-    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="app_bar_height">280dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
+    <dimen name="fave_footer_height">48dp</dimen>
+    <dimen name="text_spacing">4dp</dimen>
+    <dimen name="info_row_margin_right">16dp</dimen>
+    <dimen name="plugs_container_margin_right">16dp</dimen>
+    <dimen name="row_fave_country_height">52dp</dimen>
+    <dimen name="row_fave_icon_height">40dp</dimen>
+    <dimen name="info_divider_height">12dp</dimen>
+    <dimen name="info_icon_width">92dp</dimen>
+    <dimen name="info_icon_height">80dp</dimen>
 </resources>

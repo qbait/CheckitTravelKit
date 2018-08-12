@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Check it! Travel Kit</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi_traveller_from">Hi, Traveller from</string>
+    <string name="where_are_you_from">Where are you from?</string>
+    <string name="where_would_you_like_to_go">Where would you like to go?</string>
+    <string name="decorative_item_content_description">@null</string>
+    <string name="exclamation">!</string>
+    <string name="country_code">Country code</string>
+    <string name="police">Police</string>
+    <string name="ambulance">Ambulance</string>
 
     <string name="large_text">
         "Material is the metaphor.\n\n"
