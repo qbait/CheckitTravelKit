@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSplashBinding
@@ -33,6 +34,16 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.isFirstLaunch.observe(this, Observer { isFirstLaunch ->
+            if (isFirstLaunch) {
+                animationView.playAnimation()
+            } else {
+                navigateNext()
+            }
+        }
+
+        )
+
         animationView.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
             }
@@ -49,12 +60,6 @@ class SplashFragment : Fragment() {
             override fun onAnimationRepeat(animation: Animator) {
             }
         })
-
-        if (viewModel.isFirstLaunch) {
-            animationView.playAnimation()
-        } else {
-            navigateNext()
-        }
     }
 
     private fun navigateNext() {

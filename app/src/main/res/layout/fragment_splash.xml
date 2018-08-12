@@ -24,16 +24,5 @@
             app:lottie_loop="false"
             app:lottie_rawRes="@raw/splash_anim" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@{viewModel.text}"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -32,6 +32,7 @@ task clean(type: Delete) {
  versions.navigation = "1.0.0-alpha04"
  versions.arch_core = "1.1.1"
  versions.arch_room = "1.1.0-beta3"
+ versions.ktx = "1.0.0-rc01"
  versions.constraint_layout = "1.1.0"
  versions.retrofit = "2.4.0"
  versions.binding_collection_adapter = "3.0.0-beta1"
