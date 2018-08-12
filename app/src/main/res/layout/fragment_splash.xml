@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/search_background"
-    tools:context=".ui.splash.SplashFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="eu.szwiec.checkittravelkit.ui.splash.SplashViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/splash_anim" />
+        android:layout_height="match_parent"
+        android:background="@drawable/search_background"
+        tools:context=".ui.splash.SplashFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/splash_anim" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{viewModel.text}"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
