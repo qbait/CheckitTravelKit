@@ -10,7 +10,7 @@
             type="eu.szwiec.checkittravelkit.ui.splash.SplashViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/search_background"
@@ -24,5 +24,5 @@
             app:lottie_loop="false"
             app:lottie_rawRes="@raw/splash_anim" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.ConstraintLayout>
 </layout>
