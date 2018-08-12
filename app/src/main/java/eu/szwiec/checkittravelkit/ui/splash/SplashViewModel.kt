@@ -6,10 +6,10 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 
 class SplashViewModel(private val preferences: Preferences) : ViewModel() {
 
-    val isFirstLaunch = Transformations.map(preferences.isFirstLaunchLD()) { value ->
-        if (value) {
+    val isFirstLaunch = Transformations.map(preferences.isFirstLaunchLD()) { isFirstLaunch ->
+        if (isFirstLaunch) {
             preferences.isFirstLaunch = false
         }
-        value
+        isFirstLaunch
     }
 }

@@ -40,9 +40,7 @@ class SplashFragment : Fragment() {
             } else {
                 navigateNext()
             }
-        }
-
-        )
+        })
 
         animationView.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
