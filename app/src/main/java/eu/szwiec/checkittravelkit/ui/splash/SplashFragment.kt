@@ -8,23 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSplashBinding
 import kotlinx.android.synthetic.main.fragment_splash.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
 
-
-    private lateinit var binding: FragmentSplashBinding
-    private lateinit var viewModel: SplashViewModel
+    val viewModel: SplashViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false)
-        viewModel = ViewModelProviders.of(this)[SplashViewModel::class.java]
+        val binding: FragmentSplashBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false)
         binding.let {
             it.viewModel = viewModel
             it.setLifecycleOwner(this)

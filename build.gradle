@@ -37,6 +37,7 @@ task clean(type: Delete) {
  versions.binding_collection_adapter = "3.0.0-beta1"
  versions.threetenabp = "1.1.0"
  versions.dagger = "2.15"
+ versions.koin = "1.0.0-beta-3"
  versions.lottie = "2.5.6"
  versions.glide = "4.7.1"
  versions.timber = "4.7.0"

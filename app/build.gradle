@@ -57,9 +57,11 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$versions.timber"
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
     implementation "com.google.firebase:firebase-core:$versions.firebase_core"
+    implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "org.mockito:mockito-core:$versions.mockito"
+    testImplementation "org.koin:koin-test:$versions.koin"
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 }
