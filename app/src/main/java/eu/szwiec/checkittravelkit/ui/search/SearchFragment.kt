@@ -49,7 +49,7 @@ class SearchFragment : Fragment() {
                     destination.requestFocus()
                 }
                 State.SHOW_INFO -> {
-                    view.findNavController().navigate(R.id.next_action)
+                    constraintLayout.findNavController().navigate(R.id.next_action)
                     searchViewModel.setState(State.CHOOSE_DESTINATION)
                 }
             }
