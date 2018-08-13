@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.constraintlayout.ConstraintSet
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSearchBinding
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -48,6 +48,10 @@ class SearchFragment : Fragment() {
                     animate(constraintSetAllViews)
                     destination.requestFocus()
                 }
+                State.SHOW_INFO -> {
+                    view.findNavController().navigate(R.id.next_action)
+                    searchViewModel.setState(State.CHOOSE_DESTINATION)
+                }
             }
         })
 
@@ -60,7 +64,7 @@ class SearchFragment : Fragment() {
     private fun setupOriginListeners() {
         origin.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
-                searchViewModel.editOrigin()
+                searchViewModel.setState(State.CHOOSE_ORIGIN)
                 origin.post { origin.setSelection(origin.text.length) }
             }
         }
@@ -79,12 +83,12 @@ class SearchFragment : Fragment() {
 
     private fun setupDestinationListeners() {
         destination.setOnItemClickListener { parent, view, pos, id ->
-            searchViewModel.submitDestination((view as TextView).text.toString())
+            searchViewModel.submitDestination()
         }
 
         destination.setOnEditorActionListener { view, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                searchViewModel.submitDestination((view as TextView).text.toString())
+                searchViewModel.submitDestination()
             }
             true
         }

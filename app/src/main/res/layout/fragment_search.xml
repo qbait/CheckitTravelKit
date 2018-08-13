@@ -48,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:minWidth="100dp"
             android:hint="@{searchViewModel.originHint}"
             android:text="@={searchViewModel.origin}"
             android:completionThreshold="1"
