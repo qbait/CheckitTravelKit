@@ -19,10 +19,6 @@ class SearchViewModel(private val resources: Resources, private val preferences:
     val originHint = NonNullLiveData("")
     val countryNames = repository.getCountryNames()
 
-    init {
-        initState()
-    }
-
     fun initState() {
         if (preferences.origin.isEmpty()) {
             setState(State.CHOOSE_ORIGIN)
@@ -63,7 +59,7 @@ class SearchViewModel(private val resources: Resources, private val preferences:
     }
 
     private fun isValid(countryName: String): Boolean {
-        countryNames.value?.let {
+        repository.getCountryNames().value?.let {
             return it.contains(countryName)
         }
         return false

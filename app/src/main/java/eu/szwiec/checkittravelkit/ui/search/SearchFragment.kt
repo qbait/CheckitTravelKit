@@ -39,6 +39,7 @@ class SearchFragment : Fragment() {
         constraintSetOnlyNationality.clone(context, R.layout.fragment_search)
         constraintSetAllViews.clone(context, R.layout.fragment_search_alt)
 
+        searchViewModel.initState()
         searchViewModel.state.observe(this, Observer { state ->
             when (state) {
                 State.CHOOSE_ORIGIN -> {
