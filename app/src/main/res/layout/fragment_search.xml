@@ -1,16 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/search_background"
-    tools:context=".ui.search.SearchFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search" />
+    <data>
 
-</FrameLayout>
+        <variable
+            name="searchViewModel"
+            type="eu.szwiec.checkittravelkit.ui.search.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/search_background"
+        tools:context=".ui.MainActivity">
+
+        <TextView
+            android:id="@+id/hiTraveller"
+            style="@style/WelcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hi_traveller_from"
+            android:visibility="gone"
+            app:layout_constraintBaseline_toBaselineOf="@+id/origin"
+            app:layout_constraintEnd_toStartOf="@+id/origin"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/exclamation"
+            style="@style/WelcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exclamation"
+            android:visibility="gone"
+            app:layout_constraintBaseline_toBaselineOf="@+id/origin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/origin" />
+
+        <AutoCompleteTextView
+            android:id="@+id/origin"
+            style="@style/AutoComplete.Origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:minWidth="100dp"
+            android:hint="@{searchViewModel.originHint}"
+            android:text="@={searchViewModel.origin}"
+            android:completionThreshold="1"
+            app:items="@{searchViewModel.countryNames}"
+            app:layout_constraintEnd_toStartOf="@+id/exclamation"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/hiTraveller"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <AutoCompleteTextView
+            android:id="@+id/destination"
+            style="@style/AutoComplete.Destination"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:hint="@string/where_would_you_like_to_go"
+            android:text="@={searchViewModel.destination}"
+            android:visibility="gone"
+            android:completionThreshold="1"
+            app:items="@{searchViewModel.countryNames}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/origin" />
+
+        <!--<androidx.recyclerview.RecyclerView-->
+        <!--android:id="@+id/faveRecyclerView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:visibility="gone"-->
+        <!--app:itemBinding="@{favoritesViewModel.itemBind}"-->
+        <!--app:items="@{favoritesViewModel.items}"-->
+        <!--app:layoutManager="eu.szwiec.checkittravelkit.util.StackFromEndLayoutManager"-->
+        <!--style="@style/FaveRecyclerView"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/guideline" />-->
+
+        <androidx.constraintlayout.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+    </androidx.constraintlayout.ConstraintLayout>
+</layout>
