@@ -19,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchFragment : Fragment() {
 
     private val searchViewModel: SearchViewModel by viewModel()
+    private val favoritesViewModel: FavoritesViewModel by viewModel()
     private val constraintSetOnlyNationality = ConstraintSet()
     private val constraintSetAllViews = ConstraintSet()
 
@@ -27,6 +28,7 @@ class SearchFragment : Fragment() {
         val binding: FragmentSearchBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
         binding.let {
             it.searchViewModel = searchViewModel
+            it.favoritesViewModel = favoritesViewModel
             it.setLifecycleOwner(this)
         }
 
@@ -56,7 +58,7 @@ class SearchFragment : Fragment() {
             }
         })
 
-//        favoritesViewModel.favorites.observe(this, Observer {  })
+        favoritesViewModel.favorites.observe(this, Observer { })
 
         setupOriginListeners()
         setupDestinationListeners()

@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="searchViewModel"
             type="eu.szwiec.checkittravelkit.ui.search.SearchViewModel" />
+
+        <variable
+            name="favoritesViewModel"
+            type="eu.szwiec.checkittravelkit.ui.search.FavoritesViewModel" />
     </data>
 
     <androidx.constraintlayout.ConstraintLayout
@@ -48,9 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
+            android:completionThreshold="1"
             android:hint="@{searchViewModel.originHint}"
             android:text="@={searchViewModel.origin}"
-            android:completionThreshold="1"
             app:items="@{searchViewModel.countryNames}"
             app:layout_constraintEnd_toStartOf="@+id/exclamation"
             app:layout_constraintHorizontal_bias="0.5"
@@ -62,32 +65,32 @@
             style="@style/AutoComplete.Destination"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:completionThreshold="1"
             android:hint="@string/where_would_you_like_to_go"
             android:text="@={searchViewModel.destination}"
             android:visibility="gone"
-            android:completionThreshold="1"
             app:items="@{searchViewModel.countryNames}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/origin" />
 
-        <!--<androidx.recyclerview.RecyclerView-->
-        <!--android:id="@+id/faveRecyclerView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:visibility="gone"-->
-        <!--app:itemBinding="@{favoritesViewModel.itemBind}"-->
-        <!--app:items="@{favoritesViewModel.items}"-->
-        <!--app:layoutManager="eu.szwiec.checkittravelkit.util.StackFromEndLayoutManager"-->
-        <!--style="@style/FaveRecyclerView"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/guideline" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/faveRecyclerView"
+            style="@style/FaveRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:itemBinding="@{favoritesViewModel.itemBind}"
+            app:items="@{favoritesViewModel.items}"
+            app:layoutManager="eu.szwiec.checkittravelkit.util.StackFromEndLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
         <androidx.constraintlayout.Guideline
             android:id="@+id/guideline"

@@ -3,6 +3,7 @@ package eu.szwiec.checkittravelkit.prefs
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import androidx.lifecycle.LiveData
 
 private val KEY_IS_FIRST_LAUNCH = "isFirstLaunch"
 private val KEY_ORIGIN = "origin"
@@ -20,7 +21,7 @@ class Preferences(context: Context, prefFileName: String) {
         get() = prefs.getBoolean(KEY_IS_FIRST_LAUNCH, true)
         set(value) = prefs.edit { putBoolean(KEY_IS_FIRST_LAUNCH, value) }
 
-    fun isFirstLaunchLD(): SharedPreferencesLiveData<Boolean> {
+    fun isFirstLaunchLD(): LiveData<Boolean> {
         return prefs.booleanLiveData(KEY_IS_FIRST_LAUNCH, true)
     }
 
@@ -31,7 +32,7 @@ class Preferences(context: Context, prefFileName: String) {
     val favorites: Set<String>
         get() = prefs.getStringSet(KEY_FAVORITES, emptySet<String>())
 
-    fun getFavoritesLD(): SharedPreferencesLiveData<Set<String>> {
+    fun getFavoritesLD(): LiveData<Set<String>> {
         return prefs.stringSetLiveData(KEY_FAVORITES, emptySet())
     }
 
