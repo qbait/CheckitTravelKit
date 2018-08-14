@@ -4,7 +4,7 @@ import android.view.View
 import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 
-class FavoriteCountryViewModel(val name: String) {
+class FavoriteCountry(val name: String) {
 
     fun onClick(v: View): Boolean {
         v.findNavController().navigate(R.id.next_action)

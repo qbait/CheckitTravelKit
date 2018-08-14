@@ -41,8 +41,8 @@ class FavoritesViewModelTest {
         val items = favoritesViewModel.getNewItems(setOf(poland, germany), header, footer)
         assertEquals(4, items.count())
         assertEquals(header, items[0])
-        assertEquals(germany, (items[1] as FavoriteCountryViewModel).name)
-        assertEquals(poland, (items[2] as FavoriteCountryViewModel).name)
+        assertEquals(germany, (items[1] as FavoriteCountry).name)
+        assertEquals(poland, (items[2] as FavoriteCountry).name)
         assertEquals(footer, items[3])
 
     }

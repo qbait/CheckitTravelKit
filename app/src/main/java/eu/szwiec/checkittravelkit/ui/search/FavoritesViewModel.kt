@@ -22,7 +22,7 @@ class FavoritesViewModel(private val context: Context, private val preferences: 
     val footer = context.getDrawable(android.R.color.transparent)
 
     val itemBind = OnItemBindClass<Any>()
-            .map(FavoriteCountryViewModel::class.java, BR.item, R.layout.row_fave_country)
+            .map(FavoriteCountry::class.java, BR.item, R.layout.row_fave_country)
             .map(Drawable::class.java, BR.item, R.layout.row_fave_icon)
 
     val items: DiffObservableList<Any> = DiffObservableList(object : DiffObservableList.Callback<Any> {
@@ -31,7 +31,7 @@ class FavoritesViewModel(private val context: Context, private val preferences: 
         }
 
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            if (oldItem is FavoriteCountryViewModel && newItem is FavoriteCountryViewModel) {
+            if (oldItem is FavoriteCountry && newItem is FavoriteCountry) {
                 return oldItem.name == newItem.name
             } else {
                 return true
@@ -46,7 +46,7 @@ class FavoritesViewModel(private val context: Context, private val preferences: 
 
     fun getNewItems(favorites: Set<String>, header: Any, footer: Any): List<Any> {
         val items = ObservableArrayList<Any>()
-        val favorites = favorites.map { FavoriteCountryViewModel(it) }.sortedBy { it.name }
+        val favorites = favorites.map { FavoriteCountry(it) }.sortedBy { it.name }
 
         if (favorites.isNotEmpty()) {
             items.add(header)
