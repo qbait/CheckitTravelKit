@@ -1,6 +1,6 @@
 package eu.szwiec.checkittravelkit.ui.search
 
-import android.content.res.Resources
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
@@ -11,7 +11,7 @@ enum class State {
     CHOOSE_ORIGIN, CHOOSE_DESTINATION, SHOW_INFO
 }
 
-class SearchViewModel(private val resources: Resources, private val preferences: Preferences, private val repository: CountryRepository) : ViewModel() {
+class SearchViewModel(private val application: Application, private val preferences: Preferences, private val repository: CountryRepository) : ViewModel() {
 
     val state = NonNullLiveData(State.CHOOSE_ORIGIN)
     val origin = NonNullLiveData("")
@@ -32,7 +32,7 @@ class SearchViewModel(private val resources: Resources, private val preferences:
 
         when (newState) {
             State.CHOOSE_ORIGIN -> {
-                originHint.value = resources.getString(R.string.where_are_you_from)
+                originHint.value = application.getString(R.string.where_are_you_from)
             }
             State.CHOOSE_DESTINATION -> {
                 originHint.value = ""

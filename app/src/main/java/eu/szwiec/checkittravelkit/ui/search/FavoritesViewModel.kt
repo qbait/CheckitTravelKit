@@ -1,6 +1,6 @@
 package eu.szwiec.checkittravelkit.ui.search
 
-import android.content.res.Resources
+import android.app.Application
 import android.graphics.drawable.Drawable
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Transformations
@@ -11,7 +11,7 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
-class FavoritesViewModel(private val resources: Resources, private val preferences: Preferences) : ViewModel() {
+class FavoritesViewModel(private val application: Application, private val preferences: Preferences) : ViewModel() {
 
     init {
         preferences.addFavorite("Poland")
@@ -45,9 +45,9 @@ class FavoritesViewModel(private val resources: Resources, private val preferenc
         val favorites = preferences.favorites.map { FavoriteCountryViewModel(it) }.sortedBy { it.name }
 
         if (favorites.isNotEmpty()) {
-            headerFooterItems.add(resources.getDrawable(R.drawable.ic_favorite_border_white_24dp))
+            headerFooterItems.add(application.getDrawable(R.drawable.ic_favorite_border_white_24dp))
             headerFooterItems.addAll(favorites)
-            headerFooterItems.add((resources.getDrawable(android.R.color.transparent)))
+            headerFooterItems.add((application.getDrawable(android.R.color.transparent)))
         }
 
         items.update(headerFooterItems)

@@ -1,6 +1,6 @@
 package eu.szwiec.checkittravelkit.ui.search
 
-import android.content.res.Resources
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
@@ -23,7 +23,7 @@ class SearchViewModelTest {
     lateinit var searchViewModel: SearchViewModel
 
     @Mock
-    lateinit var mockResources: Resources
+    lateinit var mockApplication: Application
 
     @Mock
     lateinit var mockPreferences: Preferences
@@ -34,8 +34,8 @@ class SearchViewModelTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        Mockito.`when`(mockResources.getString(R.string.where_are_you_from)).thenReturn("Where are you from?")
-        searchViewModel = SearchViewModel(mockResources, mockPreferences, mockRepository)
+        Mockito.`when`(mockApplication.getString(R.string.where_are_you_from)).thenReturn("Where are you from?")
+        searchViewModel = SearchViewModel(mockApplication, mockPreferences, mockRepository)
     }
 
     @Test
@@ -58,7 +58,7 @@ class SearchViewModelTest {
     @Test
     fun setState() {
         searchViewModel.setState(State.CHOOSE_ORIGIN)
-        assertEquals(mockResources.getString(R.string.where_are_you_from), searchViewModel.originHint.value)
+        assertEquals(mockApplication.getString(R.string.where_are_you_from), searchViewModel.originHint.value)
         assertEquals(State.CHOOSE_ORIGIN, searchViewModel.state.value)
 
         searchViewModel.setState(State.CHOOSE_DESTINATION)

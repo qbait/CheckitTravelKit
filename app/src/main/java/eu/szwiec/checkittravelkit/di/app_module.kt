@@ -5,7 +5,6 @@ import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.ui.search.FavoritesViewModel
 import eu.szwiec.checkittravelkit.ui.search.SearchViewModel
 import eu.szwiec.checkittravelkit.ui.splash.SplashViewModel
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
@@ -18,5 +17,4 @@ val appModule = module {
 
     single { Preferences(get(), "prefs") }
     single { CountryRepository() }
-    single { androidContext().resources }
 }
