@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="eu.szwiec.checkittravelkit.ui.info.PlugViewModel" />
+    </data>
+
+    <ImageView
+        android:id="@+id/view"
+        android:src="@{item.icon}"
+        android:onClick="@{() -> item.showInfo(view,item)}"
+        style="@style/Plug"
+        android:contentDescription="@string/decorative_item_content_description" />
+</layout>
