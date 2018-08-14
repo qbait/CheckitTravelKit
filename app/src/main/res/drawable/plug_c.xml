@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="55dp"
+    android:viewportWidth="56"
+    android:viewportHeight="55">
+
+    <group
+        android:translateX="1.000000"
+        android:translateY="1.000000">
+        <path
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 0.289459972 0.926902409 H 53.268920472 V 52.769162109 H 0.289459972 V 0.926902409 Z" />
+        <path
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 26.9845394 7.5100551 C 37.4182483281 7.5100551 45.8764406 15.8916506352 45.8764406 26.2308727 C 45.8764406 36.5700947648 37.4182483281 44.9516903 26.9845394 44.9516903 C 16.5508304719 44.9516903 8.0926382 36.5700947648 8.0926382 26.2308727 C 8.0926382 15.8916506352 16.5508304719 7.5100551 26.9845394 7.5100551 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 17.1278982 23.14502362 C 18.7156363547 23.14502362 20.00275244 24.5266053128 20.00275244 26.2308727 C 20.00275244 27.9351400872 18.7156363547 29.31672178 17.1278982 29.31672178 C 15.5401600453 29.31672178 14.25304396 27.9351400872 14.25304396 26.2308727 C 14.25304396 24.5266053128 15.5401600453 23.14502362 17.1278982 23.14502362 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 37.2518697 23.14502362 C 38.8396078547 23.14502362 40.12672394 24.5266053128 40.12672394 26.2308727 C 40.12672394 27.9351400872 38.8396078547 29.31672178 37.2518697 29.31672178 C 35.6641315453 29.31672178 34.37701546 27.9351400872 34.37701546 26.2308727 C 34.37701546 24.5266053128 35.6641315453 23.14502362 37.2518697 23.14502362 Z" />
+    </group>
+</vector>

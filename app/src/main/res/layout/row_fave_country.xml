@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="eu.szwiec.checkittravelkit.ui.search.FavoriteCountryViewModel" />
+    </data>
+
+    <Button
+        android:id="@+id/view"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/row_fave_country_height"
+        android:text="@{item.name}"
+        android:onClick="@{() -> item.onClick(view)}"
+        android:textColor="@color/white" />
+</layout>

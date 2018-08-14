@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="54dp"
+    android:viewportWidth="56"
+    android:viewportHeight="54">
+
+    <group
+        android:translateX="1.000000"
+        android:translateY="1.000000">
+        <path
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 0.0338493406 0.0357518783 H 53.0133098406 V 51.8780115783 H 0.0338493406 V 0.0357518783 Z" />
+        <path
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 26.7289288 7.0303446 C 37.1626377281 7.0303446 45.62083 15.4119401352 45.62083 25.7511622 C 45.62083 36.0903842648 37.1626377281 44.4719798 26.7289288 44.4719798 C 16.2952198719 44.4719798 7.8370276 36.0903842648 7.8370276 25.7511622 C 7.8370276 15.4119401352 16.2952198719 7.0303446 26.7289288 7.0303446 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 16.4616088 22.66531312 C 18.0493469547 22.66531312 19.33646304 24.0468948128 19.33646304 25.7511622 C 19.33646304 27.4554295872 18.0493469547 28.83701128 16.4616088 28.83701128 C 14.8738706453 28.83701128 13.58675456 27.4554295872 13.58675456 25.7511622 C 13.58675456 24.0468948128 14.8738706453 22.66531312 16.4616088 22.66531312 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M 36.5855804 22.25386792 C 38.1733185547 22.25386792 39.46043464 23.6354496128 39.46043464 25.339717 C 39.46043464 27.0439843872 38.1733185547 28.42556608 36.5855804 28.42556608 C 34.9978422453 28.42556608 33.71072616 27.0439843872 33.71072616 25.339717 C 33.71072616 23.6354496128 34.9978422453 22.25386792 36.5855804 22.25386792 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:pathData="M24.3465931,43.8450288 L28.2842726,43.8450288 C28.2842726,43.8450288 28.3652235,37.9813467 26.7091925,37.8315656 C24.9526396,37.6726988 24.3465931,43.8450288 24.3465931,43.8450288 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#000000"
+            android:strokeWidth="2.06960917"
+            android:pathData="M28.5890741,7.38223931 L24.6513946,7.38223931 C24.6513946,7.38223931 24.5704436,13.2459214 26.2264746,13.3957025 C27.9830275,13.5545693 28.5890741,7.38223931 28.5890741,7.38223931 Z" />
+    </group>
+</vector>
