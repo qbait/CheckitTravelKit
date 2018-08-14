@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 class SearchViewModelTest {
@@ -34,13 +34,13 @@ class SearchViewModelTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        Mockito.`when`(mockContext.getString(R.string.where_are_you_from)).thenReturn("Where are you from?")
+        `when`(mockContext.getString(R.string.where_are_you_from)).thenReturn("Where are you from?")
         searchViewModel = SearchViewModel(mockContext, mockPreferences, mockRepository)
     }
 
     @Test
     fun initStateWhenEmptyOrigin() {
-        Mockito.`when`(mockPreferences.origin).thenReturn("")
+        `when`(mockPreferences.origin).thenReturn("")
         searchViewModel.initState()
 
         assertEquals(State.CHOOSE_ORIGIN, searchViewModel.state.value)
@@ -48,7 +48,7 @@ class SearchViewModelTest {
 
     @Test
     fun initStateWhenOriginExistis() {
-        Mockito.`when`(mockPreferences.origin).thenReturn("Poland")
+        `when`(mockPreferences.origin).thenReturn("Poland")
         searchViewModel.initState()
 
         assertEquals(State.CHOOSE_DESTINATION, searchViewModel.state.value)
@@ -70,7 +70,7 @@ class SearchViewModelTest {
 
     @Test
     fun submitOrigin() {
-        Mockito.`when`(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
+        `when`(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
         searchViewModel.state.value = State.CHOOSE_ORIGIN
 
         searchViewModel.origin.value = "Pol"
@@ -84,7 +84,7 @@ class SearchViewModelTest {
 
     @Test
     fun submitDestination() {
-        Mockito.`when`(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
+        `when`(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
         searchViewModel.state.value = State.CHOOSE_DESTINATION
 
         searchViewModel.destination.value = "Ger"

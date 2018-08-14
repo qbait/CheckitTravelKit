@@ -18,6 +18,9 @@ class FavoritesViewModel(private val context: Context, private val preferences: 
         preferences.addFavorite("France")
     }
 
+    val header = context.getDrawable(R.drawable.ic_favorite_border_white_24dp)
+    val footer = context.getDrawable(android.R.color.transparent)
+
     val itemBind = OnItemBindClass<Any>()
             .map(FavoriteCountryViewModel::class.java, BR.item, R.layout.row_fave_country)
             .map(Drawable::class.java, BR.item, R.layout.row_fave_icon)
@@ -36,20 +39,21 @@ class FavoritesViewModel(private val context: Context, private val preferences: 
         }
     })
 
-    val favorites = Transformations.map(preferences.getFavoritesLD()) {
-        refreshList()
+    val favorites = Transformations.map(preferences.getFavoritesLD()) { favorites ->
+        val newItems = getNewItems(favorites, header, footer)
+        items.update(newItems)
     }
 
-    fun refreshList() {
-        val headerFooterItems = ObservableArrayList<Any>()
-        val favorites = preferences.favorites.map { FavoriteCountryViewModel(it) }.sortedBy { it.name }
+    fun getNewItems(favorites: Set<String>, header: Any, footer: Any): List<Any> {
+        val items = ObservableArrayList<Any>()
+        val favorites = favorites.map { FavoriteCountryViewModel(it) }.sortedBy { it.name }
 
         if (favorites.isNotEmpty()) {
-            headerFooterItems.add(context.getDrawable(R.drawable.ic_favorite_border_white_24dp))
-            headerFooterItems.addAll(favorites)
-            headerFooterItems.add((context.getDrawable(android.R.color.transparent)))
+            items.add(header)
+            items.addAll(favorites)
+            items.add(footer)
         }
 
-        items.update(headerFooterItems)
+        return items
     }
 }
