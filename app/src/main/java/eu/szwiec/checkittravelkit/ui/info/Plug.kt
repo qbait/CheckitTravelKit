@@ -1,13 +1,14 @@
 package eu.szwiec.checkittravelkit.ui.info
 
 import android.graphics.drawable.Drawable
-import android.widget.TextView
+import android.view.View
 import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 
-class CallInfoViewModel(val prefix: String, val police: String, val ambulance: String, val icon: Drawable) {
+class Plug(val symbol: String, val icon: Drawable) {
 
-    fun onClickPhoneNumber(v: TextView) {
+    fun showInfo(v: View, plug: Plug) {
+        val title = "plug type ${plug.symbol}"
         v.findNavController().navigate(R.id.next_action)
     }
 }

@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="eu.szwiec.checkittravelkit.ui.info.ElectricityInfoViewModel" />
+            type="eu.szwiec.checkittravelkit.ui.info.ElectricityInfo" />
     </data>
 
     <HorizontalScrollView

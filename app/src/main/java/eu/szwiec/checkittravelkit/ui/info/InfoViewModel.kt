@@ -28,7 +28,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
 
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            if (oldItem is SimpleInfoViewModel && newItem is SimpleInfoViewModel) {
+            if (oldItem is SimpleInfo && newItem is SimpleInfo) {
                 return oldItem.text == newItem.text
             } else {
                 return true
@@ -37,10 +37,10 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     })
 
     val itemBind = OnItemBindClass<Any>()
-            .map(SimpleInfoViewModel::class.java, BR.item, R.layout.row_simple_info)
-            .map(ElectricityInfoViewModel::class.java, BR.item, R.layout.row_electricity_info)
-            .map(CallInfoViewModel::class.java, BR.item, R.layout.row_call_info)
-            .map(VaccinationViewModel::class.java, BR.item, R.layout.row_vaccination_info)
+            .map(SimpleInfo::class.java, BR.item, R.layout.row_simple_info)
+            .map(ElectricityInfo::class.java, BR.item, R.layout.row_electricity_info)
+            .map(CallInfo::class.java, BR.item, R.layout.row_call_info)
+            .map(Vaccination::class.java, BR.item, R.layout.row_vaccination_info)
             .map(Divider::class.java, ItemBinding.VAR_NONE, R.layout.info_divider);
 
     fun setupCountry(countryName: String, originCurrencyCode: String) {
@@ -53,23 +53,23 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
 
         val info = ObservableArrayList<Any>()
 
-        info.add(SimpleInfoViewModel(formatTime(country), context.getDrawable(R.drawable.ic_time)))
-        info.add(SimpleInfoViewModel(formatCurrency(country, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
+        info.add(SimpleInfo(formatTime(country), context.getDrawable(R.drawable.ic_time)))
+        info.add(SimpleInfo(formatCurrency(country, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
         if (country.visa != null) {
-            info.add(SimpleInfoViewModel("${country.visa}", context.getDrawable(R.drawable.ic_visa)))
+            info.add(SimpleInfo("${country.visa}", context.getDrawable(R.drawable.ic_visa)))
         }
-        info.add(SimpleInfoViewModel(formatTapWater(country), context.getDrawable(R.drawable.ic_tap)))
-        info.add(ElectricityInfoViewModel(formatElectricity(country), formatPlugs(country), context.getDrawable(R.drawable.ic_plug)))
+        info.add(SimpleInfo(formatTapWater(country), context.getDrawable(R.drawable.ic_tap)))
+        info.add(ElectricityInfo(formatElectricity(country), formatPlugs(country), context.getDrawable(R.drawable.ic_plug)))
 
         info.add(Divider())
-        info.add(CallInfoViewModel("+${country.callingCode}", "${country.policeNumber}", "${country.ambulanceNumber}", context.getDrawable(R.drawable.ic_call)))
+        info.add(CallInfo("+${country.callingCode}", "${country.policeNumber}", "${country.ambulanceNumber}", context.getDrawable(R.drawable.ic_call)))
         info.add(Divider())
 
         if (country.vaccinations.isEmpty()) {
-            info.add(SimpleInfoViewModel("You don't need vaccinactions", context.getDrawable(R.drawable.ic_vaccine)))
+            info.add(SimpleInfo("You don't need vaccinactions", context.getDrawable(R.drawable.ic_vaccine)))
         } else {
-            info.add(SimpleInfoViewModel("You may need vaccinations for:", context.getDrawable(R.drawable.ic_vaccine)))
-            country.vaccinations.forEach { (key, value) -> info.add(VaccinationViewModel(key, value)) }
+            info.add(SimpleInfo("You may need vaccinations for:", context.getDrawable(R.drawable.ic_vaccine)))
+            country.vaccinations.forEach { (key, value) -> info.add(Vaccination(key, value)) }
         }
 
         items.update(info)
@@ -86,7 +86,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
     }
 
-    private fun formatPlugs(country: Country): List<PlugViewModel> {
+    private fun formatPlugs(country: Country): List<Plug> {
         return country.plugs.map { getPlug(it) }
     }
 
@@ -121,10 +121,10 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         return zdt.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))
     }
 
-    private fun getPlug(symbol: String): PlugViewModel {
+    private fun getPlug(symbol: String): Plug {
         val resId = map.get(symbol)
         val icon = if (resId != null) context.getDrawable(resId) else context.getDrawable(R.drawable.ic_plug)
-        return PlugViewModel(symbol, icon)
+        return Plug(symbol, icon)
     }
 
     private val map = mapOf(

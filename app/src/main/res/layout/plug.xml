@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="eu.szwiec.checkittravelkit.ui.info.PlugViewModel" />
+            type="eu.szwiec.checkittravelkit.ui.info.Plug" />
     </data>
 
     <ImageView

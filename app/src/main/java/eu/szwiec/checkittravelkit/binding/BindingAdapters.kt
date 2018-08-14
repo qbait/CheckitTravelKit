@@ -12,10 +12,10 @@ import com.bumptech.glide.Glide
 import eu.szwiec.checkittravelkit.R
 
 import eu.szwiec.checkittravelkit.databinding.PlugBinding
-import eu.szwiec.checkittravelkit.ui.info.PlugViewModel
+import eu.szwiec.checkittravelkit.ui.info.Plug
 
 @BindingAdapter("plugs")
-fun plugs(container: LinearLayout, plugs: List<PlugViewModel>) {
+fun plugs(container: LinearLayout, plugs: List<Plug>) {
     if (container.childCount != plugs.size) {
         for (plug in plugs) {
             val imageView = LayoutInflater.from(container.context).inflate(R.layout.plug, container, false) as ImageView
