@@ -56,8 +56,8 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
 
         info.add(SimpleInfo(formatTime(country), context.getDrawable(R.drawable.ic_time)))
         info.add(SimpleInfo(formatCurrency(country.currency, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
-        if (country.visa != null) {
-            info.add(SimpleInfo("${country.visa}", context.getDrawable(R.drawable.ic_visa)))
+        if (country.visa.isNotEmpty()) {
+            info.add(SimpleInfo(country.visa, context.getDrawable(R.drawable.ic_visa)))
         }
         info.add(SimpleInfo(formatTapWater(country), context.getDrawable(R.drawable.ic_tap)))
         info.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
@@ -77,7 +77,8 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     }
 
     private fun getCallInfo(callInfo: eu.szwiec.checkittravelkit.vo.CallInfo): Any {
-        return CallInfo(context.getString(R.string.calling_code, callInfo.callingCode), "${callInfo.policeNumber}", "${callInfo.ambulanceNumber}", context.getDrawable(R.drawable.ic_call))
+        val callingCode = if (callInfo.callingCode.isNotEmpty()) context.getString(R.string.calling_code, callInfo.callingCode) else ""
+        return CallInfo(callingCode, callInfo.policeNumber, callInfo.ambulanceNumber, context.getDrawable(R.drawable.ic_call))
     }
 
     fun toggleFavorite() {
