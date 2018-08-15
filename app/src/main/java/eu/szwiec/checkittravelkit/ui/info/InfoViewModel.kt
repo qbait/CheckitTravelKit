@@ -1,6 +1,7 @@
 package eu.szwiec.checkittravelkit.ui.info
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel
 import eu.szwiec.checkittravelkit.BR
@@ -9,6 +10,7 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 import eu.szwiec.checkittravelkit.vo.Country
+import eu.szwiec.checkittravelkit.vo.Currency
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
@@ -53,15 +55,15 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         val info = ObservableArrayList<Any>()
 
         info.add(SimpleInfo(formatTime(country), context.getDrawable(R.drawable.ic_time)))
-        info.add(SimpleInfo(formatCurrency(country, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
+        info.add(SimpleInfo(formatCurrency(country.currency, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
         if (country.visa != null) {
             info.add(SimpleInfo("${country.visa}", context.getDrawable(R.drawable.ic_visa)))
         }
         info.add(SimpleInfo(formatTapWater(country), context.getDrawable(R.drawable.ic_tap)))
-        info.add(ElectricityInfo(context.getString(R.string.electricity, country.voltage, country.frequency), formatPlugs(country), context.getDrawable(R.drawable.ic_plug)))
+        info.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
 
         info.add(Divider())
-        info.add(CallInfo(context.getString(R.string.calling_code, country.callingCode), "${country.policeNumber}", "${country.ambulanceNumber}", context.getDrawable(R.drawable.ic_call)))
+        info.add(getCallInfo(country.callInfo))
         info.add(Divider())
 
         if (country.vaccinations.isEmpty()) {
@@ -72,6 +74,10 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
 
         items.update(info)
+    }
+
+    private fun getCallInfo(callInfo: eu.szwiec.checkittravelkit.vo.CallInfo): Any {
+        return CallInfo(context.getString(R.string.calling_code, callInfo.callingCode), "${callInfo.policeNumber}", "${callInfo.ambulanceNumber}", context.getDrawable(R.drawable.ic_call))
     }
 
     fun toggleFavorite() {
@@ -85,8 +91,8 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
     }
 
-    private fun formatPlugs(country: Country): List<Plug> {
-        return country.plugs.map { getPlug(it) }
+    private fun formatPlugs(plugs: List<String>): List<Plug> {
+        return plugs.map { getPlug(it) }
     }
 
     private fun formatTapWater(country: Country): String {
@@ -97,27 +103,30 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         return context.getString(R.string.its_x_now, getCurrentTime(country.timezone))
     }
 
-    private fun formatCurrency(country: Country, originCurrencyCode: String): String {
-        val displayCurrencyName = if (country.currencyName.isNotEmpty()) country.currencyName else country.currencyCode
-        val destinationCurrencyCode = country.currencyCode
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun formatCurrency(currency: Currency, originCurrencyCode: String): String {
+        val displayCurrencyName = if (currency.name.isNotEmpty()) currency.name else currency.code
+        val destinationCurrencyCode = currency.code
 
         val currencyInfo1 = context.getString(R.string.x_is_the_currency, displayCurrencyName)
-        val currencyInfo2 = if (country.exchangeRate != 0.0F && originCurrencyCode.isNotEmpty() && destinationCurrencyCode.isNotEmpty())
-            context.getString(R.string.currency_rate_info, originCurrencyCode, country.exchangeRate, destinationCurrencyCode)
+        val currencyInfo2 = if (currency.exchangeRate != 0.0F && originCurrencyCode.isNotEmpty() && destinationCurrencyCode.isNotEmpty())
+            context.getString(R.string.currency_rate_info, originCurrencyCode, currency.exchangeRate, destinationCurrencyCode)
         else
             null
 
         return listOf(currencyInfo1, currencyInfo2).joinToString("\n")
     }
 
-    private fun getCurrentTime(timezoneId: String): String {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getCurrentTime(timezoneId: String): String {
         val timeZone = ZoneId.of(timezoneId)
         val zdt = ZonedDateTime.now(timeZone)
         val timePattern = context.getString(R.string.time_pattern)
         return zdt.toLocalTime().format(DateTimeFormatter.ofPattern(timePattern))
     }
 
-    private fun getPlug(symbol: String): Plug {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getPlug(symbol: String): Plug {
         val resId = map.get(symbol)
         val icon = if (resId != null) context.getDrawable(resId) else context.getDrawable(R.drawable.ic_plug)
         return Plug(symbol, icon)
