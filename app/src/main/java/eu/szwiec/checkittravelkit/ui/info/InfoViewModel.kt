@@ -45,39 +45,6 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
             .map(Vaccination::class.java, BR.item, R.layout.row_vaccination_info)
             .map(Divider::class.java, ItemBinding.VAR_NONE, R.layout.info_divider);
 
-    fun setupCountry(name: String, originCurrencyCode: String) {
-
-        val country = repository.getCountry(name).value
-        countryName.value = name
-        isFavorite.value = preferences.favorites.contains(name)
-        if (country.imageUrl.isNotEmpty()) {
-            image.value = country.imageUrl
-        }
-
-        val info = ObservableArrayList<Any>()
-
-        timeInfo(country)?.let { info.add(it) }
-        info.add(SimpleInfo(formatCurrency(country.currency, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
-        if (country.visa.isNotEmpty()) {
-            info.add(SimpleInfo(country.visa, context.getDrawable(R.drawable.ic_visa)))
-        }
-        info.add(SimpleInfo(formatTapWater(country), context.getDrawable(R.drawable.ic_tap)))
-        info.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
-
-        info.add(Divider())
-        info.add(callInfo(country.callInfo))
-        info.add(Divider())
-
-        if (country.vaccinations.isEmpty()) {
-            info.add(SimpleInfo(context.getString(R.string.you_dont_need_vaccinations), context.getDrawable(R.drawable.ic_vaccine)))
-        } else {
-            info.add(SimpleInfo(context.getString(R.string.you_may_need_vaccinations_for), context.getDrawable(R.drawable.ic_vaccine)))
-            country.vaccinations.forEach { (key, value) -> info.add(Vaccination(key, value)) }
-        }
-
-        items.update(info)
-    }
-
     fun toggleFavorite() {
         if (countryName.value.isNotEmpty()) {
             isFavorite.value = !isFavorite.value
@@ -89,25 +56,61 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
     }
 
-    private fun callInfo(callInfo: eu.szwiec.checkittravelkit.vo.CallInfo): CallInfo {
-        val callingCode = if (callInfo.callingCode.isNotEmpty()) context.getString(R.string.calling_code, callInfo.callingCode) else ""
-        return CallInfo(callingCode, callInfo.policeNumber, callInfo.ambulanceNumber, context.getDrawable(R.drawable.ic_call))
+    fun setupCountry(name: String, originCurrencyCode: String) {
+
+        val country = repository.getCountry(name).value
+        countryName.value = name
+        isFavorite.value = preferences.favorites.contains(name)
+        if (country.imageUrl.isNotEmpty()) {
+            image.value = country.imageUrl
+        }
+
+        val newItems = getNewItems(country, originCurrencyCode)
+        items.update(newItems)
     }
 
-    private fun timeInfo(country: Country): SimpleInfo? {
-        val time = getCurrentTime(country.timezone)
-        if (time.isNotEmpty())
-            return SimpleInfo(context.getString(R.string.its_x_now, time), context.getDrawable(R.drawable.ic_time))
-        else
-            return null
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    private fun getNewItems(country: Country, originCurrencyCode: String): List<Any> {
+
+        val items = ObservableArrayList<Any>()
+
+        items.add(SimpleInfo(formatTime(country.timezone), context.getDrawable(R.drawable.ic_time)))
+        items.add(SimpleInfo(formatCurrency(country.currency, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
+        if (country.visa.isNotEmpty()) {
+            items.add(SimpleInfo(country.visa, context.getDrawable(R.drawable.ic_visa)))
+        }
+        items.add(SimpleInfo(formatTapWater(country.tapWater), context.getDrawable(R.drawable.ic_tap)))
+        items.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
+
+        items.add(Divider())
+        items.add(CallInfo(formatCallingCode(country.callInfo.callingCode), country.callInfo.policeNumber, country.callInfo.ambulanceNumber, context.getDrawable(R.drawable.ic_call)))
+        items.add(Divider())
+
+        if (country.vaccinations.isEmpty()) {
+            items.add(SimpleInfo(context.getString(R.string.you_dont_need_vaccinations), context.getDrawable(R.drawable.ic_vaccine)))
+        } else {
+            items.add(SimpleInfo(context.getString(R.string.you_may_need_vaccinations_for), context.getDrawable(R.drawable.ic_vaccine)))
+            country.vaccinations.forEach { (key, value) -> items.add(Vaccination(key, value)) }
+        }
+
+        return items
+    }
+
+    private fun formatCallingCode(callingCode: String): String {
+        return if (callingCode.isNotEmpty()) context.getString(R.string.calling_code, callingCode) else ""
+    }
+
+    private fun formatTime(timezone: String): String {
+        val time = getCurrentTime(timezone)
+        return if (time.isNotEmpty()) context.getString(R.string.its_x_now, time) else context.getString(R.string.no_info_about_time)
+    }
+
+    private fun formatTapWater(basicInfo: String): String {
+        return if (basicInfo.isNotEmpty()) context.getString(R.string.tap_water_is, basicInfo) else context.getString(R.string.no_info_about_tap_water)
     }
 
     private fun formatPlugs(plugs: List<String>): List<Plug> {
         return plugs.map { plugProvider.provide(it) }
-    }
-
-    private fun formatTapWater(country: Country): String {
-        return if (country.tapWater.isEmpty()) context.getString(R.string.no_info_about_tap_water) else context.getString(R.string.tap_water_is, country.tapWater)
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
