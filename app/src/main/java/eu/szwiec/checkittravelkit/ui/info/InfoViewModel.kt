@@ -14,11 +14,12 @@ import eu.szwiec.checkittravelkit.vo.Currency
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
+import org.threeten.bp.DateTimeException
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
-class InfoViewModel(private val context: Context, private val preferences: Preferences, private val repository: CountryRepository) : ViewModel() {
+class InfoViewModel(private val context: Context, private val preferences: Preferences, private val repository: CountryRepository, private val plugProvider: PlugProvider) : ViewModel() {
 
     val isFavorite = NonNullLiveData(false)
     val countryName = NonNullLiveData("")
@@ -55,7 +56,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
 
         val info = ObservableArrayList<Any>()
 
-        info.add(SimpleInfo(formatTime(country), context.getDrawable(R.drawable.ic_time)))
+        timeInfo(country)?.let { info.add(it) }
         info.add(SimpleInfo(formatCurrency(country.currency, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
         if (country.visa.isNotEmpty()) {
             info.add(SimpleInfo(country.visa, context.getDrawable(R.drawable.ic_visa)))
@@ -64,7 +65,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         info.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
 
         info.add(Divider())
-        info.add(getCallInfo(country.callInfo))
+        info.add(callInfo(country.callInfo))
         info.add(Divider())
 
         if (country.vaccinations.isEmpty()) {
@@ -77,9 +78,17 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         items.update(info)
     }
 
-    private fun getCallInfo(callInfo: eu.szwiec.checkittravelkit.vo.CallInfo): Any {
+    private fun callInfo(callInfo: eu.szwiec.checkittravelkit.vo.CallInfo): CallInfo {
         val callingCode = if (callInfo.callingCode.isNotEmpty()) context.getString(R.string.calling_code, callInfo.callingCode) else ""
         return CallInfo(callingCode, callInfo.policeNumber, callInfo.ambulanceNumber, context.getDrawable(R.drawable.ic_call))
+    }
+
+    private fun timeInfo(country: Country): SimpleInfo? {
+        val time = getCurrentTime(country.timezone)
+        if (time.isNotEmpty())
+            return SimpleInfo(context.getString(R.string.its_x_now, time), context.getDrawable(R.drawable.ic_time))
+        else
+            return null
     }
 
     fun toggleFavorite() {
@@ -94,15 +103,11 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     }
 
     private fun formatPlugs(plugs: List<String>): List<Plug> {
-        return plugs.map { getPlug(it) }
+        return plugs.map { plugProvider.provide(it) }
     }
 
     private fun formatTapWater(country: Country): String {
         return if (country.tapWater.isEmpty()) context.getString(R.string.no_info_about_tap_water) else context.getString(R.string.tap_water_is, country.tapWater)
-    }
-
-    private fun formatTime(country: Country): String {
-        return context.getString(R.string.its_x_now, getCurrentTime(country.timezone))
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -121,31 +126,13 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getCurrentTime(timezoneId: String): String {
-        val timeZone = ZoneId.of(timezoneId)
-        val zdt = ZonedDateTime.now(timeZone)
-        val timePattern = context.getString(R.string.time_pattern)
-        return zdt.toLocalTime().format(DateTimeFormatter.ofPattern(timePattern))
+        try {
+            val timeZone = ZoneId.of(timezoneId)
+            val zdt = ZonedDateTime.now(timeZone)
+            val timePattern = context.getString(R.string.time_pattern)
+            return zdt.toLocalTime().format(DateTimeFormatter.ofPattern(timePattern))
+        } catch (exception: DateTimeException) {
+            return ""
+        }
     }
-
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun getPlug(symbol: String): Plug {
-        val resId = map.get(symbol)
-        val icon = if (resId != null) context.getDrawable(resId) else context.getDrawable(R.drawable.ic_plug)
-        return Plug(symbol, icon)
-    }
-
-    private val map = mapOf(
-            "A" to R.drawable.plug_a,
-            "B" to R.drawable.plug_b,
-            "C" to R.drawable.plug_c,
-            "D" to R.drawable.plug_d,
-            "E" to R.drawable.plug_e,
-            "F" to R.drawable.plug_f,
-            "G" to R.drawable.plug_g,
-            "H" to R.drawable.plug_h,
-            "I" to R.drawable.plug_i,
-            "J" to R.drawable.plug_j,
-            "K" to R.drawable.plug_k,
-            "L" to R.drawable.plug_l
-    )
 }

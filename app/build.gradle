@@ -48,6 +48,10 @@ dependencies {
     implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$versions.binding_collection_adapter"
     implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$versions.binding_collection_adapter"
     implementation "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
+    testImplementation ('org.threeten:threetenbp:1.3.2'){
+        exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
+    }
+
     implementation "com.airbnb.android:lottie:$versions.lottie"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
