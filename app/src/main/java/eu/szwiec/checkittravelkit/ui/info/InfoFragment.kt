@@ -29,7 +29,6 @@ class InfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val countryName = InfoFragmentArgs.fromBundle(arguments).countryId
-        toolbar.setTitle(countryName)
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }

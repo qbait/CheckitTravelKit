@@ -51,6 +51,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    app:title="@{viewModel.countryName}"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="?homeAsUpIndicator"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />

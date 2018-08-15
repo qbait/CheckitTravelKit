@@ -44,10 +44,11 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
             .map(Vaccination::class.java, BR.item, R.layout.row_vaccination_info)
             .map(Divider::class.java, ItemBinding.VAR_NONE, R.layout.info_divider);
 
-    fun setupCountry(countryName: String, originCurrencyCode: String) {
+    fun setupCountry(name: String, originCurrencyCode: String) {
 
-        val country = repository.getCountry(countryName).value
-        isFavorite.value = preferences.favorites.contains(countryName)
+        val country = repository.getCountry(name).value
+        countryName.value = name
+        isFavorite.value = preferences.favorites.contains(name)
         if (country.imageUrl.isNotEmpty()) {
             image.value = country.imageUrl
         }
