@@ -78,6 +78,17 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         items.update(info)
     }
 
+    fun toggleFavorite() {
+        if (countryName.value.isNotEmpty()) {
+            isFavorite.value = !isFavorite.value
+            if (isFavorite.value) {
+                preferences.addFavorite(countryName.value)
+            } else {
+                preferences.removeFavorite(countryName.value)
+            }
+        }
+    }
+
     private fun callInfo(callInfo: eu.szwiec.checkittravelkit.vo.CallInfo): CallInfo {
         val callingCode = if (callInfo.callingCode.isNotEmpty()) context.getString(R.string.calling_code, callInfo.callingCode) else ""
         return CallInfo(callingCode, callInfo.policeNumber, callInfo.ambulanceNumber, context.getDrawable(R.drawable.ic_call))
@@ -89,17 +100,6 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
             return SimpleInfo(context.getString(R.string.its_x_now, time), context.getDrawable(R.drawable.ic_time))
         else
             return null
-    }
-
-    fun toggleFavorite() {
-        if (countryName.value.isNotEmpty()) {
-            isFavorite.value = !isFavorite.value
-            if (isFavorite.value) {
-                preferences.addFavorite(countryName.value)
-            } else {
-                preferences.removeFavorite(countryName.value)
-            }
-        }
     }
 
     private fun formatPlugs(plugs: List<String>): List<Plug> {
@@ -115,13 +115,13 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         val displayCurrencyName = if (currency.name.isNotEmpty()) currency.name else currency.code
         val destinationCurrencyCode = currency.code
 
-        val currencyInfo1 = context.getString(R.string.x_is_the_currency, displayCurrencyName)
+        val currencyInfo1 = context.getString(R.string.x_is_the_currency).format(displayCurrencyName)
         val currencyInfo2 = if (currency.exchangeRate != 0.0F && originCurrencyCode.isNotEmpty() && destinationCurrencyCode.isNotEmpty())
-            context.getString(R.string.currency_rate_info, originCurrencyCode, currency.exchangeRate, destinationCurrencyCode)
+            context.getString(R.string.currency_rate_info).format(originCurrencyCode, currency.exchangeRate, destinationCurrencyCode)
         else
-            null
+            ""
 
-        return listOf(currencyInfo1, currencyInfo2).joinToString("\n")
+        return listOf(currencyInfo1, currencyInfo2).filter { it.isNotEmpty() }.joinToString("\n")
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
