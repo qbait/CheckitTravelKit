@@ -47,5 +47,6 @@ task clean(type: Delete) {
  versions.junit = "4.12"
  versions.espresso = "3.0.1"
  versions.test_runner = "1.0.1"
- versions.mockito = "2.11.0"
+ versions.mockito_kotlin = "2.0.0-RC1"
+ versions.kluent = "1.40"
 

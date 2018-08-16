@@ -59,9 +59,10 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
 
     testImplementation "junit:junit:$versions.junit"
-    testImplementation "org.mockito:mockito-core:$versions.mockito"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockito_kotlin"
     testImplementation "org.koin:koin-test:$versions.koin"
     testImplementation "androidx.arch.core:core-testing:$versions.lifecycle"
+    testImplementation "org.amshove.kluent:kluent-android:$versions.kluent"
 
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
