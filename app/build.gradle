@@ -24,6 +24,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
 
     dataBinding.enabled = true
 }
@@ -47,11 +50,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi_kotlin"
     implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$versions.binding_collection_adapter"
     implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$versions.binding_collection_adapter"
-    implementation "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
-    testImplementation ('org.threeten:threetenbp:1.3.2'){
-        exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
-    }
-
+    implementation "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp_backport"
     implementation "com.airbnb.android:lottie:$versions.lottie"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
@@ -63,6 +62,10 @@ dependencies {
     testImplementation "org.koin:koin-test:$versions.koin"
     testImplementation "androidx.arch.core:core-testing:$versions.lifecycle"
     testImplementation "org.amshove.kluent:kluent-android:$versions.kluent"
+    testImplementation "org.robolectric:robolectric:$versions.robolectric"
+    testImplementation ("org.threeten:threetenbp:$versions.threetenabp"){
+        exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
+    }
 
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
