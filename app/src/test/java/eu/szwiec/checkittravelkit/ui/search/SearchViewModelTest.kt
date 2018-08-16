@@ -22,11 +22,8 @@ class SearchViewModelTest {
     val context = mock<Context>() {
         on { getString(R.string.where_are_you_from) } doReturn "Where are you from?"
     }
-
     val preferences = mock<Preferences>()
-
     val repository = mock<CountryRepository>()
-
     val vm = SearchViewModel(context, preferences, repository)
 
     @Test
