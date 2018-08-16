@@ -2,17 +2,17 @@ package eu.szwiec.checkittravelkit.ui.search
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.nhaarman.mockitokotlin2.whenever
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
-import junit.framework.TestCase.assertEquals
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 class SearchViewModelTest {
@@ -20,7 +20,7 @@ class SearchViewModelTest {
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
 
-    lateinit var searchViewModel: SearchViewModel
+    lateinit var vm: SearchViewModel
 
     @Mock
     lateinit var mockContext: Context
@@ -34,65 +34,65 @@ class SearchViewModelTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        `when`(mockContext.getString(R.string.where_are_you_from)).thenReturn("Where are you from?")
-        searchViewModel = SearchViewModel(mockContext, mockPreferences, mockRepository)
+        whenever(mockContext.getString(R.string.where_are_you_from)).thenReturn("Where are you from?")
+        vm = SearchViewModel(mockContext, mockPreferences, mockRepository)
     }
 
     @Test
     fun initStateWhenEmptyOrigin() {
-        `when`(mockPreferences.origin).thenReturn("")
-        searchViewModel.initState()
+        whenever(mockPreferences.origin).thenReturn("")
+        vm.initState()
 
-        assertEquals(State.CHOOSE_ORIGIN, searchViewModel.state.value)
+        vm.state.value shouldEqual State.CHOOSE_ORIGIN
     }
 
     @Test
     fun initStateWhenOriginExistis() {
-        `when`(mockPreferences.origin).thenReturn("Poland")
-        searchViewModel.initState()
+        whenever(mockPreferences.origin).thenReturn("Poland")
+        vm.initState()
 
-        assertEquals(State.CHOOSE_DESTINATION, searchViewModel.state.value)
-        assertEquals(mockPreferences.origin, searchViewModel.origin.value)
+        vm.state.value shouldEqual State.CHOOSE_DESTINATION
+        vm.origin.value shouldEqual mockPreferences.origin
     }
 
     @Test
     fun setState() {
-        searchViewModel.setState(State.CHOOSE_ORIGIN)
-        assertEquals(mockContext.getString(R.string.where_are_you_from), searchViewModel.originHint.value)
-        assertEquals(State.CHOOSE_ORIGIN, searchViewModel.state.value)
+        vm.setState(State.CHOOSE_ORIGIN)
+        vm.originHint.value shouldEqual mockContext.getString(R.string.where_are_you_from)
+        vm.state.value shouldEqual State.CHOOSE_ORIGIN
 
-        searchViewModel.setState(State.CHOOSE_DESTINATION)
-        assertEquals("", searchViewModel.originHint.value)
+        vm.setState(State.CHOOSE_DESTINATION)
+        vm.originHint.value shouldEqual ""
 
-        searchViewModel.setState(State.SHOW_INFO)
-        assertEquals("", searchViewModel.destination.value)
+        vm.setState(State.SHOW_INFO)
+        vm.destination.value shouldEqual ""
     }
 
     @Test
     fun submitOrigin() {
-        `when`(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
-        searchViewModel.state.value = State.CHOOSE_ORIGIN
+        whenever(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
+        vm.state.value = State.CHOOSE_ORIGIN
 
-        searchViewModel.origin.value = "Pol"
-        searchViewModel.submitOrigin()
-        assertEquals(State.CHOOSE_ORIGIN, searchViewModel.state.value)
+        vm.origin.value = "Pol"
+        vm.submitOrigin()
+        vm.state.value shouldEqual State.CHOOSE_ORIGIN
 
-        searchViewModel.origin.value = "Poland"
-        searchViewModel.submitOrigin()
-        assertEquals(State.CHOOSE_DESTINATION, searchViewModel.state.value)
+        vm.origin.value = "Poland"
+        vm.submitOrigin()
+        vm.state.value shouldEqual State.CHOOSE_DESTINATION
     }
 
     @Test
     fun submitDestination() {
-        `when`(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
-        searchViewModel.state.value = State.CHOOSE_DESTINATION
+        whenever(mockRepository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
+        vm.state.value = State.CHOOSE_DESTINATION
 
-        searchViewModel.destination.value = "Ger"
-        searchViewModel.submitDestination()
-        assertEquals(State.CHOOSE_DESTINATION, searchViewModel.state.value)
+        vm.destination.value = "Ger"
+        vm.submitDestination()
+        vm.state.value shouldEqual State.CHOOSE_DESTINATION
 
-        searchViewModel.destination.value = "Germany"
-        searchViewModel.submitDestination()
-        assertEquals(State.SHOW_INFO, searchViewModel.state.value)
+        vm.destination.value = "Germany"
+        vm.submitDestination()
+        vm.state.value shouldEqual State.SHOW_INFO
     }
 }
