@@ -2,7 +2,6 @@ package eu.szwiec.checkittravelkit.ui.search
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import eu.szwiec.checkittravelkit.R
@@ -13,15 +12,18 @@ import org.amshove.kluent.shouldEqual
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import org.junit.runner.RunWith
+import org.koin.standalone.inject
+import org.koin.test.AutoCloseKoinTest
+import org.robolectric.RobolectricTestRunner
 
-class SearchViewModelTest {
+@RunWith(RobolectricTestRunner::class)
+class SearchViewModelTest : AutoCloseKoinTest() {
 
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
 
-    val context = mock<Context>() {
-        on { getString(R.string.where_are_you_from) } doReturn "Where are you from?"
-    }
+    val context: Context by inject()
     val preferences = mock<Preferences>()
     val repository = mock<CountryRepository>()
     val vm = SearchViewModel(context, preferences, repository)

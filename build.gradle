@@ -40,7 +40,7 @@ task clean(type: Delete) {
  versions.retrofit = "2.4.0"
  versions.binding_collection_adapter = "3.0.0-beta1"
  versions.threetenabp_backport = "1.1.0"
- versions.koin = "1.0.0-beta-3"
+ versions.koin = "1.0.0-beta-6"
  versions.lottie = "2.5.6"
  versions.glide = "4.7.1"
  versions.crashlytics = "2.9.3"
