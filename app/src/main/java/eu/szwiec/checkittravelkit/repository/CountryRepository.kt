@@ -1,6 +1,8 @@
 package eu.szwiec.checkittravelkit.repository
 
+import android.os.Handler
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 import eu.szwiec.checkittravelkit.vo.CallInfo
 import eu.szwiec.checkittravelkit.vo.Country
@@ -12,7 +14,9 @@ class CountryRepository {
         return NonNullLiveData(listOf("Poland", "UK"))
     }
 
-    fun getCountry(name: String): NonNullLiveData<Country> {
+    fun getCountry(name: String): LiveData<Country> {
+        val countryLD = MutableLiveData<Country>()
+
         val country = Country(
                 id = "PL",
                 name = "Poland",
@@ -38,6 +42,15 @@ class CountryRepository {
                         exchangeRate = 0.2F
                 )
         )
-        return NonNullLiveData(country)
+
+        Handler().postDelayed({ countryLD.postValue(country) }, 5000)
+
+        return countryLD
+    }
+
+    fun getOriginCurrencyCode(): LiveData<String> {
+        val code = MutableLiveData<String>()
+        code.postValue("GBP")
+        return code
     }
 }

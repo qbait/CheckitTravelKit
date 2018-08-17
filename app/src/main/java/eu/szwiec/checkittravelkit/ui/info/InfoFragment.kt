@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentInfoBinding
@@ -33,6 +34,7 @@ class InfoFragment : Fragment() {
             it.findNavController().navigateUp()
         }
 
-        viewModel.setupCountry(countryName, "PLN")
+        viewModel.setup(countryName)
+        viewModel.infoData.observe(this, Observer { })
     }
 }

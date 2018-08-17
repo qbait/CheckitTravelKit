@@ -3,12 +3,15 @@ package eu.szwiec.checkittravelkit.ui.info
 import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import eu.szwiec.checkittravelkit.BR
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
+import eu.szwiec.checkittravelkit.util.map
+import eu.szwiec.checkittravelkit.util.zip
 import eu.szwiec.checkittravelkit.vo.Country
 import eu.szwiec.checkittravelkit.vo.Currency
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -24,6 +27,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     val isFavorite = NonNullLiveData(false)
     val countryName = NonNullLiveData("")
     val image = NonNullLiveData(context.getString(R.string.default_image_url))
+    lateinit var infoData: LiveData<Any>
     val items: DiffObservableList<Any> = DiffObservableList(object : DiffObservableList.Callback<Any> {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return areContentsTheSame(oldItem, newItem)
@@ -56,11 +60,21 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
     }
 
-    fun setupCountry(name: String, originCurrencyCode: String) {
+    fun setup(countryName: String) {
+        val country = repository.getCountry(countryName)
+        val originCurrencyCode = repository.getOriginCurrencyCode()
 
-        val country = repository.getCountry(name).value
-        countryName.value = name
-        isFavorite.value = preferences.favorites.contains(name)
+        infoData = country.zip(originCurrencyCode).map { pair ->
+            setup(pair)
+        }
+    }
+
+    private fun setup(pair: Pair<Country, String>) {
+        val country = pair.first
+        val originCurrencyCode = pair.second
+
+        countryName.value = country.name
+        isFavorite.value = preferences.favorites.contains(country.name)
         if (country.imageUrl.isNotEmpty()) {
             image.value = country.imageUrl
         }
