@@ -84,46 +84,60 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private fun getNewItems(country: Country, originCurrencyCode: String): List<Any> {
+    fun getNewItems(country: Country, originCurrencyCode: String): List<Any> {
 
         val items = ObservableArrayList<Any>()
 
         items.add(SimpleInfo(formatTime(country.timezone), context.getDrawable(R.drawable.ic_time)))
         items.add(SimpleInfo(formatCurrency(country.currency, originCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
-        if (country.visa.isNotEmpty()) {
-            items.add(SimpleInfo(country.visa, context.getDrawable(R.drawable.ic_visa)))
-        }
+        items.add(SimpleInfo(formatVisa(country.visa), context.getDrawable(R.drawable.ic_visa)))
         items.add(SimpleInfo(formatTapWater(country.tapWater), context.getDrawable(R.drawable.ic_tap)))
         items.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
-
         items.add(Divider())
         items.add(CallInfo(formatCallingCode(country.callInfo.callingCode), country.callInfo.policeNumber, country.callInfo.ambulanceNumber, context.getDrawable(R.drawable.ic_call)))
         items.add(Divider())
+        items.addAll(getVaccinationItems(country.vaccinations))
 
-        if (country.vaccinations.isEmpty()) {
+        return items
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getVaccinationItems(vaccinations: Map<String, String>): ObservableArrayList<Any> {
+        val items = ObservableArrayList<Any>()
+
+        if (vaccinations.isEmpty()) {
             items.add(SimpleInfo(context.getString(R.string.you_dont_need_vaccinations), context.getDrawable(R.drawable.ic_vaccine)))
         } else {
             items.add(SimpleInfo(context.getString(R.string.you_may_need_vaccinations_for), context.getDrawable(R.drawable.ic_vaccine)))
-            country.vaccinations.forEach { (key, value) -> items.add(Vaccination(key, value)) }
+            vaccinations.forEach { (key, value) -> items.add(Vaccination(key, value)) }
         }
 
         return items
     }
 
-    private fun formatCallingCode(callingCode: String): String {
-        return if (callingCode.isNotEmpty()) context.getString(R.string.calling_code, callingCode) else ""
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun formatVisa(visa: String): String {
+        return if (visa.isNotEmpty()) visa else context.getString(R.string.no_info_about_visa)
     }
 
-    private fun formatTime(timezone: String): String {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun formatCallingCode(callingCode: String): String {
+        return if (callingCode.toIntOrNull() != null) context.getString(R.string.calling_code, callingCode) else ""
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun formatTime(timezone: String): String {
         val time = getCurrentTime(timezone)
         return if (time.isNotEmpty()) context.getString(R.string.its_x_now, time) else context.getString(R.string.no_info_about_time)
     }
 
-    private fun formatTapWater(basicInfo: String): String {
-        return if (basicInfo.isNotEmpty()) context.getString(R.string.tap_water_is, basicInfo) else context.getString(R.string.no_info_about_tap_water)
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun formatTapWater(basicInfo: String): String {
+        return if (basicInfo == "safe" || basicInfo == "not safe") context.getString(R.string.tap_water_is, basicInfo) else context.getString(R.string.no_info_about_tap_water)
     }
 
-    private fun formatPlugs(plugs: List<String>): List<Plug> {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun formatPlugs(plugs: List<String>): List<Plug> {
         return plugs.map { plugProvider.provide(it) }
     }
 

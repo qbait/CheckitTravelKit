@@ -2,12 +2,16 @@ package eu.szwiec.checkittravelkit.ui.info
 
 import android.content.Context
 import com.nhaarman.mockitokotlin2.mock
+import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.isValidFormat
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
+import eu.szwiec.checkittravelkit.resId
+import eu.szwiec.checkittravelkit.vo.CallInfo
+import eu.szwiec.checkittravelkit.vo.Country
 import eu.szwiec.checkittravelkit.vo.Currency
-import org.amshove.kluent.shouldBeTrue
-import org.amshove.kluent.shouldEqual
+import eu.szwiec.checkittravelkit.vo.Electricity
+import org.amshove.kluent.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.standalone.inject
@@ -20,8 +24,121 @@ class InfoViewModelTest : AutoCloseKoinTest() {
     val context: Context by inject()
     val preferences = mock<Preferences>()
     val repository = mock<CountryRepository>()
-    val plugProvider = mock<PlugProvider>()
+    val plugProvider: PlugProvider by inject()
     val vm = InfoViewModel(context, preferences, repository, plugProvider)
+
+    @Test
+    fun infoItemsAreShownCorrectly() {
+        val country = Country(
+                id = "PL",
+                name = "Poland",
+                timezone = "Europe/Warsaw",
+                tapWater = "safe",
+                vaccinations = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"),
+                imageUrl = "https://www.dropbox.com/s/5b06v8pgg4ifxy0/poland.jpg?dl=1",
+                visa = "Not required",
+                electricity = Electricity(
+                        voltage = "230",
+                        frequency = "50",
+                        plugs = listOf("C", "E")
+                ),
+                callInfo = CallInfo(
+                        policeNumber = "112",
+                        ambulanceNumber = "112",
+                        callingCode = "48"
+                ),
+                currency = Currency(
+                        code = "PLN",
+                        name = "Polish zloty",
+                        symbol = "zł",
+                        exchangeRate = 0.2F
+                )
+        )
+
+        val items = vm.getNewItems(country, "GBP")
+
+        val time = items.get(0) as SimpleInfo
+        val currency = items.get(1) as SimpleInfo
+        val visa = items.get(2) as SimpleInfo
+        val tapWater = items.get(3) as SimpleInfo
+        val electricity = items.get(4) as ElectricityInfo
+
+        items.get(5).shouldBeInstanceOf(Divider::class)
+
+        val callInfo = items.get(6) as eu.szwiec.checkittravelkit.ui.info.CallInfo
+
+        items.get(7).shouldBeInstanceOf(Divider::class)
+
+        val vaccination = items.get(8) as SimpleInfo
+
+        time.icon.resId shouldEqual R.drawable.ic_time
+        currency.icon.resId shouldEqual R.drawable.ic_currency
+        visa.icon.resId shouldEqual R.drawable.ic_visa
+        tapWater.icon.resId shouldEqual R.drawable.ic_tap
+        electricity.icon.resId shouldEqual R.drawable.ic_plug
+        callInfo.icon.resId shouldEqual R.drawable.ic_call
+        vaccination.icon.resId shouldEqual R.drawable.ic_vaccine
+    }
+
+    @Test
+    fun getVaccinationItemsWhenEmpty() {
+        val items = vm.getVaccinationItems(emptyMap())
+        val noVaccinations = items.first() as SimpleInfo
+        noVaccinations.text shouldEqual context.getString(R.string.you_dont_need_vaccinations)
+        noVaccinations.icon.resId shouldEqual R.drawable.ic_vaccine
+    }
+
+    @Test
+    fun getVaccinationItemsWhenNotEmpty() {
+        val map = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you")
+        val vaccinations = vm.getVaccinationItems(map)
+
+        val info = vaccinations.get(0) as SimpleInfo
+        info.text shouldEqual context.getString(R.string.you_may_need_vaccinations_for)
+        info.icon.resId shouldEqual R.drawable.ic_vaccine
+
+        val vaccination = vaccinations.get(1) as Vaccination
+        vaccination.title shouldEqual "Hepatitis B"
+        vaccination.description shouldEqual "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"
+    }
+
+    @Test
+    fun formatVisa() {
+        vm.formatVisa("You need visa") shouldEqual "You need visa"
+        vm.formatVisa("") shouldEqual context.getString(R.string.no_info_about_visa)
+    }
+
+    @Test
+    fun formatCallingCode() {
+        vm.formatCallingCode("") shouldEqual ""
+        vm.formatCallingCode("xxx") shouldEqual ""
+        vm.formatCallingCode("48") shouldEqual "+48"
+    }
+
+    @Test
+    fun formatTime() {
+        vm.formatTime("xxx") shouldEqual context.getString(R.string.no_info_about_time)
+        vm.formatTime("") shouldEqual context.getString(R.string.no_info_about_time)
+        vm.formatTime("Europe/Warsaw") shouldStartWith "It's" shouldEndWith "now"
+    }
+
+    @Test
+    fun formatTapWater() {
+        vm.formatTapWater("safe") shouldEqual context.getString(R.string.tap_water_is, "safe")
+        vm.formatTapWater("not safe") shouldEqual context.getString(R.string.tap_water_is, "not safe")
+        vm.formatTapWater("") shouldEqual context.getString(R.string.no_info_about_tap_water)
+        vm.formatTapWater("xxx") shouldEqual context.getString(R.string.no_info_about_tap_water)
+    }
+
+    @Test
+    fun formatPlugs() {
+        val plugs = vm.formatPlugs(listOf("A", "L"))
+
+        plugs[0].icon.resId shouldEqual R.drawable.plug_a
+        plugs[0].symbol shouldEqual "A"
+        plugs[1].icon.resId shouldEqual R.drawable.plug_l
+        plugs[1].symbol shouldEqual "L"
+    }
 
     @Test
     fun getCurrentTimeWhenWrongTimezone() {
