@@ -43,7 +43,7 @@ class CountryRepository {
                 )
         )
 
-        Handler().postDelayed({ countryLD.postValue(country) }, 5000)
+        Handler().postDelayed({ countryLD.postValue(country) }, 500)
 
         return countryLD
     }

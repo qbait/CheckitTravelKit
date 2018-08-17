@@ -1,7 +1,10 @@
 package eu.szwiec.checkittravelkit.ui.info
 
 import android.content.Context
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.isValidFormat
 import eu.szwiec.checkittravelkit.prefs.Preferences
@@ -26,6 +29,31 @@ class InfoViewModelTest : AutoCloseKoinTest() {
     val repository = mock<CountryRepository>()
     val plugProvider: PlugProvider by inject()
     val vm = InfoViewModel(context, preferences, repository, plugProvider)
+
+    @Test
+    fun toggleFavoriteDoNotUpdatePreferencesWhenNotReady() {
+        vm.countryName.value = ""
+        vm.toggleFavorite()
+        verify(preferences, never()).removeFavorite(any())
+    }
+
+    @Test
+    fun removeFavorite() {
+        vm.countryName.value = "Poland"
+        vm.isFavorite.value = true
+
+        vm.toggleFavorite()
+        verify(preferences).removeFavorite("Poland")
+    }
+
+    @Test
+    fun addFavorite() {
+        vm.countryName.value = "Poland"
+        vm.isFavorite.value = false
+
+        vm.toggleFavorite()
+        verify(preferences).addFavorite("Poland")
+    }
 
     @Test
     fun infoItemsAreShownCorrectly() {
