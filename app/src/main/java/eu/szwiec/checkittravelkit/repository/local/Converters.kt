@@ -3,14 +3,10 @@ package eu.szwiec.checkittravelkit.repository.local
 import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 class Converters() {
 
-    val moshi = Moshi
-            .Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+    val moshi = Moshi.Builder().build()
 
     val listOfStringsType = Types.newParameterizedType(List::class.java, String::class.java)
     val listOfStringsAdapter = moshi.adapter<List<String>>(listOfStringsType)
