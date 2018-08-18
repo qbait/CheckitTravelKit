@@ -2,6 +2,7 @@ package eu.szwiec.checkittravelkit.di
 
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
+import eu.szwiec.checkittravelkit.repository.MockCountryRepository
 import eu.szwiec.checkittravelkit.ui.info.InfoViewModel
 import eu.szwiec.checkittravelkit.ui.info.PlugProvider
 import eu.szwiec.checkittravelkit.ui.search.FavoritesViewModel
@@ -19,6 +20,6 @@ val appModule = module {
     viewModel { InfoViewModel(get(), get(), get(), get()) }
 
     single { Preferences(get(), "prefs") }
-    single { CountryRepository() }
+    single { MockCountryRepository() as CountryRepository }
     single { PlugProvider(get()) }
 }
