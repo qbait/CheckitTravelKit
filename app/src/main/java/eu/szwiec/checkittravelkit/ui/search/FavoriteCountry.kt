@@ -2,12 +2,16 @@ package eu.szwiec.checkittravelkit.ui.search
 
 import android.view.View
 import androidx.navigation.findNavController
-import eu.szwiec.checkittravelkit.R
 
 class FavoriteCountry(val name: String) {
 
     fun onClick(v: View): Boolean {
-        v.findNavController().navigate(R.id.next_action)
+        navigateToInfo(name, v)
         return true
+    }
+
+    private fun navigateToInfo(countryName: String, view: View) {
+        val action = SearchFragmentDirections.nextAction().setCountryId(countryName)
+        view.findNavController().navigate(action)
     }
 }

@@ -52,8 +52,7 @@ class SearchFragment : Fragment() {
                     destination.requestFocus()
                 }
                 is State.ShowInfo -> {
-                    val action = SearchFragmentDirections.nextAction().setCountryId(state.countryName)
-                    constraintLayout.findNavController().navigate(action)
+                    navigateToInfo(state.countryName)
                     searchViewModel.setState(State.ChooseDestination)
                 }
             }
@@ -63,6 +62,11 @@ class SearchFragment : Fragment() {
 
         setupOriginListeners()
         setupDestinationListeners()
+    }
+
+    private fun navigateToInfo(countryName: String) {
+        val action = SearchFragmentDirections.nextAction().setCountryId(countryName)
+        constraintLayout.findNavController().navigate(action)
     }
 
     private fun setupOriginListeners() {
