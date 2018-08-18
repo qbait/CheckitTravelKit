@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="eu.szwiec.checkittravelkit.ui.info.Vaccination" />
+            type="eu.szwiec.checkittravelkit.ui.info.VaccinationInfo" />
     </data>
 
     <LinearLayout style="@style/InfoRow.Vaccination">

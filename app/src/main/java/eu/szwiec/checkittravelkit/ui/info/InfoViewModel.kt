@@ -46,8 +46,8 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     val itemBind = OnItemBindClass<Any>()
             .map(SimpleInfo::class.java, BR.item, R.layout.row_simple_info)
             .map(ElectricityInfo::class.java, BR.item, R.layout.row_electricity_info)
-            .map(CallInfo::class.java, BR.item, R.layout.row_call_info)
-            .map(Vaccination::class.java, BR.item, R.layout.row_vaccination_info)
+            .map(TelephonesInfo::class.java, BR.item, R.layout.row_telephones_info)
+            .map(VaccinationInfo::class.java, BR.item, R.layout.row_vaccination_info)
             .map(Divider::class.java, ItemBinding.VAR_NONE, R.layout.info_divider);
 
     fun toggleFavorite() {
@@ -106,7 +106,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         items.add(SimpleInfo(formatTapWater(country.tapWater), context.getDrawable(R.drawable.ic_tap)))
         items.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
         items.add(Divider())
-        items.add(CallInfo(formatCallingCode(country.telephones.prefix), country.telephones.policeNumber, country.telephones.ambulanceNumber, context.getDrawable(R.drawable.ic_call)))
+        items.add(TelephonesInfo(formatCallingCode(country.telephones.prefix), country.telephones.policeNumber, country.telephones.ambulanceNumber, context.getDrawable(R.drawable.ic_call)))
         items.add(Divider())
         items.addAll(getVaccinationItems(country.vaccinations))
 
@@ -121,7 +121,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
             items.add(SimpleInfo(context.getString(R.string.you_dont_need_vaccinations), context.getDrawable(R.drawable.ic_vaccine)))
         } else {
             items.add(SimpleInfo(context.getString(R.string.you_may_need_vaccinations_for), context.getDrawable(R.drawable.ic_vaccine)))
-            vaccinations.forEach { (key, value) -> items.add(Vaccination(key, value)) }
+            vaccinations.forEach { (key, value) -> items.add(VaccinationInfo(key, value)) }
         }
 
         return items

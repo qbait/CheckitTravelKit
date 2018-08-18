@@ -114,7 +114,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
 
         items.get(5).shouldBeInstanceOf(Divider::class)
 
-        val callInfo = items.get(6) as CallInfo
+        val telephones = items.get(6) as TelephonesInfo
 
         items.get(7).shouldBeInstanceOf(Divider::class)
 
@@ -125,7 +125,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
         visa.icon.resId shouldEqual R.drawable.ic_visa
         tapWater.icon.resId shouldEqual R.drawable.ic_tap
         electricity.icon.resId shouldEqual R.drawable.ic_plug
-        callInfo.icon.resId shouldEqual R.drawable.ic_call
+        telephones.icon.resId shouldEqual R.drawable.ic_call
         vaccination.icon.resId shouldEqual R.drawable.ic_vaccine
     }
 
@@ -146,7 +146,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
         info.text shouldEqual context.getString(R.string.you_may_need_vaccinations_for)
         info.icon.resId shouldEqual R.drawable.ic_vaccine
 
-        val vaccination = vaccinations.get(1) as Vaccination
+        val vaccination = vaccinations.get(1) as VaccinationInfo
         vaccination.title shouldEqual "Hepatitis B"
         vaccination.description shouldEqual "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"
     }

@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 
-class CallInfo(val prefix: String, val police: String, val ambulance: String, val icon: Drawable) {
+class TelephonesInfo(val prefix: String, val police: String, val ambulance: String, val icon: Drawable) {
 
     fun onClickPhoneNumber(v: TextView) {
         v.findNavController().navigate(R.id.next_action)

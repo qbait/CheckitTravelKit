@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="eu.szwiec.checkittravelkit.ui.info.CallInfo" />
+            type="eu.szwiec.checkittravelkit.ui.info.TelephonesInfo" />
     </data>
 
     <LinearLayout style="@style/InfoRow">
