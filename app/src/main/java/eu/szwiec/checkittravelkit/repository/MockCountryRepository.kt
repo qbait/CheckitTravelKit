@@ -3,11 +3,11 @@ package eu.szwiec.checkittravelkit.repository
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import eu.szwiec.checkittravelkit.repository.data.Country
+import eu.szwiec.checkittravelkit.repository.data.Currency
+import eu.szwiec.checkittravelkit.repository.data.Electricity
+import eu.szwiec.checkittravelkit.repository.data.Telephones
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
-import eu.szwiec.checkittravelkit.vo.Country
-import eu.szwiec.checkittravelkit.vo.Currency
-import eu.szwiec.checkittravelkit.vo.Electricity
-import eu.szwiec.checkittravelkit.vo.Telephones
 
 class MockCountryRepository : CountryRepository {
     override fun getCountryNames(): LiveData<List<String>> {

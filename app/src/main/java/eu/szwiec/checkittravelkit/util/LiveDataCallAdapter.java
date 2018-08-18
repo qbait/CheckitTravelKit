@@ -5,12 +5,13 @@ import java.lang.reflect.Type;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.lifecycle.LiveData;
+import eu.szwiec.checkittravelkit.repository.remote.ApiResponse;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<eu.szwiec.checkittravelkit.api.ApiResponse<R>>> {
+public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<ApiResponse<R>>> {
     private final Type responseType;
 
     public LiveDataCallAdapter(Type responseType) {
@@ -23,8 +24,8 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<eu.szwiec
     }
 
     @Override
-    public LiveData<eu.szwiec.checkittravelkit.api.ApiResponse<R>> adapt(Call<R> call) {
-        return new LiveData<eu.szwiec.checkittravelkit.api.ApiResponse<R>>() {
+    public LiveData<ApiResponse<R>> adapt(Call<R> call) {
+        return new LiveData<ApiResponse<R>>() {
             AtomicBoolean started = new AtomicBoolean(false);
 
             @Override
@@ -34,12 +35,12 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<eu.szwiec
                     call.enqueue(new Callback<R>() {
                         @Override
                         public void onResponse(Call<R> call, Response<R> response) {
-                            postValue(new eu.szwiec.checkittravelkit.api.ApiResponse<>(response));
+                            postValue(new ApiResponse<>(response));
                         }
 
                         @Override
                         public void onFailure(Call<R> call, Throwable throwable) {
-                            postValue(new eu.szwiec.checkittravelkit.api.ApiResponse<R>(throwable));
+                            postValue(new ApiResponse<R>(throwable));
                         }
                     });
                 }

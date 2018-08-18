@@ -11,11 +11,11 @@ import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.isValidFormat
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
+import eu.szwiec.checkittravelkit.repository.data.Country
+import eu.szwiec.checkittravelkit.repository.data.Currency
+import eu.szwiec.checkittravelkit.repository.data.Electricity
+import eu.szwiec.checkittravelkit.repository.data.Telephones
 import eu.szwiec.checkittravelkit.resId
-import eu.szwiec.checkittravelkit.vo.Country
-import eu.szwiec.checkittravelkit.vo.Currency
-import eu.szwiec.checkittravelkit.vo.Electricity
-import eu.szwiec.checkittravelkit.vo.Telephones
 import org.amshove.kluent.*
 import org.junit.Test
 import org.junit.runner.RunWith

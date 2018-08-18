@@ -1,8 +1,8 @@
-package eu.szwiec.checkittravelkit.db
+package eu.szwiec.checkittravelkit.repository.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import eu.szwiec.checkittravelkit.vo.Country
+import eu.szwiec.checkittravelkit.repository.data.Country
 
 @Dao
 interface CountryDao {

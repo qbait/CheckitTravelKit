@@ -1,12 +1,12 @@
-package eu.szwiec.checkittravelkit.api
+package eu.szwiec.checkittravelkit.repository.remote
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import eu.szwiec.checkittravelkit.repository.data.VisaRequirement
 import eu.szwiec.checkittravelkit.util.readFile
-import eu.szwiec.checkittravelkit.vo.VisaRequirement
 import retrofit2.Response
 
 class MockSherpaService(val context: Context, val moshi: Moshi, val file: String) : SherpaService {

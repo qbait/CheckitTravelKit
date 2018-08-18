@@ -1,4 +1,4 @@
-package eu.szwiec.checkittravelkit.db
+package eu.szwiec.checkittravelkit.repository.local
 
 import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi

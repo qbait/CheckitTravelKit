@@ -2,11 +2,11 @@ package eu.szwiec.checkittravelkit.di
 
 import android.content.Context
 import androidx.room.Room
-import eu.szwiec.checkittravelkit.db.CountryDao
-import eu.szwiec.checkittravelkit.db.CountryDb
+import eu.szwiec.checkittravelkit.repository.local.CountryDao
+import eu.szwiec.checkittravelkit.repository.local.CountryDb
 import org.koin.dsl.module.module
 
-val dbModule = module {
+val localDatasourceModule = module {
     single { createDb(get()) }
     single { createDao(get()) }
 }

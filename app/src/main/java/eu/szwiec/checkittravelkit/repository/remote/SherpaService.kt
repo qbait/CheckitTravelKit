@@ -1,7 +1,7 @@
-package eu.szwiec.checkittravelkit.api
+package eu.szwiec.checkittravelkit.repository.remote
 
 import androidx.lifecycle.LiveData
-import eu.szwiec.checkittravelkit.vo.VisaRequirement
+import eu.szwiec.checkittravelkit.repository.data.VisaRequirement
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path

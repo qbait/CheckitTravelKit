@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import androidx.lifecycle.LiveData;
+import eu.szwiec.checkittravelkit.repository.remote.ApiResponse;
 import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 
@@ -17,7 +18,7 @@ public class LiveDataCallAdapterFactory extends CallAdapter.Factory {
         }
         Type observableType = getParameterUpperBound(0, (ParameterizedType) returnType);
         Class<?> rawObservableType = getRawType(observableType);
-        if (rawObservableType != eu.szwiec.checkittravelkit.api.ApiResponse.class) {
+        if (rawObservableType != ApiResponse.class) {
             throw new IllegalArgumentException("type must be a resource");
         }
         if (!(observableType instanceof ParameterizedType)) {

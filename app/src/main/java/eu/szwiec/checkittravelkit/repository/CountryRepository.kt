@@ -1,7 +1,7 @@
 package eu.szwiec.checkittravelkit.repository
 
 import androidx.lifecycle.LiveData
-import eu.szwiec.checkittravelkit.vo.Country
+import eu.szwiec.checkittravelkit.repository.data.Country
 
 interface CountryRepository {
     fun getCountryNames(): LiveData<List<String>>

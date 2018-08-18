@@ -1,4 +1,4 @@
-package eu.szwiec.checkittravelkit.vo
+package eu.szwiec.checkittravelkit.repository.data
 
 import com.squareup.moshi.Json
 

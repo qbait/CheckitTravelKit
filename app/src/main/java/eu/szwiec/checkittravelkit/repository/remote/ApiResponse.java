@@ -1,4 +1,4 @@
-package eu.szwiec.checkittravelkit.api;
+package eu.szwiec.checkittravelkit.repository.remote;
 
 import java.io.IOException;
 

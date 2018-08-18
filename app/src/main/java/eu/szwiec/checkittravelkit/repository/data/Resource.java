@@ -1,11 +1,11 @@
-package eu.szwiec.checkittravelkit.vo;
+package eu.szwiec.checkittravelkit.repository.data;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import static eu.szwiec.checkittravelkit.vo.Status.ERROR;
-import static eu.szwiec.checkittravelkit.vo.Status.LOADING;
-import static eu.szwiec.checkittravelkit.vo.Status.SUCCESS;
+import static eu.szwiec.checkittravelkit.repository.data.Status.ERROR;
+import static eu.szwiec.checkittravelkit.repository.data.Status.LOADING;
+import static eu.szwiec.checkittravelkit.repository.data.Status.SUCCESS;
 
 
 public class Resource<T> {

@@ -10,11 +10,11 @@ import eu.szwiec.checkittravelkit.BR
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
+import eu.szwiec.checkittravelkit.repository.data.Country
+import eu.szwiec.checkittravelkit.repository.data.Currency
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 import eu.szwiec.checkittravelkit.util.map
 import eu.szwiec.checkittravelkit.util.zipLiveData
-import eu.szwiec.checkittravelkit.vo.Country
-import eu.szwiec.checkittravelkit.vo.Currency
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass

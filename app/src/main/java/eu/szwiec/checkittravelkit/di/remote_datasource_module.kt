@@ -1,15 +1,15 @@
 package eu.szwiec.checkittravelkit.di
 
-import eu.szwiec.checkittravelkit.api.CurrencyConverterService
-import eu.szwiec.checkittravelkit.api.SherpaService
 import eu.szwiec.checkittravelkit.di.ApiProperties.CURRENCY_CONVERTER_URL
 import eu.szwiec.checkittravelkit.di.ApiProperties.SHERPA_URL
+import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
+import eu.szwiec.checkittravelkit.repository.remote.SherpaService
 import eu.szwiec.checkittravelkit.util.LiveDataCallAdapterFactory
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-val apiModule = module {
+val remoteDatasourceModule = module {
     single { createCurrencyConverterService() }
     single { createSherpaService() }
 }

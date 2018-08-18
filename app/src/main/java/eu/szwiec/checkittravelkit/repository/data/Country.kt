@@ -1,10 +1,10 @@
-package eu.szwiec.checkittravelkit.vo
+package eu.szwiec.checkittravelkit.repository.data
 
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.TypeConverters
 import com.squareup.moshi.Json
-import eu.szwiec.checkittravelkit.db.Converters
+import eu.szwiec.checkittravelkit.repository.local.Converters
 
 @Entity(primaryKeys = arrayOf("name"))
 @TypeConverters(Converters::class)
