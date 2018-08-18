@@ -12,10 +12,10 @@ import eu.szwiec.checkittravelkit.isValidFormat
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.resId
-import eu.szwiec.checkittravelkit.vo.CallInfo
 import eu.szwiec.checkittravelkit.vo.Country
 import eu.szwiec.checkittravelkit.vo.Currency
 import eu.szwiec.checkittravelkit.vo.Electricity
+import eu.szwiec.checkittravelkit.vo.Telephones
 import org.amshove.kluent.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -114,7 +114,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
 
         items.get(5).shouldBeInstanceOf(Divider::class)
 
-        val callInfo = items.get(6) as eu.szwiec.checkittravelkit.ui.info.CallInfo
+        val callInfo = items.get(6) as CallInfo
 
         items.get(7).shouldBeInstanceOf(Divider::class)
 
@@ -254,10 +254,10 @@ val poland = Country(
                 frequency = "50",
                 plugs = listOf("C", "E")
         ),
-        callInfo = CallInfo(
+        telephones = Telephones(
                 policeNumber = "112",
                 ambulanceNumber = "112",
-                callingCode = "48"
+                prefix = "48"
         ),
         currency = Currency(
                 code = "PLN",

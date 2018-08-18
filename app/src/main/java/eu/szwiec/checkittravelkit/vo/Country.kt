@@ -23,9 +23,9 @@ data class Country(
         @Json(name = "electricity")
         val electricity: Electricity = Electricity(),
 
-        @Embedded(prefix = "call_info_")
-        @Json(name = "call_info")
-        val callInfo: CallInfo = CallInfo(),
+        @Embedded(prefix = "telephones_")
+        @Json(name = "telephones")
+        val telephones: Telephones = Telephones(),
 
         @Json(name = "tap_water")
         val tapWater: String = "",

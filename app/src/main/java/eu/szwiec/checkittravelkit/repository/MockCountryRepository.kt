@@ -4,10 +4,10 @@ import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
-import eu.szwiec.checkittravelkit.vo.CallInfo
 import eu.szwiec.checkittravelkit.vo.Country
 import eu.szwiec.checkittravelkit.vo.Currency
 import eu.szwiec.checkittravelkit.vo.Electricity
+import eu.szwiec.checkittravelkit.vo.Telephones
 
 class MockCountryRepository : CountryRepository {
     override fun getCountryNames(): LiveData<List<String>> {
@@ -30,10 +30,10 @@ class MockCountryRepository : CountryRepository {
                         frequency = "50",
                         plugs = listOf("C", "E")
                 ),
-                callInfo = CallInfo(
+                telephones = Telephones(
                         policeNumber = "112",
                         ambulanceNumber = "112",
-                        callingCode = "48"
+                        prefix = "48"
                 ),
                 currency = Currency(
                         code = "PLN",

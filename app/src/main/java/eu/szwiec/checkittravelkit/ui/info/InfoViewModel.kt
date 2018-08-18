@@ -106,7 +106,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         items.add(SimpleInfo(formatTapWater(country.tapWater), context.getDrawable(R.drawable.ic_tap)))
         items.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
         items.add(Divider())
-        items.add(CallInfo(formatCallingCode(country.callInfo.callingCode), country.callInfo.policeNumber, country.callInfo.ambulanceNumber, context.getDrawable(R.drawable.ic_call)))
+        items.add(CallInfo(formatCallingCode(country.telephones.prefix), country.telephones.policeNumber, country.telephones.ambulanceNumber, context.getDrawable(R.drawable.ic_call)))
         items.add(Divider())
         items.addAll(getVaccinationItems(country.vaccinations))
 
