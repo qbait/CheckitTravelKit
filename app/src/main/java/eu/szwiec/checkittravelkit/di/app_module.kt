@@ -1,5 +1,7 @@
 package eu.szwiec.checkittravelkit.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.repository.MockCountryRepository
@@ -8,6 +10,7 @@ import eu.szwiec.checkittravelkit.ui.info.PlugProvider
 import eu.szwiec.checkittravelkit.ui.search.FavoritesViewModel
 import eu.szwiec.checkittravelkit.ui.search.SearchViewModel
 import eu.szwiec.checkittravelkit.ui.splash.SplashViewModel
+import eu.szwiec.checkittravelkit.util.AppExecutors
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
@@ -22,4 +25,14 @@ val appModule = module {
     single { Preferences(get(), "prefs") }
     single { MockCountryRepository() as CountryRepository }
     single { PlugProvider(get()) }
+    single { AppExecutors() }
+    single { createMoshi() }
+
+}
+
+fun createMoshi(): Any {
+    return Moshi
+            .Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 }

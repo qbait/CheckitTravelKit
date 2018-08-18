@@ -2,12 +2,12 @@ package eu.szwiec.checkittravelkit.vo
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.TypeConverters
 import com.squareup.moshi.Json
-
-//import eu.szwiec.checkittravelkit.db.Converters
+import eu.szwiec.checkittravelkit.db.Converters
 
 @Entity(primaryKeys = arrayOf("name"))
-//@TypeConverters(Converters::class)
+@TypeConverters(Converters::class)
 data class Country(
 
         @Json(name = "id")
@@ -19,11 +19,11 @@ data class Country(
         @Json(name = "timezone")
         val timezone: String = "",
 
-        @Embedded
+        @Embedded(prefix = "electricity_")
         @Json(name = "electricity")
         val electricity: Electricity = Electricity(),
 
-        @Embedded
+        @Embedded(prefix = "call_info_")
         @Json(name = "call_info")
         val callInfo: CallInfo = CallInfo(),
 
@@ -33,7 +33,7 @@ data class Country(
         @Json(name = "vaccinations")
         val vaccinations: Map<String, String> = emptyMap(),
 
-        @Embedded
+        @Embedded(prefix = "currency_")
         @Json(name = "currency")
         val currency: Currency = Currency(),
 
