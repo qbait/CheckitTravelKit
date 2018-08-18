@@ -1,25 +1,45 @@
 package eu.szwiec.checkittravelkit.repository
 
 import androidx.lifecycle.LiveData
+import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.data.Country
+import eu.szwiec.checkittravelkit.repository.local.CountriesJsonReader
+import eu.szwiec.checkittravelkit.repository.local.CountryDao
+import eu.szwiec.checkittravelkit.util.AppExecutors
 
 interface CountryRepository {
+    fun setup()
     fun getCountryNames(): LiveData<List<String>>
     fun getCountry(name: String): LiveData<Country>
     fun getOriginCurrencyCode(): LiveData<String>
 }
 
-class CountryRepositoryImpl : CountryRepository {
-    override fun getCountryNames(): LiveData<List<String>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class CountryRepositoryImpl(
+        private val appExecutors: AppExecutors,
+        val dao: CountryDao,
+        val jsonReader: CountriesJsonReader,
+        val preferences: Preferences
+) : CountryRepository {
+
+    override fun setup() {
+        appExecutors.diskIO().execute {
+            if (dao.countCountries() == 0) {
+                val countries = jsonReader.getCountries()
+                dao.bulkInsert(countries)
+            }
+        }
     }
 
-    override fun getCountry(name: String): LiveData<Country> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getCountryNames(): LiveData<List<String>> {
+        return dao.getNames()
     }
 
     override fun getOriginCurrencyCode(): LiveData<String> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return dao.findCurrencyCodeByName(preferences.origin)
+    }
+
+    override fun getCountry(name: String): LiveData<Country> {
+        return dao.findByName(name)
     }
 
 }

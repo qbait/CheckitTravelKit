@@ -10,6 +10,9 @@ import eu.szwiec.checkittravelkit.repository.data.Telephones
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 
 class MockCountryRepository : CountryRepository {
+    override fun setup() {
+    }
+
     override fun getCountryNames(): LiveData<List<String>> {
         return NonNullLiveData(listOf("Poland", "UK"))
     }
