@@ -27,7 +27,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
 
     val isFavorite = NonNullLiveData(false)
     val countryName = NonNullLiveData("")
-    val image = NonNullLiveData(context.getString(R.string.default_image_url))
+    val image = NonNullLiveData("")
     lateinit var infoData: LiveData<Any>
     val items: DiffObservableList<Any> = DiffObservableList(object : DiffObservableList.Callback<Any> {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
@@ -92,6 +92,8 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     fun setupImage(url: String) {
         if (Patterns.WEB_URL.matcher(url).matches()) {
             image.value = url
+        } else {
+            image.value = context.getString(R.string.default_image_url)
         }
     }
 
