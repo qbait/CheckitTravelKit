@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSearchBinding
+import eu.szwiec.checkittravelkit.util.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,6 +54,7 @@ class SearchFragment : Fragment() {
                 }
                 is State.ShowInfo -> {
                     navigateToInfo(state.countryName)
+                    activity?.hideKeyboard()
                     searchViewModel.setState(State.ChooseDestination)
                 }
             }
