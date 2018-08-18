@@ -44,16 +44,17 @@ class SearchFragment : Fragment() {
         searchViewModel.initState()
         searchViewModel.state.observe(this, Observer { state ->
             when (state) {
-                State.CHOOSE_ORIGIN -> {
+                is State.ChooseOrigin -> {
                     animate(constraintSetOnlyNationality)
                 }
-                State.CHOOSE_DESTINATION -> {
+                is State.ChooseDestination -> {
                     animate(constraintSetAllViews)
                     destination.requestFocus()
                 }
-                State.SHOW_INFO -> {
-                    constraintLayout.findNavController().navigate(R.id.next_action)
-                    searchViewModel.setState(State.CHOOSE_DESTINATION)
+                is State.ShowInfo -> {
+                    val action = SearchFragmentDirections.nextAction().setCountryId(state.countryName)
+                    constraintLayout.findNavController().navigate(action)
+                    searchViewModel.setState(State.ChooseDestination)
                 }
             }
         })
@@ -67,7 +68,7 @@ class SearchFragment : Fragment() {
     private fun setupOriginListeners() {
         origin.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
-                searchViewModel.setState(State.CHOOSE_ORIGIN)
+                searchViewModel.setState(State.ChooseOrigin)
                 origin.post { origin.setSelection(origin.text.length) }
             }
         }

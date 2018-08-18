@@ -1,19 +1,22 @@
 package eu.szwiec.checkittravelkit.ui.search
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 
-enum class State {
-    CHOOSE_ORIGIN, CHOOSE_DESTINATION, SHOW_INFO
+sealed class State {
+    object ChooseOrigin : State()
+    object ChooseDestination : State()
+    data class ShowInfo(val countryName: String) : State()
 }
 
 class SearchViewModel(private val context: Context, private val preferences: Preferences, private val repository: CountryRepository) : ViewModel() {
 
-    val state = NonNullLiveData(State.CHOOSE_ORIGIN)
+    val state = MutableLiveData<State>()
     val origin = NonNullLiveData("")
     val destination = NonNullLiveData("")
     val originHint = NonNullLiveData("")
@@ -21,9 +24,9 @@ class SearchViewModel(private val context: Context, private val preferences: Pre
 
     fun initState() {
         if (preferences.origin.isEmpty()) {
-            setState(State.CHOOSE_ORIGIN)
+            setState(State.ChooseOrigin)
         } else {
-            setState(State.CHOOSE_DESTINATION)
+            setState(State.ChooseDestination)
             origin.value = preferences.origin
         }
     }
@@ -31,13 +34,13 @@ class SearchViewModel(private val context: Context, private val preferences: Pre
     fun setState(newState: State) {
 
         when (newState) {
-            State.CHOOSE_ORIGIN -> {
+            is State.ChooseOrigin -> {
                 originHint.value = context.getString(R.string.where_are_you_from)
             }
-            State.CHOOSE_DESTINATION -> {
+            is State.ChooseDestination -> {
                 originHint.value = ""
             }
-            State.SHOW_INFO -> {
+            is State.ShowInfo -> {
                 destination.value = ""
             }
         }
@@ -47,19 +50,19 @@ class SearchViewModel(private val context: Context, private val preferences: Pre
 
     fun submitOrigin() {
         if (isValid(origin.value)) {
-            setState(State.CHOOSE_DESTINATION)
+            setState(State.ChooseDestination)
             preferences.origin = origin.value
         }
     }
 
     fun submitDestination() {
         if (isValid(destination.value)) {
-            setState(State.SHOW_INFO)
+            setState(State.ShowInfo(destination.value))
         }
     }
 
     private fun isValid(countryName: String): Boolean {
-        repository.getCountryNames().value?.let {
+        countryNames.value?.let {
             return it.contains(countryName)
         }
         return false
