@@ -1,10 +1,12 @@
 package eu.szwiec.checkittravelkit.ui.info
 
 import android.content.Context
+import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.isValidFormat
 import eu.szwiec.checkittravelkit.prefs.Preferences
@@ -29,6 +31,48 @@ class InfoViewModelTest : AutoCloseKoinTest() {
     val repository = mock<CountryRepository>()
     val plugProvider: PlugProvider by inject()
     val vm = InfoViewModel(context, preferences, repository, plugProvider)
+
+    @Test
+    fun setup() {
+        val isFavoriteObserver = mock<Observer<Boolean>>()
+        vm.isFavorite.observeForever(isFavoriteObserver)
+
+        vm.setup(Pair(poland, "GBP"))
+
+        vm.countryName.value shouldEqual poland.name
+        vm.image.value shouldEqual poland.imageUrl
+        verify(isFavoriteObserver).onChanged(any())
+        vm.items.size shouldEqual polandItemsSize
+    }
+
+    @Test
+    fun setupWhenIsFavorite() {
+        whenever(preferences.favorites).thenReturn(setOf("Poland"))
+        vm.setupFavorite("Poland")
+        vm.isFavorite.value shouldEqual true
+    }
+
+    @Test
+    fun setupWhenIsNotFavorite() {
+        whenever(preferences.favorites).thenReturn(emptySet())
+        vm.setupFavorite("Poland")
+        vm.isFavorite.value shouldEqual false
+    }
+
+    @Test
+    fun setupImage() {
+        vm.setupImage(poland.imageUrl)
+        vm.image.value shouldEqual poland.imageUrl
+    }
+
+    @Test
+    fun setupDefaultImageWhenWrongUrl() {
+        vm.setupImage("xxx")
+        vm.image.value shouldEqual context.getString(R.string.default_image_url)
+
+        vm.setupImage("")
+        vm.image.value shouldEqual context.getString(R.string.default_image_url)
+    }
 
     @Test
     fun toggleFavoriteDoNotUpdatePreferencesWhenNotReady() {
@@ -57,33 +101,10 @@ class InfoViewModelTest : AutoCloseKoinTest() {
 
     @Test
     fun infoItemsAreShownCorrectly() {
-        val country = Country(
-                id = "PL",
-                name = "Poland",
-                timezone = "Europe/Warsaw",
-                tapWater = "safe",
-                vaccinations = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"),
-                imageUrl = "https://www.dropbox.com/s/5b06v8pgg4ifxy0/poland.jpg?dl=1",
-                visa = "Not required",
-                electricity = Electricity(
-                        voltage = "230",
-                        frequency = "50",
-                        plugs = listOf("C", "E")
-                ),
-                callInfo = CallInfo(
-                        policeNumber = "112",
-                        ambulanceNumber = "112",
-                        callingCode = "48"
-                ),
-                currency = Currency(
-                        code = "PLN",
-                        name = "Polish zloty",
-                        symbol = "zł",
-                        exchangeRate = 0.2F
-                )
-        )
 
-        val items = vm.getNewItems(country, "GBP")
+        val items = vm.getNewItems(poland, "GBP")
+
+        items.size shouldEqual polandItemsSize
 
         val time = items.get(0) as SimpleInfo
         val currency = items.get(1) as SimpleInfo
@@ -219,3 +240,31 @@ class InfoViewModelTest : AutoCloseKoinTest() {
         vm.formatCurrency(currency, originCurrencyCode) shouldEqual expected
     }
 }
+
+val poland = Country(
+        id = "PL",
+        name = "Poland",
+        timezone = "Europe/Warsaw",
+        tapWater = "safe",
+        vaccinations = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"),
+        imageUrl = "https://www.dropbox.com/s/5b06v8pgg4ifxy0/poland.jpg?dl=1",
+        visa = "Not required",
+        electricity = Electricity(
+                voltage = "230",
+                frequency = "50",
+                plugs = listOf("C", "E")
+        ),
+        callInfo = CallInfo(
+                policeNumber = "112",
+                ambulanceNumber = "112",
+                callingCode = "48"
+        ),
+        currency = Currency(
+                code = "PLN",
+                name = "Polish zloty",
+                symbol = "zł",
+                exchangeRate = 0.2F
+        )
+)
+
+const val polandItemsSize = 10

@@ -1,6 +1,7 @@
 package eu.szwiec.checkittravelkit.ui.info
 
 import android.content.Context
+import android.util.Patterns
 import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.LiveData
@@ -11,7 +12,7 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 import eu.szwiec.checkittravelkit.util.map
-import eu.szwiec.checkittravelkit.util.zip
+import eu.szwiec.checkittravelkit.util.zipLiveData
 import eu.szwiec.checkittravelkit.vo.Country
 import eu.szwiec.checkittravelkit.vo.Currency
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -64,23 +65,34 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         val country = repository.getCountry(countryName)
         val originCurrencyCode = repository.getOriginCurrencyCode()
 
-        infoData = country.zip(originCurrencyCode).map { pair ->
+        infoData = zipLiveData(country, originCurrencyCode).map { pair ->
             setup(pair)
         }
     }
 
-    private fun setup(pair: Pair<Country, String>) {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setup(pair: Pair<Country, String>) {
         val country = pair.first
         val originCurrencyCode = pair.second
 
         countryName.value = country.name
-        isFavorite.value = preferences.favorites.contains(country.name)
-        if (country.imageUrl.isNotEmpty()) {
-            image.value = country.imageUrl
-        }
+        setupFavorite(country.name)
+        setupImage(country.imageUrl)
 
         val newItems = getNewItems(country, originCurrencyCode)
         items.update(newItems)
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setupFavorite(name: String) {
+        isFavorite.value = preferences.favorites.contains(name)
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setupImage(url: String) {
+        if (Patterns.WEB_URL.matcher(url).matches()) {
+            image.value = url
+        }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
