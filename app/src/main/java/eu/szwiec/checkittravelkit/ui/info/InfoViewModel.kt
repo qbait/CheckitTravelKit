@@ -52,8 +52,10 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
 
     fun toggleFavorite() {
         if (countryName.value.isNotEmpty()) {
-            isFavorite.value = !isFavorite.value
-            if (isFavorite.value) {
+            val updatedFavorite = !isFavorite.value
+            isFavorite.postValue(updatedFavorite)
+
+            if (updatedFavorite) {
                 preferences.addFavorite(countryName.value)
             } else {
                 preferences.removeFavorite(countryName.value)
