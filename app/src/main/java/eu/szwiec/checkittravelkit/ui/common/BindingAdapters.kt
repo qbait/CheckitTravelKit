@@ -2,7 +2,6 @@ package eu.szwiec.checkittravelkit.ui.common
 
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -47,7 +46,7 @@ fun loadImage(view: ImageView, url: String) {
 @BindingAdapter("items")
 fun setItems(view: AutoCompleteTextView, list: List<String>?) {
     if (list != null && list.isNotEmpty()) {
-        val adapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_dropdown_item, list)
+        val adapter = SearchableAdapter(view.context, list)
         view.setAdapter(adapter)
     }
 }
