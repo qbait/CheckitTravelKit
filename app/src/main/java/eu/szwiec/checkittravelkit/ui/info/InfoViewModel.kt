@@ -12,6 +12,7 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.repository.data.Country
 import eu.szwiec.checkittravelkit.repository.data.Currency
+import eu.szwiec.checkittravelkit.repository.data.Telephones
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 import eu.szwiec.checkittravelkit.util.map
 import eu.szwiec.checkittravelkit.util.zipLiveData
@@ -110,11 +111,24 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         items.add(SimpleInfo(formatTapWater(country.tapWater), context.getDrawable(R.drawable.ic_tap)))
         items.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
         items.add(Divider())
-        items.add(TelephonesInfo(formatCallingCode(country.telephones.prefix), country.telephones.policeNumber, country.telephones.ambulanceNumber, context.getDrawable(R.drawable.ic_call)))
+        items.add(getTelephones(country.telephones))
         items.add(Divider())
         items.addAll(getVaccinationItems(country.vaccinations))
 
         return items
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getTelephones(telephones: Telephones): Any {
+        val prefix = formatCallingCode(telephones.prefix)
+        val police = telephones.policeNumber
+        val ambulance = telephones.ambulanceNumber
+
+        if (prefix.isNotEmpty() && police.isNotEmpty() && ambulance.isNotEmpty()) {
+            return TelephonesInfo(prefix, police, ambulance, context.getDrawable(R.drawable.ic_call))
+        } else {
+            return SimpleInfo(context.getString(R.string.no_info_about_telephones), context.getDrawable(R.drawable.ic_call))
+        }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)

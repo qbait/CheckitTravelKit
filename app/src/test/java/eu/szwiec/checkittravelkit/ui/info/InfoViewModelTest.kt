@@ -130,6 +130,26 @@ class InfoViewModelTest : AutoCloseKoinTest() {
     }
 
     @Test
+    fun getTelephonesWhenEmpty() {
+        val telephones = Telephones("", "", "")
+        val item = vm.getTelephones(telephones) as SimpleInfo
+
+        item.text shouldEqual context.getString(R.string.no_info_about_telephones)
+        item.icon.resId shouldEqual R.drawable.ic_call
+    }
+
+    @Test
+    fun getTelephonesWhenNotEmpty() {
+        val telephones = Telephones("48", "111", "222")
+        val item = vm.getTelephones(telephones) as TelephonesInfo
+
+        item.prefix shouldEqual "+48"
+        item.police shouldEqual "111"
+        item.ambulance shouldEqual "222"
+        item.icon.resId shouldEqual R.drawable.ic_call
+    }
+
+    @Test
     fun getVaccinationItemsWhenEmpty() {
         val items = vm.getVaccinationItems(emptyMap())
         val noVaccinations = items.first() as SimpleInfo
@@ -158,7 +178,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
     }
 
     @Test
-    fun formatCallingCode() {
+    fun formatPrefix() {
         vm.formatCallingCode("") shouldEqual ""
         vm.formatCallingCode("xxx") shouldEqual ""
         vm.formatCallingCode("48") shouldEqual "+48"

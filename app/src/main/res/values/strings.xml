@@ -14,6 +14,7 @@
     <string name="no_info_about_tap_water">Sorry, I don\'t have info about tap water.</string>
     <string name="no_info_about_time">Sorry, I don\'t have info about time.</string>
     <string name="no_info_about_visa">Sorry, I don\'t have info about Visa.</string>
+    <string name="no_info_about_telephones">Sorry, I don\'t have info about emergency phone numbers.</string>
     <string name="tap_water_is">Tap water is %1$s</string>
     <string name="electricity">%1$sV %2$sHz</string>
     <string name="calling_code">+%1$s</string>
