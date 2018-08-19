@@ -1,4 +1,4 @@
-package eu.szwiec.checkittravelkit.binding
+package eu.szwiec.checkittravelkit.ui.common
 
 import android.view.LayoutInflater
 import android.view.View

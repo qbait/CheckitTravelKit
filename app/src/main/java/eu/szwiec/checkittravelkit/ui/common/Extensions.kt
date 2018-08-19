@@ -1,4 +1,4 @@
-package eu.szwiec.checkittravelkit.util
+package eu.szwiec.checkittravelkit.ui.common
 
 import android.app.Activity
 import android.content.Context

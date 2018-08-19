@@ -3,8 +3,8 @@ package eu.szwiec.checkittravelkit.di
 import eu.szwiec.checkittravelkit.di.ApiProperties.CURRENCY_CONVERTER_URL
 import eu.szwiec.checkittravelkit.di.ApiProperties.SHERPA_URL
 import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
+import eu.szwiec.checkittravelkit.repository.remote.LiveDataCallAdapterFactory
 import eu.szwiec.checkittravelkit.repository.remote.SherpaService
-import eu.szwiec.checkittravelkit.util.LiveDataCallAdapterFactory
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

@@ -1,11 +1,10 @@
-package eu.szwiec.checkittravelkit.util;
+package eu.szwiec.checkittravelkit.repository.remote;
 
 
 import java.lang.reflect.Type;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.lifecycle.LiveData;
-import eu.szwiec.checkittravelkit.repository.remote.ApiResponse;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Callback;

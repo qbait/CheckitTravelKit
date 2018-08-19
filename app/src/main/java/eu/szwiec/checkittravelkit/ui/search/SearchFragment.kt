@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSearchBinding
+import eu.szwiec.checkittravelkit.ui.common.hideKeyboard
 import eu.szwiec.checkittravelkit.ui.common.navigateToInfo
-import eu.szwiec.checkittravelkit.util.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

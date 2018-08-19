@@ -86,7 +86,7 @@
             android:visibility="gone"
             app:itemBinding="@{favoritesViewModel.itemBind}"
             app:items="@{favoritesViewModel.items}"
-            app:layoutManager="eu.szwiec.checkittravelkit.util.StackFromEndLayoutManager"
+            app:layoutManager="eu.szwiec.checkittravelkit.ui.common.StackFromEndLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
