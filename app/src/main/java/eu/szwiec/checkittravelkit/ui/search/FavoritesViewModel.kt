@@ -13,11 +13,6 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 class FavoritesViewModel(private val context: Context, private val preferences: Preferences) : ViewModel() {
 
-    init {
-        preferences.addFavorite("Poland")
-        preferences.addFavorite("France")
-    }
-
     val header = context.getDrawable(R.drawable.ic_favorite_border_white_24dp)
     val footer = context.getDrawable(android.R.color.transparent)
 
