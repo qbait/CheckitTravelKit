@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import eu.szwiec.checkittravelkit.R
 
 import eu.szwiec.checkittravelkit.databinding.PlugBinding
@@ -39,6 +40,7 @@ fun hideWhenEmpty(view: View, text: String) {
 fun loadImage(view: ImageView, url: String) {
     Glide.with(view)
             .load(url)
+            .transition(withCrossFade())
             .into(view);
 }
 
