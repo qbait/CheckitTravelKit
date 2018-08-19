@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSplashBinding
+import eu.szwiec.checkittravelkit.ui.common.navigateToSearch
 import kotlinx.android.synthetic.main.fragment_splash.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,7 +37,7 @@ class SplashFragment : Fragment() {
             if (isFirstLaunch) {
                 animationView.playAnimation()
             } else {
-                navigateNext()
+                navigateToSearch(animationView)
             }
         })
 
@@ -47,7 +47,7 @@ class SplashFragment : Fragment() {
 
             override fun onAnimationEnd(animation: Animator) {
                 Handler().postDelayed({
-                    navigateNext()
+                    navigateToSearch(animationView)
                 }, 1000)
             }
 
@@ -57,9 +57,5 @@ class SplashFragment : Fragment() {
             override fun onAnimationRepeat(animation: Animator) {
             }
         })
-    }
-
-    private fun navigateNext() {
-        view?.findNavController()?.navigate(R.id.next_action)
     }
 }

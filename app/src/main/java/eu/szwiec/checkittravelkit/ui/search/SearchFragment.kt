@@ -10,9 +10,9 @@ import androidx.constraintlayout.ConstraintSet
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSearchBinding
+import eu.szwiec.checkittravelkit.ui.common.navigateToInfo
 import eu.szwiec.checkittravelkit.util.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -53,7 +53,7 @@ class SearchFragment : Fragment() {
                     destination.requestFocus()
                 }
                 is State.ShowInfo -> {
-                    navigateToInfo(state.countryName)
+                    navigateToInfo(constraintLayout, state.countryName)
                     activity?.hideKeyboard()
                     searchViewModel.setState(State.ChooseDestination)
                 }
@@ -64,11 +64,6 @@ class SearchFragment : Fragment() {
 
         setupOriginListeners()
         setupDestinationListeners()
-    }
-
-    private fun navigateToInfo(countryName: String) {
-        val action = SearchFragmentDirections.nextAction().setCountryId(countryName)
-        constraintLayout.findNavController().navigate(action)
     }
 
     private fun setupOriginListeners() {
