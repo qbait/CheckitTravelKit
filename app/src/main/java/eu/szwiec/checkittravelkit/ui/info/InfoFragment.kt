@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentInfoBinding
+import eu.szwiec.checkittravelkit.ui.common.navigateUp
 import kotlinx.android.synthetic.main.fragment_info.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,7 +31,7 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val countryName = InfoFragmentArgs.fromBundle(arguments).countryId
         toolbar.setNavigationOnClickListener {
-            it.findNavController().navigateUp()
+            navigateUp(it)
         }
 
         viewModel.setup(countryName)

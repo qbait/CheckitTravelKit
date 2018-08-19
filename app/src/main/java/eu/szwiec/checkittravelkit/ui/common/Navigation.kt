@@ -31,3 +31,7 @@ fun navigateToGoogleResults(context: Context, query: String) {
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     context.startActivity(intent)
 }
+
+fun navigateUp(view: View) {
+    view.findNavController().navigateUp()
+}
