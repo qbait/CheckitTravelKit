@@ -1,3 +1,8 @@
+/*
+ * Originally downloaded and forked from https://gist.github.com/fjfish/3024308
+ * More solutions at https://stackoverflow.com/questions/51913375/smarter-results-from-autocompletetextview-in-android?noredirect=1#comment90790211_51913375
+ */
+
 package eu.szwiec.checkittravelkit.ui.common;
 
 import android.content.Context;
@@ -12,32 +17,32 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.VisibleForTesting;
 import eu.szwiec.checkittravelkit.R;
-
 
 public class SearchableAdapter extends BaseAdapter implements Filterable {
 
-    private List<String> originalData = null;
-    private List<String> filteredData = null;
-    private LayoutInflater mInflater;
-    private ItemFilter mFilter = new ItemFilter();
+    private List<String> originalList;
+    private List<String> filteredList;
+    private LayoutInflater inflater;
+    private ItemFilter filter = new ItemFilter();
 
     public SearchableAdapter(Context context, List<String> data) {
-        this.filteredData = data;
-        this.originalData = data;
-        mInflater = LayoutInflater.from(context);
+        this.filteredList = data;
+        this.originalList = data;
+        inflater = LayoutInflater.from(context);
     }
 
     public int getCount() {
-        if (filteredData != null) {
-            return filteredData.size();
+        if (filteredList != null) {
+            return filteredList.size();
         } else {
             return 0;
         }
     }
 
     public Object getItem(int position) {
-        return filteredData.get(position);
+        return filteredList.get(position);
     }
 
     public long getItemId(int position) {
@@ -53,7 +58,7 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
         // to reinflate it. We only inflate a new View when the convertView supplied
         // by ListView is null.
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item, null);
+            convertView = inflater.inflate(R.layout.list_item, null);
 
             // Creates a ViewHolder and store references to the two children views
             // we want to bind data to.
@@ -70,7 +75,7 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
         }
 
         // If weren't re-ordering this you could rely on what you set last time
-        holder.text.setText(filteredData.get(position));
+        holder.text.setText(filteredList.get(position));
 
         return convertView;
     }
@@ -80,33 +85,25 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
     }
 
     public Filter getFilter() {
-        return mFilter;
+        return filter;
     }
 
     private class ItemFilter extends Filter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
-            String filterString = constraint.toString().toLowerCase();
-
             FilterResults results = new FilterResults();
+            List<String> newList = new ArrayList<>();
 
-            final List<String> list = originalData;
-
-            int count = list.size();
-            final ArrayList<String> nlist = new ArrayList<String>(count);
-
-            String filterableString;
-
-            for (int i = 0; i < count; i++) {
-                filterableString = list.get(i);
-                if (filterableString.toLowerCase().contains(filterString)) {
-                    nlist.add(filterableString);
+            for (int i = 0; i < originalList.size(); i++) {
+                String text = originalList.get(i);
+                if (isMatching(text, constraint.toString())) {
+                    newList.add(text);
                 }
             }
 
-            results.values = nlist;
-            results.count = nlist.size();
+            results.values = newList;
+            results.count = newList.size();
 
             return results;
         }
@@ -114,9 +111,27 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredData = (ArrayList<String>) results.values;
+            filteredList = (ArrayList<String>) results.values;
             notifyDataSetChanged();
         }
 
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    boolean isMatching(String text, String constraint) {
+        String text_ = text.toLowerCase();
+        String constraint_ = constraint.toLowerCase();
+
+        if (text_.startsWith(constraint_)) return true;
+        if (firstLetters(text_).contains(constraint_)) return true;
+        return false;
+    }
+
+    private String firstLetters(String input) {
+        String firstLetters = "";
+        for (String word : input.split(" ")) {
+            firstLetters += word.charAt(0);
+        }
+        return firstLetters;
     }
 }
