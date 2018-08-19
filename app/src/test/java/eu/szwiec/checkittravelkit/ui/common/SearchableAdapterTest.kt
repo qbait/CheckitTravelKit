@@ -19,5 +19,6 @@ class SearchableAdapterTest : AutoCloseKoinTest() {
         adapter.isMatching("United Kingdom", "uk") shouldEqual true
         adapter.isMatching("Poland", "ol") shouldEqual false
         adapter.isMatching("Poland", "pol") shouldEqual true
+        adapter.isMatching("Poland", "pland") shouldEqual true
     }
 }

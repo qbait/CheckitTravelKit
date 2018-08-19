@@ -14,6 +14,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import org.simmetrics.metrics.StringMetrics;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +126,8 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
 
         if (text_.startsWith(constraint_)) return true;
         if (firstLetters(text_).contains(constraint_)) return true;
+        if (StringMetrics.levenshtein().compare(text_, constraint_) > 0.5f) return true;
+
         return false;
     }
 

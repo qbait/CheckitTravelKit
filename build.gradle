@@ -47,6 +47,7 @@ task clean(type: Delete) {
  versions.firebase_core = "16.0.0"
  versions.moshi_kotlin = "1.6.0"
  versions.timber = "4.7.1"
+ versions.simmetrics = "4.1.1"
 
  versions.junit = "4.12"
  versions.espresso = "3.0.1"

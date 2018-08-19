@@ -57,6 +57,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$versions.firebase_core"
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
     implementation "com.jakewharton.timber:timber:$versions.timber"
+    implementation "com.github.mpkorstanje:simmetrics-core:$versions.simmetrics"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockito_kotlin"
