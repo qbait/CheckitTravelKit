@@ -8,6 +8,7 @@ import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
+import org.amshove.kluent.shouldBeInstanceOf
 import org.amshove.kluent.shouldEqual
 import org.junit.Rule
 import org.junit.Test
@@ -33,7 +34,7 @@ class SearchViewModelTest : AutoCloseKoinTest() {
         whenever(preferences.origin).thenReturn("")
         vm.initState()
 
-        vm.state.value shouldEqual State.CHOOSE_ORIGIN
+        vm.state.value shouldEqual State.ChooseOrigin
     }
 
     @Test
@@ -41,48 +42,50 @@ class SearchViewModelTest : AutoCloseKoinTest() {
         whenever(preferences.origin).thenReturn("Poland")
         vm.initState()
 
-        vm.state.value shouldEqual State.CHOOSE_DESTINATION
+        vm.state.value shouldEqual State.ChooseDestination
         vm.origin.value shouldEqual preferences.origin
     }
 
     @Test
     fun setState() {
-        vm.setState(State.CHOOSE_ORIGIN)
+        vm.setState(State.ChooseOrigin)
         vm.originHint.value shouldEqual context.getString(R.string.where_are_you_from)
-        vm.state.value shouldEqual State.CHOOSE_ORIGIN
+        vm.state.value shouldEqual State.ChooseOrigin
 
-        vm.setState(State.CHOOSE_DESTINATION)
+        vm.setState(State.ChooseDestination)
         vm.originHint.value shouldEqual ""
 
-        vm.setState(State.SHOW_INFO)
+        vm.setState(State.ShowInfo("Poland"))
         vm.destination.value shouldEqual ""
     }
 
     @Test
     fun submitOrigin() {
         whenever(repository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
-        vm.state.value = State.CHOOSE_ORIGIN
+        val vm = SearchViewModel(context, preferences, repository)
+        vm.state.value = State.ChooseOrigin
 
         vm.origin.value = "Pol"
         vm.submitOrigin()
-        vm.state.value shouldEqual State.CHOOSE_ORIGIN
+        vm.state.value shouldEqual State.ChooseOrigin
 
         vm.origin.value = "Poland"
         vm.submitOrigin()
-        vm.state.value shouldEqual State.CHOOSE_DESTINATION
+        vm.state.value shouldEqual State.ChooseDestination
     }
 
     @Test
     fun submitDestination() {
         whenever(repository.getCountryNames()).thenReturn(NonNullLiveData(listOf("Poland", "Germany")))
-        vm.state.value = State.CHOOSE_DESTINATION
+        val vm = SearchViewModel(context, preferences, repository)
+        vm.state.value = State.ChooseDestination
 
         vm.destination.value = "Ger"
         vm.submitDestination()
-        vm.state.value shouldEqual State.CHOOSE_DESTINATION
+        vm.state.value shouldEqual State.ChooseDestination
 
         vm.destination.value = "Germany"
         vm.submitDestination()
-        vm.state.value shouldEqual State.SHOW_INFO
+        vm.state.value.shouldBeInstanceOf(State.ShowInfo::class)
     }
 }
