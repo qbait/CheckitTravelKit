@@ -16,9 +16,9 @@ interface CountryRepository {
 
 class CountryRepositoryImpl(
         private val appExecutors: AppExecutors,
-        val dao: CountryDao,
-        val jsonReader: CountriesJsonReader,
-        val preferences: Preferences
+        private val dao: CountryDao,
+        private val jsonReader: CountriesJsonReader,
+        private val preferences: Preferences
 ) : CountryRepository {
 
     override fun setup() {

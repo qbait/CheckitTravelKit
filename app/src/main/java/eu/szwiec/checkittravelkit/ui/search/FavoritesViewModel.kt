@@ -11,12 +11,12 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
-class FavoritesViewModel(private val context: Context, private val preferences: Preferences) : ViewModel() {
+class FavoritesViewModel(context: Context, preferences: Preferences) : ViewModel() {
 
-    val header = context.getDrawable(R.drawable.ic_favorite_border_white_24dp)
-    val footer = context.getDrawable(android.R.color.transparent)
+    private val header: Drawable = context.getDrawable(R.drawable.ic_favorite_border_white_24dp)
+    private val footer: Drawable = context.getDrawable(android.R.color.transparent)
 
-    val itemBind = OnItemBindClass<Any>()
+    val itemBind: OnItemBindClass<Any> = OnItemBindClass<Any>()
             .map(FavoriteCountry::class.java, BR.item, R.layout.row_fave_country)
             .map(Drawable::class.java, BR.item, R.layout.row_fave_icon)
 
@@ -26,10 +26,10 @@ class FavoritesViewModel(private val context: Context, private val preferences: 
         }
 
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            if (oldItem is FavoriteCountry && newItem is FavoriteCountry) {
-                return oldItem.name == newItem.name
+            return if (oldItem is FavoriteCountry && newItem is FavoriteCountry) {
+                oldItem.name == newItem.name
             } else {
-                return true
+                true
             }
         }
     })
@@ -37,7 +37,7 @@ class FavoritesViewModel(private val context: Context, private val preferences: 
     val favorites = Transformations.map(preferences.getFavoritesLD()) { favorites ->
         val newItems = getNewItems(favorites, header, footer)
         items.update(newItems)
-    }
+    }!!
 
     fun getNewItems(favorites: Set<String>, header: Any, footer: Any): List<Any> {
         val items = ObservableArrayList<Any>()

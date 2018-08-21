@@ -12,7 +12,7 @@ class MockCurrencyConverterService : CurrencyConverterService {
         val currencyLD = MutableLiveData<ApiResponse<Map<String, Rate>>>()
         val rate = Rate(2.5f)
         val map = mapOf("XXX_XXX" to rate)
-        var apiResponse = ApiResponse(Response.success<Map<String, Rate>>(map))
+        val apiResponse = ApiResponse(Response.success<Map<String, Rate>>(map))
 
         Handler().postDelayed({ currencyLD.postValue(apiResponse) }, 500)
 

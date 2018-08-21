@@ -11,8 +11,7 @@ class CountriesJsonReader(private val context: Context, private val moshi: Moshi
 
     fun getCountries(): List<Country> {
         val json = readFile()
-        val countries = parse(json)
-        return countries
+        return parse(json)
     }
 
     private fun readFile(): String {

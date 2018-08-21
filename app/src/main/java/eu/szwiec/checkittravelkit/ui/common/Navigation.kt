@@ -19,8 +19,8 @@ fun navigateToInfo(view: View, countryName: String) {
 }
 
 fun navigateToDialer(context: Context, number: String) {
-    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number))
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent)
 }
 
@@ -28,7 +28,7 @@ fun navigateToGoogleResults(context: Context, query: String) {
     val escapedQuery = URLEncoder.encode(query, "UTF-8")
     val uri = Uri.parse("http://www.google.com/#q=$escapedQuery")
     val intent = Intent(Intent.ACTION_VIEW, uri)
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent)
 }
 

@@ -40,7 +40,7 @@ fun loadImage(view: ImageView, url: String) {
     Glide.with(view)
             .load(url)
             .transition(withCrossFade())
-            .into(view);
+            .into(view)
 }
 
 @BindingAdapter("items")

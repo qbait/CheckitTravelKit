@@ -5,17 +5,13 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 
-private val KEY_IS_FIRST_LAUNCH = "isFirstLaunch"
-private val KEY_ORIGIN = "origin"
-private val KEY_FAVORITES = "favorites"
+private const val KEY_IS_FIRST_LAUNCH = "isFirstLaunch"
+private const val KEY_ORIGIN = "origin"
+private const val KEY_FAVORITES = "favorites"
 
 class Preferences(context: Context, prefFileName: String) {
 
-    private val prefs: SharedPreferences
-
-    init {
-        prefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE)
-    }
+    private val prefs: SharedPreferences = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE)
 
     var isFirstLaunch: Boolean
         get() = prefs.getBoolean(KEY_IS_FIRST_LAUNCH, true)

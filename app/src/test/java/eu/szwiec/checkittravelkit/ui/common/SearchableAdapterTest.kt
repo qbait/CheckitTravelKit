@@ -11,8 +11,8 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class SearchableAdapterTest : AutoCloseKoinTest() {
 
-    val context: Context by inject()
-    val adapter = SearchableAdapter(context, emptyList())
+    private val context: Context by inject()
+    private val adapter = SearchableAdapter(context, emptyList())
 
     @Test
     fun isMatching() {

@@ -14,7 +14,7 @@ sealed class State {
     data class ShowInfo(val countryName: String) : State()
 }
 
-class SearchViewModel(private val context: Context, private val preferences: Preferences, private val repository: CountryRepository) : ViewModel() {
+class SearchViewModel(private val context: Context, private val preferences: Preferences, repository: CountryRepository) : ViewModel() {
 
     val state = MutableLiveData<State>()
     val origin = NonNullLiveData("")

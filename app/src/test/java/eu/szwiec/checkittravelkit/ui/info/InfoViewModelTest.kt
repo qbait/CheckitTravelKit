@@ -26,11 +26,11 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class InfoViewModelTest : AutoCloseKoinTest() {
 
-    val context: Context by inject()
-    val preferences = mock<Preferences>()
-    val repository = mock<CountryRepository>()
-    val plugProvider: PlugProvider by inject()
-    val vm = InfoViewModel(context, preferences, repository, plugProvider)
+    private val context: Context by inject()
+    private val preferences = mock<Preferences>()
+    private val repository = mock<CountryRepository>()
+    private val plugProvider: PlugProvider by inject()
+    private val vm = InfoViewModel(context, preferences, repository, plugProvider)
 
     @Test
     fun setup() {
@@ -106,19 +106,19 @@ class InfoViewModelTest : AutoCloseKoinTest() {
 
         items.size shouldEqual polandItemsSize
 
-        val time = items.get(0) as SimpleInfo
-        val currency = items.get(1) as SimpleInfo
-        val visa = items.get(2) as SimpleInfo
-        val tapWater = items.get(3) as SimpleInfo
-        val electricity = items.get(4) as ElectricityInfo
+        val time = items[0] as SimpleInfo
+        val currency = items[1] as SimpleInfo
+        val visa = items[2] as SimpleInfo
+        val tapWater = items[3] as SimpleInfo
+        val electricity = items[4] as ElectricityInfo
 
-        items.get(5).shouldBeInstanceOf(Divider::class)
+        items[5].shouldBeInstanceOf(Divider::class)
 
-        val telephones = items.get(6) as TelephonesInfo
+        val telephones = items[6] as TelephonesInfo
 
-        items.get(7).shouldBeInstanceOf(Divider::class)
+        items[7].shouldBeInstanceOf(Divider::class)
 
-        val vaccination = items.get(8) as SimpleInfo
+        val vaccination = items[8] as SimpleInfo
 
         time.icon.resId shouldEqual R.drawable.ic_time
         currency.icon.resId shouldEqual R.drawable.ic_currency
@@ -162,11 +162,11 @@ class InfoViewModelTest : AutoCloseKoinTest() {
         val map = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you")
         val vaccinations = vm.getVaccinationItems(map)
 
-        val info = vaccinations.get(0) as SimpleInfo
+        val info = vaccinations[0] as SimpleInfo
         info.text shouldEqual context.getString(R.string.you_may_need_vaccinations_for)
         info.icon.resId shouldEqual R.drawable.ic_vaccine
 
-        val vaccination = vaccinations.get(1) as VaccinationInfo
+        val vaccination = vaccinations[1] as VaccinationInfo
         vaccination.title shouldEqual "Hepatitis B"
         vaccination.description shouldEqual "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"
     }

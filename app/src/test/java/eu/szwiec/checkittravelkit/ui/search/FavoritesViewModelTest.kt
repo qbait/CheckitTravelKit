@@ -9,12 +9,12 @@ import org.junit.Test
 
 class FavoritesViewModelTest {
 
-    val header = "header"
-    val footer = "footer";
+    private val header = "header"
+    private val footer = "footer"
 
-    val context = mock<Context>()
-    val preferences = mock<Preferences>()
-    val vm = FavoritesViewModel(context, preferences)
+    private val context = mock<Context>()
+    private val preferences = mock<Preferences>()
+    private val vm = FavoritesViewModel(context, preferences)
 
     @Test
     fun noItemsWhenNoFavorites() {

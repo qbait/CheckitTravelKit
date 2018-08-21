@@ -17,13 +17,13 @@ class MockSherpaService(val context: Context, val moshi: Moshi, val file: String
         val visaJson = readFile(context, file)
         val visaRequirements = parseVisaRequirements(visaJson)
 
-        var apiResponse = ApiResponse(Response.success<List<VisaRequirement>>(visaRequirements))
+        val apiResponse = ApiResponse(Response.success<List<VisaRequirement>>(visaRequirements))
         liveData.value = apiResponse
 
         return liveData
     }
 
-    fun parseVisaRequirements(json: String): List<VisaRequirement> {
+    private fun parseVisaRequirements(json: String): List<VisaRequirement> {
         val listOfVisaRequirementsType = Types.newParameterizedType(List::class.java, VisaRequirement::class.java)
         val listOfVisaRequirementsAdapter = moshi.adapter<List<VisaRequirement>>(listOfVisaRequirementsType)
         return listOfVisaRequirementsAdapter.fromJson(json).orEmpty()

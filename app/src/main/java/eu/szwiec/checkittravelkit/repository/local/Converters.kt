@@ -4,14 +4,14 @@ import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-class Converters() {
+class Converters {
 
-    val moshi = Moshi.Builder().build()
+    val moshi: Moshi = Moshi.Builder().build()
 
-    val listOfStringsType = Types.newParameterizedType(List::class.java, String::class.java)
-    val listOfStringsAdapter = moshi.adapter<List<String>>(listOfStringsType)
-    val mapOfStringsType = Types.newParameterizedType(Map::class.java, String::class.java, String::class.java)
-    val mapOfStringsAdapter = moshi.adapter<Map<String, String>>(mapOfStringsType)
+    private val listOfStringsType = Types.newParameterizedType(List::class.java, String::class.java)
+    private val listOfStringsAdapter = moshi.adapter<List<String>>(listOfStringsType)
+    private val mapOfStringsType = Types.newParameterizedType(Map::class.java, String::class.java, String::class.java)
+    private val mapOfStringsAdapter = moshi.adapter<Map<String, String>>(mapOfStringsType)
 
     @TypeConverter
     fun stringToList(data: String): List<String> {

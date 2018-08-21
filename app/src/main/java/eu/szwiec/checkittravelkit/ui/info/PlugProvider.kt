@@ -7,7 +7,7 @@ class PlugProvider(private val context: Context) {
 
     fun provide(symbol: String): Plug {
         val defaultPlug = context.getDrawable(R.drawable.ic_plug)
-        val resId = map.get(symbol)
+        val resId = map[symbol]
         val icon = if (resId != null) context.getDrawable(resId) else defaultPlug
         return Plug(symbol, icon)
     }

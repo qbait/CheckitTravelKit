@@ -36,20 +36,20 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
 
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            if (oldItem is SimpleInfo && newItem is SimpleInfo) {
-                return oldItem.text == newItem.text
+            return if (oldItem is SimpleInfo && newItem is SimpleInfo) {
+                oldItem.text == newItem.text
             } else {
-                return true
+                true
             }
         }
     })
 
-    val itemBind = OnItemBindClass<Any>()
+    val itemBind: OnItemBindClass<Any> = OnItemBindClass<Any>()
             .map(SimpleInfo::class.java, BR.item, R.layout.row_simple_info)
             .map(ElectricityInfo::class.java, BR.item, R.layout.row_electricity_info)
             .map(TelephonesInfo::class.java, BR.item, R.layout.row_telephones_info)
             .map(VaccinationInfo::class.java, BR.item, R.layout.row_vaccination_info)
-            .map(Divider::class.java, ItemBinding.VAR_NONE, R.layout.info_divider);
+            .map(Divider::class.java, ItemBinding.VAR_NONE, R.layout.info_divider)
 
     fun toggleFavorite() {
         if (countryName.value.isNotEmpty()) {
@@ -124,10 +124,10 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         val police = telephones.policeNumber
         val ambulance = telephones.ambulanceNumber
 
-        if (prefix.isNotEmpty() && police.isNotEmpty() && ambulance.isNotEmpty()) {
-            return TelephonesInfo(prefix, police, ambulance, context.getDrawable(R.drawable.ic_call))
+        return if (prefix.isNotEmpty() && police.isNotEmpty() && ambulance.isNotEmpty()) {
+            TelephonesInfo(prefix, police, ambulance, context.getDrawable(R.drawable.ic_call))
         } else {
-            return SimpleInfo(context.getString(R.string.no_info_about_telephones), context.getDrawable(R.drawable.ic_call))
+            SimpleInfo(context.getString(R.string.no_info_about_telephones), context.getDrawable(R.drawable.ic_call))
         }
     }
 
@@ -187,13 +187,13 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getCurrentTime(timezoneId: String): String {
-        try {
+        return try {
             val timeZone = ZoneId.of(timezoneId)
             val zdt = ZonedDateTime.now(timeZone)
             val timePattern = context.getString(R.string.time_pattern)
-            return zdt.toLocalTime().format(DateTimeFormatter.ofPattern(timePattern))
+            zdt.toLocalTime().format(DateTimeFormatter.ofPattern(timePattern))
         } catch (exception: DateTimeException) {
-            return ""
+            ""
         }
     }
 }

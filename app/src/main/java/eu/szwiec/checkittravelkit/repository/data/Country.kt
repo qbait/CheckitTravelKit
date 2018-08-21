@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.squareup.moshi.Json
 import eu.szwiec.checkittravelkit.repository.local.Converters
 
-@Entity(primaryKeys = arrayOf("name"))
+@Entity(primaryKeys = ["name"])
 @TypeConverters(Converters::class)
 data class Country(
 

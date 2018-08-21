@@ -24,10 +24,10 @@ class SearchViewModelTest : AutoCloseKoinTest() {
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
 
-    val context: Context by inject()
-    val preferences = mock<Preferences>()
-    val repository = mock<CountryRepository>()
-    val vm = SearchViewModel(context, preferences, repository)
+    private val context: Context by inject()
+    private val preferences = mock<Preferences>()
+    private val repository = mock<CountryRepository>()
+    private val vm = SearchViewModel(context, preferences, repository)
 
     @Test
     fun initStateWhenEmptyOrigin() {

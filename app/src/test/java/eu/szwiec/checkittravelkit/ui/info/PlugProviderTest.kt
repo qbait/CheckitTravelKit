@@ -13,8 +13,8 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class PlugProviderTest : AutoCloseKoinTest() {
 
-    val context: Context by inject()
-    val plugProvider = PlugProvider(context)
+    private val context: Context by inject()
+    private val plugProvider = PlugProvider(context)
 
     @Test
     fun provideWhenPlugNotExists() {
@@ -27,10 +27,10 @@ class PlugProviderTest : AutoCloseKoinTest() {
 
     @Test
     fun provideWhenPlugExists() {
-        val A = "A"
-        val plug = plugProvider.provide(A)
+        val a = "A"
+        val plug = plugProvider.provide(a)
 
-        plug.symbol shouldEqual A
+        plug.symbol shouldEqual a
         plug.icon.resId shouldEqual R.drawable.plug_a
     }
 }
