@@ -21,8 +21,6 @@ class SearchFragment : Fragment() {
 
     private val searchViewModel: SearchViewModel by viewModel()
     private val favoritesViewModel: FavoritesViewModel by viewModel()
-    private val constraintSetOnlyNationality = ConstraintSet()
-    private val constraintSetAllViews = ConstraintSet()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -38,6 +36,9 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val constraintSetOnlyNationality = ConstraintSet()
+        val constraintSetAllViews = ConstraintSet()
 
         constraintSetOnlyNationality.clone(context, R.layout.fragment_search)
         constraintSetAllViews.clone(context, R.layout.fragment_search_alt)
