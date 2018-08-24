@@ -8,12 +8,9 @@ import retrofit2.Response
 
 class MockCurrencyConverterService : CurrencyConverterService {
 
-    override fun convert(from_to: String, compact: String): LiveData<ApiResponse<Map<String, Rate>>> {
-        val currencyLD = MutableLiveData<ApiResponse<Map<String, Rate>>>()
-        val rate = Rate(2.5f)
-        val map = mapOf("XXX_XXX" to rate)
-        val apiResponse = ApiResponse(Response.success<Map<String, Rate>>(map))
-
+    override fun convert(from_to: String, compact: String): LiveData<ApiResponse<Rate>> {
+        val currencyLD = MutableLiveData<ApiResponse<Rate>>()
+        val apiResponse = ApiResponse(Response.success(Rate(0.5f, "PLN")))
         Handler().postDelayed({ currencyLD.postValue(apiResponse) }, 500)
 
         return currencyLD

@@ -3,10 +3,7 @@ package eu.szwiec.checkittravelkit.repository
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import eu.szwiec.checkittravelkit.repository.data.Country
-import eu.szwiec.checkittravelkit.repository.data.Currency
-import eu.szwiec.checkittravelkit.repository.data.Electricity
-import eu.szwiec.checkittravelkit.repository.data.Telephones
+import eu.szwiec.checkittravelkit.repository.data.*
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 
 class MockCountryRepository : CountryRepository {
@@ -42,7 +39,10 @@ class MockCountryRepository : CountryRepository {
                         code = "PLN",
                         name = "Polish zloty",
                         symbol = "zł",
-                        exchangeRate = 0.2F
+                        rate = Rate(
+                                value = 0.2f,
+                                fromSymbol = "GBP"
+                        )
                 )
         )
 

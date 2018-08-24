@@ -34,8 +34,8 @@ class InfoFragment : Fragment() {
             navigateUp(it)
         }
 
-        viewModel.getOriginAndDestination(countryName).observe(this, Observer { pair ->
-            viewModel.setup(pair)
+        viewModel.getCountry(countryName).observe(this, Observer { country ->
+            viewModel.setup(country)
         })
     }
 }
