@@ -23,7 +23,7 @@ val appModule = module {
     viewModel { InfoViewModel(get(), get(), get(), get()) }
 
     single { Preferences(get(), "prefs") }
-    single { CountryRepositoryImpl(get(), get(), get(), get()) as CountryRepository }
+    single { CountryRepositoryImpl(get(), get(), get(), get(), get(), get(), get()) as CountryRepository }
     single { PlugProvider(get()) }
     single { AppExecutors() }
     single { createMoshi() }

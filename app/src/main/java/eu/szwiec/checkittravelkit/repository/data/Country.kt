@@ -42,4 +42,19 @@ data class Country(
 
         @Json(name = "visa")
         var visa: String = ""
-)
+) {
+
+    fun update(rate: Rate?): Country {
+        if (rate != null) {
+            currency.rate = Rate(rate.value, rate.fromSymbol)
+        }
+        return this
+    }
+
+    fun update(visa: String?): Country {
+        if(visa != null) {
+            this.visa = visa
+        }
+        return this
+    }
+}
