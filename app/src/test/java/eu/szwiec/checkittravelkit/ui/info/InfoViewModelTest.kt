@@ -37,7 +37,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
         val isFavoriteObserver = mock<Observer<Boolean>>()
         vm.isFavorite.observeForever(isFavoriteObserver)
 
-        vm.setup(Pair(poland, "GBP"))
+        vm.setup(Pair(poland, poland))
 
         vm.countryName.value shouldEqual poland.name
         vm.image.value shouldEqual poland.imageUrl

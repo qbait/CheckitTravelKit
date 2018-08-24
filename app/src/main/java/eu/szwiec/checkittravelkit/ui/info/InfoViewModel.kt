@@ -14,8 +14,7 @@ import eu.szwiec.checkittravelkit.repository.data.Country
 import eu.szwiec.checkittravelkit.repository.data.Currency
 import eu.szwiec.checkittravelkit.repository.data.Telephones
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
-import eu.szwiec.checkittravelkit.util.map
-import eu.szwiec.checkittravelkit.util.zipLiveData
+import eu.szwiec.checkittravelkit.util.combineAndCompute
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
@@ -29,7 +28,6 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     val isFavorite = NonNullLiveData(false)
     val countryName = NonNullLiveData("")
     val image = NonNullLiveData("")
-    lateinit var infoData: LiveData<Any>
     val items: DiffObservableList<Any> = DiffObservableList(object : DiffObservableList.Callback<Any> {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return areContentsTheSame(oldItem, newItem)
@@ -51,6 +49,15 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
             .map(VaccinationInfo::class.java, BR.item, R.layout.row_vaccination_info)
             .map(Divider::class.java, ItemBinding.VAR_NONE, R.layout.info_divider)
 
+    fun getOriginAndDestination(destinationName: String): LiveData<Pair<Country, Country>> {
+        val origin = repository.getCountry(preferences.origin)
+        val destination = repository.getCountry(destinationName)
+
+        return origin.combineAndCompute(destination) { origin, destination ->
+            Pair(origin, destination)
+        }
+    }
+
     fun toggleFavorite() {
         if (countryName.value.isNotEmpty()) {
             val updatedFavorite = !isFavorite.value
@@ -64,25 +71,16 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
     }
 
-    fun setup(countryName: String) {
-        val country = repository.getCountry(countryName)
-        val originCurrencyCode = repository.getOriginCurrencyCode()
-
-        infoData = zipLiveData(country, originCurrencyCode).map { pair ->
-            setup(pair)
-        }
-    }
-
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun setup(pair: Pair<Country, String>) {
-        val country = pair.first
-        val originCurrencyCode = pair.second
+    fun setup(pair: Pair<Country, Country>) {
+        val origin = pair.first
+        val destination = pair.second
 
-        countryName.value = country.name
-        setupFavorite(country.name)
-        setupImage(country.imageUrl)
+        countryName.value = destination.name
+        setupFavorite(destination.name)
+        setupImage(destination.imageUrl)
 
-        val newItems = getNewItems(country, originCurrencyCode)
+        val newItems = getNewItems(destination, origin.currency.code)
         items.update(newItems)
     }
 
