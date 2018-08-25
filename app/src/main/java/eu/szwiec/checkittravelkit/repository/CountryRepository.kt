@@ -52,6 +52,7 @@ class CountryRepositoryImpl(
         val dbSource = dao.findByName(name)
 
         result.addSource(countrySource) { country ->
+            Timber.d("onChanged country: name=%s, visa=%s, rate=%s", country.name, country.visa, country.currency.rate)
             result.removeSource(countrySource)
             result.value = country
 
@@ -79,7 +80,7 @@ class CountryRepositoryImpl(
 
                 if (shouldFetchVisa(country, origin)) {
                     result.addSource(visaSource) { response ->
-                        result.removeSource(currencyConverterSource)
+                        result.removeSource(visaSource)
                         when (response) {
                             is ApiSuccessResponse -> {
                                 val visa = Visa(response.body.info, origin.id, System.currentTimeMillis())
@@ -95,9 +96,7 @@ class CountryRepositoryImpl(
             }
         }
 
-        result.addSource(dbSource) { country ->
-            result.value = country
-        }
+        result.addSource(dbSource) { country -> result.value = country }
 
         return result
     }
@@ -106,24 +105,24 @@ class CountryRepositoryImpl(
     fun shouldFetchVisa(country: Country, origin: Country): Boolean {
         val now = System.currentTimeMillis()
         val lastUpdate = country.visa.lastUpdate
-        val oneDay = TimeUnit.DAYS.toMillis(1)
+        val oneMonth = TimeUnit.DAYS.toMillis(30)
 
         val visaOrigin = country.visa.fromCountryId
         val currentOrigin = origin.id
 
-        return now - lastUpdate > oneDay || visaOrigin != currentOrigin
+        return now - lastUpdate > oneMonth || visaOrigin != currentOrigin
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun shouldFetchRate(country: Country, origin: Country): Boolean {
         val now = System.currentTimeMillis()
         val lastUpdate = country.currency.rate.lastUpdate
-        val oneMonth = TimeUnit.DAYS.toMillis(30)
+        val oneDay = TimeUnit.DAYS.toMillis(1)
 
         val rateOrigin = country.currency.rate.fromCurrencyCode
         val currentOrigin = origin.currency.code
 
-        return now - lastUpdate > oneMonth || rateOrigin != currentOrigin
+        return now - lastUpdate > oneDay || rateOrigin != currentOrigin
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)

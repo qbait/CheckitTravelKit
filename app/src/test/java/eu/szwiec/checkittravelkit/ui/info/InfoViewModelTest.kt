@@ -12,6 +12,7 @@ import eu.szwiec.checkittravelkit.util.isValidFormat
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.repository.data.*
+import eu.szwiec.checkittravelkit.util.poland
 import eu.szwiec.checkittravelkit.util.resId
 import org.amshove.kluent.*
 import org.junit.Test
@@ -254,31 +255,5 @@ class InfoViewModelTest : AutoCloseKoinTest() {
         vm.formatCurrency(currency) shouldEqual expected
     }
 }
-
-val poland = Country(
-        id = "PL",
-        name = "Poland",
-        timezone = "Europe/Warsaw",
-        tapWater = "safe",
-        vaccinations = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"),
-        imageUrl = "https://www.dropbox.com/s/5b06v8pgg4ifxy0/poland.jpg?dl=1",
-        visa = Visa("Not required"),
-        electricity = Electricity(
-                voltage = "230",
-                frequency = "50",
-                plugs = listOf("C", "E")
-        ),
-        telephones = Telephones(
-                policeNumber = "112",
-                ambulanceNumber = "112",
-                prefix = "48"
-        ),
-        currency = Currency(
-                code = "PLN",
-                name = "Polish zloty",
-                symbol = "zł",
-                rate = Rate(0.2)
-        )
-)
 
 const val polandItemsSize = 10
