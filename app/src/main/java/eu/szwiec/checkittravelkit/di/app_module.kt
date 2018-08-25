@@ -5,6 +5,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.repository.CountryRepositoryImpl
+import eu.szwiec.checkittravelkit.repository.remote.SherpaAuthorization
 import eu.szwiec.checkittravelkit.ui.info.InfoViewModel
 import eu.szwiec.checkittravelkit.ui.info.PlugProvider
 import eu.szwiec.checkittravelkit.ui.search.FavoritesViewModel
@@ -24,6 +25,7 @@ val appModule = module {
 
     single { Preferences(get(), "prefs") }
     single { CountryRepositoryImpl(get(), get(), get(), get(), get(), get(), get()) as CountryRepository }
+    single { SherpaAuthorization(get()) }
     single { PlugProvider(get()) }
     single { AppExecutors() }
     single { createMoshi() }

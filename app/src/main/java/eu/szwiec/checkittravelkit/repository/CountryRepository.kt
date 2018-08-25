@@ -1,20 +1,15 @@
 package eu.szwiec.checkittravelkit.repository
 
-import android.content.Context
-import android.util.Base64
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.data.Country
 import eu.szwiec.checkittravelkit.repository.data.Rate
 import eu.szwiec.checkittravelkit.repository.data.Visa
 import eu.szwiec.checkittravelkit.repository.local.CountriesJsonReader
 import eu.szwiec.checkittravelkit.repository.local.CountryDao
-import eu.szwiec.checkittravelkit.repository.remote.ApiErrorResponse
-import eu.szwiec.checkittravelkit.repository.remote.ApiSuccessResponse
-import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
-import eu.szwiec.checkittravelkit.repository.remote.SherpaService
+import eu.szwiec.checkittravelkit.repository.remote.*
 import eu.szwiec.checkittravelkit.util.AppExecutors
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -26,14 +21,14 @@ interface CountryRepository {
 }
 
 class CountryRepositoryImpl(
-        private val context: Context,
         private val appExecutors: AppExecutors,
         private val dao: CountryDao,
         private val jsonReader: CountriesJsonReader,
         private val sherpaService: SherpaService,
         private val currencyConverterService: CurrencyConverterService,
-        private val preferences: Preferences
-) : CountryRepository {
+        private val preferences: Preferences,
+        private val sherpaAuthorization: SherpaAuthorization
+        ) : CountryRepository {
 
     override fun setup() {
         appExecutors.diskIO().execute {
@@ -64,7 +59,7 @@ class CountryRepositoryImpl(
                 result.removeSource(originSource)
 
                 val currencyConverterSource = currencyConverterService.convert(currencyFromTo(origin, country), "y")
-                val visaSource = sherpaService.visaRequirements(auth(), visaFromTo(origin, country))
+                val visaSource = sherpaService.visaRequirements(sherpaAuthorization.getBasic(), visaFromTo(origin, country))
 
                 if (shouldFetchRate(country, origin)) {
                     result.addSource(currencyConverterSource) { response ->
@@ -107,7 +102,8 @@ class CountryRepositoryImpl(
         return result
     }
 
-    private fun shouldFetchVisa(country: Country, origin: Country): Boolean {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun shouldFetchVisa(country: Country, origin: Country): Boolean {
         val now = System.currentTimeMillis()
         val lastUpdate = country.visa.lastUpdate
         val oneDay = TimeUnit.DAYS.toMillis(1)
@@ -118,7 +114,8 @@ class CountryRepositoryImpl(
         return now - lastUpdate > oneDay || visaOrigin != currentOrigin
     }
 
-    private fun shouldFetchRate(country: Country, origin: Country): Boolean {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun shouldFetchRate(country: Country, origin: Country): Boolean {
         val now = System.currentTimeMillis()
         val lastUpdate = country.currency.rate.lastUpdate
         val oneMonth = TimeUnit.DAYS.toMillis(30)
@@ -129,21 +126,14 @@ class CountryRepositoryImpl(
         return now - lastUpdate > oneMonth || rateOrigin != currentOrigin
     }
 
-    private fun currencyFromTo(from: Country, to: Country): String {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun currencyFromTo(from: Country, to: Country): String {
         return "${from.currency.code}_${to.currency.code}"
     }
 
-    private fun visaFromTo(from: Country, to: Country): String {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun visaFromTo(from: Country, to: Country): String {
         return "${from.id}-${to.id}"
-    }
-
-    private fun auth(): String {
-        val username = context.getString(R.string.sherpa_username)
-        val password = context.getString(R.string.sherpa_password)
-        val credentials = "$username:$password"
-        val basic = "Basic " + Base64.encodeToString(credentials.toByteArray(), Base64.NO_WRAP)
-
-        return basic
     }
 
 }

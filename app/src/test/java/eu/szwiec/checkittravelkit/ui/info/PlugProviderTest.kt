@@ -2,7 +2,7 @@ package eu.szwiec.checkittravelkit.ui.info
 
 import android.content.Context
 import eu.szwiec.checkittravelkit.R
-import eu.szwiec.checkittravelkit.resId
+import eu.szwiec.checkittravelkit.util.resId
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 import org.junit.runner.RunWith

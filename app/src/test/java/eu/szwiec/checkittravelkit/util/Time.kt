@@ -1,7 +1,5 @@
-package eu.szwiec.checkittravelkit
+package eu.szwiec.checkittravelkit.util
 
-import android.graphics.drawable.Drawable
-import org.robolectric.Shadows
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
@@ -34,6 +32,3 @@ fun isValidFormat(format: String, value: String): Boolean {
 
     return false
 }
-
-val Drawable.resId: Int
-    get() = Shadows.shadowOf(this).createdFromResId
