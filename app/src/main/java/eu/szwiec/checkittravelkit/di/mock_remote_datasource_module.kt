@@ -8,5 +8,5 @@ import org.koin.dsl.module.module
 
 val mockRemoteDataSourceModule = module {
     single { MockCurrencyConverterService() as CurrencyConverterService }
-    single { MockSherpaService(get(), get(), "visa.json") as SherpaService }
+    single { MockSherpaService() as SherpaService }
 }
