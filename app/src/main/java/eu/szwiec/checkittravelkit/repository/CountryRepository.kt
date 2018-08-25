@@ -66,7 +66,7 @@ class CountryRepositoryImpl(
                 val currencyConverterSource = currencyConverterService.convert(currencyFromTo(origin, country), "y")
                 val visaSource = sherpaService.visaRequirements(auth(), visaFromTo(origin, country))
 
-                if (shouldFetchRate(country)) {
+                if (shouldFetchRate(country, origin)) {
                     result.addSource(currencyConverterSource) { response ->
                         result.removeSource(currencyConverterSource)
                         when (response) {
@@ -82,7 +82,7 @@ class CountryRepositoryImpl(
                     }
                 }
 
-                if (shouldFetchVisa(country)) {
+                if (shouldFetchVisa(country, origin)) {
                     result.addSource(visaSource) { response ->
                         result.removeSource(currencyConverterSource)
                         when (response) {
@@ -107,20 +107,26 @@ class CountryRepositoryImpl(
         return result
     }
 
-    private fun shouldFetchVisa(country: Country): Boolean {
+    private fun shouldFetchVisa(country: Country, origin: Country): Boolean {
         val now = System.currentTimeMillis()
         val lastUpdate = country.visa.lastUpdate
         val oneDay = TimeUnit.DAYS.toMillis(1)
 
-        return now - lastUpdate > oneDay
+        val visaOrigin = country.visa.fromCountryId
+        val currentOrigin = origin.id
+
+        return now - lastUpdate > oneDay || visaOrigin != currentOrigin
     }
 
-    private fun shouldFetchRate(country: Country): Boolean {
+    private fun shouldFetchRate(country: Country, origin: Country): Boolean {
         val now = System.currentTimeMillis()
         val lastUpdate = country.currency.rate.lastUpdate
         val oneMonth = TimeUnit.DAYS.toMillis(30)
 
-        return now - lastUpdate > oneMonth
+        val rateOrigin = country.currency.rate.fromCurrencyCode
+        val currentOrigin = origin.currency.code
+
+        return now - lastUpdate > oneMonth || rateOrigin != currentOrigin
     }
 
     private fun currencyFromTo(from: Country, to: Country): String {
