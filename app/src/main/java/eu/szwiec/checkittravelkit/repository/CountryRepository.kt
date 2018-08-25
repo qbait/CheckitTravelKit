@@ -84,7 +84,7 @@ class CountryRepositoryImpl(
         }
 
         result.addSource(countrySource2) { country ->
-            if( country.currency.rate.value != 0.0f && country.visa.isNotEmpty() ) {
+            if( country.currency.rate.lastUpdate != 0L && country.visa.lastUpdate != 0L ) {
                 result.value = country
                 result.removeSource(countrySource)
             }

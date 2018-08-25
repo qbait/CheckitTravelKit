@@ -15,5 +15,5 @@ data class Currency(
 
         @Embedded(prefix = "rate_")
         @Json(name = "rate")
-        var rate: Rate = Rate(0.0f, "")
+        var rate: Rate = Rate()
 )

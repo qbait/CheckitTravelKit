@@ -4,6 +4,7 @@ import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import eu.szwiec.checkittravelkit.repository.data.*
+import eu.szwiec.checkittravelkit.repository.data.Currency
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 
 class MockCountryRepository : CountryRepository {
@@ -24,7 +25,7 @@ class MockCountryRepository : CountryRepository {
                 tapWater = "safe",
                 vaccinations = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"),
                 imageUrl = "https://www.dropbox.com/s/5b06v8pgg4ifxy0/poland.jpg?dl=1",
-                visa = "Not required",
+                visa = Visa("Not required", "UK", 0),
                 electricity = Electricity(
                         voltage = "230",
                         frequency = "50",
@@ -41,7 +42,8 @@ class MockCountryRepository : CountryRepository {
                         symbol = "zł",
                         rate = Rate(
                                 value = 0.2f,
-                                fromSymbol = "GBP"
+                                fromCurrencyCode = "GBP",
+                                lastUpdate = 0
                         )
                 )
         )

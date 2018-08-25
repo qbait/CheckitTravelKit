@@ -40,18 +40,19 @@ data class Country(
         @Json(name = "image_url")
         val imageUrl: String = "",
 
+        @Embedded(prefix = "visa_")
         @Json(name = "visa")
-        var visa: String = ""
+        var visa: Visa = Visa()
 ) {
 
     fun update(rate: Rate?): Country {
         if (rate != null) {
-            currency.rate = Rate(rate.value, rate.fromSymbol)
+            currency.rate = rate
         }
         return this
     }
 
-    fun update(visa: String?): Country {
+    fun update(visa: Visa?): Country {
         if(visa != null) {
             this.visa = visa
         }
