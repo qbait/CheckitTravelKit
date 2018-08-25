@@ -6,13 +6,18 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 import org.amshove.kluent.shouldBeEmpty
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.koin.standalone.inject
+import org.koin.test.AutoCloseKoinTest
+import org.robolectric.RobolectricTestRunner
 
-class FavoritesViewModelTest {
+@RunWith(RobolectricTestRunner::class)
+class FavoritesViewModelTest : AutoCloseKoinTest() {
 
     private val header = "header"
     private val footer = "footer"
 
-    private val context = mock<Context>()
+    private val context: Context by inject()
     private val preferences = mock<Preferences>()
     private val vm = FavoritesViewModel(context, preferences)
 

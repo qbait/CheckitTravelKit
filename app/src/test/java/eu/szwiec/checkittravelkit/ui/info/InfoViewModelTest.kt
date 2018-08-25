@@ -11,10 +11,7 @@ import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.isValidFormat
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
-import eu.szwiec.checkittravelkit.repository.data.Country
-import eu.szwiec.checkittravelkit.repository.data.Currency
-import eu.szwiec.checkittravelkit.repository.data.Electricity
-import eu.szwiec.checkittravelkit.repository.data.Telephones
+import eu.szwiec.checkittravelkit.repository.data.*
 import eu.szwiec.checkittravelkit.resId
 import org.amshove.kluent.*
 import org.junit.Test
@@ -37,7 +34,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
         val isFavoriteObserver = mock<Observer<Boolean>>()
         vm.isFavorite.observeForever(isFavoriteObserver)
 
-        vm.setup(Pair(poland, poland))
+        vm.setup(poland)
 
         vm.countryName.value shouldEqual poland.name
         vm.image.value shouldEqual poland.imageUrl
@@ -102,7 +99,7 @@ class InfoViewModelTest : AutoCloseKoinTest() {
     @Test
     fun infoItemsAreShownCorrectly() {
 
-        val items = vm.getNewItems(poland, "GBP")
+        val items = vm.getNewItems(poland)
 
         items.size shouldEqual polandItemsSize
 
@@ -173,8 +170,8 @@ class InfoViewModelTest : AutoCloseKoinTest() {
 
     @Test
     fun formatVisa() {
-        vm.formatVisa("You need visa") shouldEqual "You need visa"
-        vm.formatVisa("") shouldEqual context.getString(R.string.no_info_about_visa)
+        vm.formatVisa(Visa(info = "You need visa")) shouldEqual "You need visa"
+        vm.formatVisa(Visa(info = "")) shouldEqual context.getString(R.string.no_info_about_visa)
     }
 
     @Test
@@ -224,40 +221,37 @@ class InfoViewModelTest : AutoCloseKoinTest() {
 
     @Test
     fun formatCurrency() {
-        val originCurrencyCode = "PLN"
-        val currency = Currency(code = "GBP", name = "British Pound", symbol = "£", exchangeRate = 4.84F)
+        val currency = Currency(code = "GBP", name = "British Pound", symbol = "£", rate = Rate(value = 4.84, fromCurrencyCode = "PLN"))
 
         val expected = """
             British Pound is the currency
             1 PLN = 4.84 GBP
         """.trimIndent()
 
-        vm.formatCurrency(currency, originCurrencyCode) shouldEqual expected
+        vm.formatCurrency(currency) shouldEqual expected
     }
 
     @Test
     fun formatCurrencyWhenNoName() {
-        val originCurrencyCode = "PLN"
-        val currency = Currency(code = "GBP", name = "", symbol = "£", exchangeRate = 4.84F)
+        val currency = Currency(code = "GBP", name = "", symbol = "£", rate = Rate(value = 4.84, fromCurrencyCode = "PLN"))
 
         val expected = """
             GBP is the currency
             1 PLN = 4.84 GBP
         """.trimIndent()
 
-        vm.formatCurrency(currency, originCurrencyCode) shouldEqual expected
+        vm.formatCurrency(currency) shouldEqual expected
     }
 
     @Test
     fun formatCurrencyWhenNoRate() {
-        val originCurrencyCode = "PLN"
-        val currency = Currency(code = "GBP", name = "British Pound", symbol = "£", exchangeRate = 0.0F)
+        val currency = Currency(code = "GBP", name = "British Pound", symbol = "£", rate = Rate(value = 0.0, fromCurrencyCode = "PLN"))
 
         val expected = """
             British Pound is the currency
         """.trimIndent()
 
-        vm.formatCurrency(currency, originCurrencyCode) shouldEqual expected
+        vm.formatCurrency(currency) shouldEqual expected
     }
 }
 
@@ -268,7 +262,7 @@ val poland = Country(
         tapWater = "safe",
         vaccinations = mapOf("Hepatitis B" to "The vaccination advice is personal. Consult a qualified medical professional to determine whether vaccination is useful for you"),
         imageUrl = "https://www.dropbox.com/s/5b06v8pgg4ifxy0/poland.jpg?dl=1",
-        visa = "Not required",
+        visa = Visa("Not required"),
         electricity = Electricity(
                 voltage = "230",
                 frequency = "50",
@@ -283,7 +277,7 @@ val poland = Country(
                 code = "PLN",
                 name = "Polish zloty",
                 symbol = "zł",
-                exchangeRate = 0.2F
+                rate = Rate(0.2)
         )
 )
 
