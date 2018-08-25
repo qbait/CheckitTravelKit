@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 val remoteDatasourceModule = module {
     single { createCurrencyConverterService() }
-    single { MockSherpaService() as SherpaService }
+    single { createSherpaService() }
 }
 
 object ApiProperties {
@@ -21,7 +21,9 @@ object ApiProperties {
 fun createSherpaService(): SherpaService {
     return Retrofit.Builder()
             .baseUrl(SHERPA_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(
+                    Moshi.Builder().add(VisaAdapter()).build()
+            ))
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
             .create(SherpaService::class.java)

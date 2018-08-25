@@ -8,6 +8,7 @@ import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.data.Country
 import eu.szwiec.checkittravelkit.repository.data.Rate
+import eu.szwiec.checkittravelkit.repository.data.Visa
 import eu.szwiec.checkittravelkit.repository.local.CountriesJsonReader
 import eu.szwiec.checkittravelkit.repository.local.CountryDao
 import eu.szwiec.checkittravelkit.repository.remote.ApiErrorResponse
@@ -86,7 +87,8 @@ class CountryRepositoryImpl(
                         result.removeSource(currencyConverterSource)
                         when (response) {
                             is ApiSuccessResponse -> {
-                                val newCountry = country.update(response.body)
+                                val visa = Visa(response.body.info, origin.id, System.currentTimeMillis())
+                                val newCountry = country.update(visa)
                                 appExecutors.diskIO().execute { dao.update(newCountry) }
                             }
                             is ApiErrorResponse -> {
