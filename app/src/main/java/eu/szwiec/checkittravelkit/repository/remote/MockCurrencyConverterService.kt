@@ -9,7 +9,7 @@ class MockCurrencyConverterService : CurrencyConverterService {
 
     override fun convert(from_to: String, compact: String): LiveData<ApiResponse<Rate>> {
         val currencyLD = MutableLiveData<ApiResponse<Rate>>()
-        val apiResponse = ApiSuccessResponse(Rate(0.5f, "PLN", System.currentTimeMillis()))
+        val apiResponse = ApiSuccessResponse(Rate(0.5, "PLN", System.currentTimeMillis()))
         Handler().postDelayed({ currencyLD.postValue(apiResponse) }, 500)
 
         return currencyLD

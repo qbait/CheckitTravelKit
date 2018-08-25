@@ -41,7 +41,7 @@ class MockCountryRepository : CountryRepository {
                         name = "Polish zloty",
                         symbol = "zł",
                         rate = Rate(
-                                value = 0.2f,
+                                value = 0.2,
                                 fromCurrencyCode = "GBP",
                                 lastUpdate = 0
                         )

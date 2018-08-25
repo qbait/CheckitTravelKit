@@ -7,6 +7,7 @@ import androidx.lifecycle.MediatorLiveData
 import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.data.Country
+import eu.szwiec.checkittravelkit.repository.data.Rate
 import eu.szwiec.checkittravelkit.repository.local.CountriesJsonReader
 import eu.szwiec.checkittravelkit.repository.local.CountryDao
 import eu.szwiec.checkittravelkit.repository.remote.ApiErrorResponse
@@ -69,7 +70,8 @@ class CountryRepositoryImpl(
                         result.removeSource(currencyConverterSource)
                         when (response) {
                             is ApiSuccessResponse -> {
-                                val newCountry = country.update(response.body)
+                                val rate = Rate(response.body.value, origin.currency.code, System.currentTimeMillis())
+                                val newCountry = country.update(rate)
                                 appExecutors.diskIO().execute { dao.update(newCountry) }
                             }
                             is ApiErrorResponse -> {

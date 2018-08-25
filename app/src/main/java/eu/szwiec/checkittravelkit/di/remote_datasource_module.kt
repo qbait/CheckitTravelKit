@@ -1,11 +1,9 @@
 package eu.szwiec.checkittravelkit.di
 
+import com.squareup.moshi.Moshi
 import eu.szwiec.checkittravelkit.di.ApiProperties.CURRENCY_CONVERTER_URL
 import eu.szwiec.checkittravelkit.di.ApiProperties.SHERPA_URL
-import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
-import eu.szwiec.checkittravelkit.repository.remote.LiveDataCallAdapterFactory
-import eu.szwiec.checkittravelkit.repository.remote.MockSherpaService
-import eu.szwiec.checkittravelkit.repository.remote.SherpaService
+import eu.szwiec.checkittravelkit.repository.remote.*
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -32,7 +30,9 @@ fun createSherpaService(): SherpaService {
 fun createCurrencyConverterService(): CurrencyConverterService {
     return Retrofit.Builder()
             .baseUrl(CURRENCY_CONVERTER_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(
+                    Moshi.Builder().add(RateAdapter()).build()
+            ))
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
             .create(CurrencyConverterService::class.java)

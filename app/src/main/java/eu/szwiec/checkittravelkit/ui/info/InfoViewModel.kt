@@ -169,7 +169,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         val originCurrencyCode = currency.rate.fromCurrencyCode
 
         val currencyInfo1 = context.getString(R.string.x_is_the_currency).format(displayCurrencyName)
-        val currencyInfo2 = if (rate != 0.0F && originCurrencyCode.isNotEmpty() && destinationCurrencyCode.isNotEmpty())
+        val currencyInfo2 = if (rate != 0.0 && originCurrencyCode.isNotEmpty() && destinationCurrencyCode.isNotEmpty())
             context.getString(R.string.currency_rate_info).format(originCurrencyCode, rate, destinationCurrencyCode)
         else
             ""
