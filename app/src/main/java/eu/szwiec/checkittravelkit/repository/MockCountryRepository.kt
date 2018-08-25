@@ -51,9 +51,4 @@ class MockCountryRepository : CountryRepository {
         return countryLD
     }
 
-    override fun getOriginCurrencyCode(): LiveData<String> {
-        val code = MutableLiveData<String>()
-        code.postValue("GBP")
-        return code
-    }
 }

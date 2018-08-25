@@ -9,15 +9,13 @@ import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.data.Country
 import eu.szwiec.checkittravelkit.repository.local.CountriesJsonReader
 import eu.szwiec.checkittravelkit.repository.local.CountryDao
-import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
-import eu.szwiec.checkittravelkit.repository.remote.SherpaService
+import eu.szwiec.checkittravelkit.repository.remote.*
 import eu.szwiec.checkittravelkit.util.AppExecutors
 
 interface CountryRepository {
     fun setup()
     fun getCountryNames(): LiveData<List<String>>
     fun getCountry(name: String): LiveData<Country>
-    fun getOriginCurrencyCode(): LiveData<String>
 }
 
 class CountryRepositoryImpl(
@@ -43,10 +41,6 @@ class CountryRepositoryImpl(
         return dao.getNames()
     }
 
-    override fun getOriginCurrencyCode(): LiveData<String> {
-        return dao.findCurrencyCodeByName(preferences.origin)
-    }
-
     override fun getCountry(name: String): LiveData<Country> {
         val result = MediatorLiveData<Country>()
 
@@ -65,19 +59,25 @@ class CountryRepositoryImpl(
                 val visaSource = sherpaService.visaRequirements(auth(), visaFromTo(origin, country))
 
                 result.addSource(currencyConverterSource) { response ->
-                    if (response != null && response.isSuccessful) {
-                        val newCountry = country.update(response.body)
-                        appExecutors.diskIO().execute { dao.update(newCountry) }
-                    }
                     result.removeSource(currencyConverterSource)
+                    when (response) {
+                        is ApiSuccessResponse -> {
+                            val newCountry = country.update(response.body)
+                            appExecutors.diskIO().execute { dao.update(newCountry) }
+                        }
+                        is ApiErrorResponse -> { }
+                    }
                 }
 
                 result.addSource(visaSource) { response ->
-                    if (response != null && response.isSuccessful) {
-                        val newCountry = country.update(response.body)
-                        appExecutors.diskIO().execute { dao.update(newCountry) }
+                    result.removeSource(currencyConverterSource)
+                    when (response) {
+                        is ApiSuccessResponse -> {
+                            val newCountry = country.update(response.body)
+                            appExecutors.diskIO().execute { dao.update(newCountry) }
+                        }
+                        is ApiErrorResponse -> { }
                     }
-                    result.removeSource(visaSource)
                 }
 
             }
