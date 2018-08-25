@@ -96,7 +96,7 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         val items = ObservableArrayList<Any>()
 
         items.add(SimpleInfo(formatTime(country.timezone), context.getDrawable(R.drawable.ic_time)))
-        items.add(SimpleInfo(formatCurrency(country.currency, country.currency.rate.fromCurrencyCode), context.getDrawable(R.drawable.ic_currency)))
+        items.add(SimpleInfo(formatCurrency(country.currency), context.getDrawable(R.drawable.ic_currency)))
         items.add(SimpleInfo(formatVisa(country.visa), context.getDrawable(R.drawable.ic_visa)))
         items.add(SimpleInfo(formatTapWater(country.tapWater), context.getDrawable(R.drawable.ic_tap)))
         items.add(ElectricityInfo(context.getString(R.string.electricity, country.electricity.voltage, country.electricity.frequency), formatPlugs(country.electricity.plugs), context.getDrawable(R.drawable.ic_plug)))
@@ -162,13 +162,15 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun formatCurrency(currency: Currency, originCurrencyCode: String): String {
+    fun formatCurrency(currency: Currency): String {
         val displayCurrencyName = if (currency.name.isNotEmpty()) currency.name else currency.code
         val destinationCurrencyCode = currency.code
+        val rate = currency.rate.value
+        val originCurrencyCode = currency.rate.fromCurrencyCode
 
         val currencyInfo1 = context.getString(R.string.x_is_the_currency).format(displayCurrencyName)
-        val currencyInfo2 = if (currency.rate.value != 0.0F && originCurrencyCode.isNotEmpty() && destinationCurrencyCode.isNotEmpty())
-            context.getString(R.string.currency_rate_info).format(originCurrencyCode, currency.rate.value, destinationCurrencyCode)
+        val currencyInfo2 = if (rate != 0.0F && originCurrencyCode.isNotEmpty() && destinationCurrencyCode.isNotEmpty())
+            context.getString(R.string.currency_rate_info).format(originCurrencyCode, rate, destinationCurrencyCode)
         else
             ""
 
