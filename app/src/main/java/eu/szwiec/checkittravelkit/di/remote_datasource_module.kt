@@ -4,6 +4,7 @@ import eu.szwiec.checkittravelkit.di.ApiProperties.CURRENCY_CONVERTER_URL
 import eu.szwiec.checkittravelkit.di.ApiProperties.SHERPA_URL
 import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
 import eu.szwiec.checkittravelkit.repository.remote.LiveDataCallAdapterFactory
+import eu.szwiec.checkittravelkit.repository.remote.MockSherpaService
 import eu.szwiec.checkittravelkit.repository.remote.SherpaService
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
@@ -11,7 +12,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 val remoteDatasourceModule = module {
     single { createCurrencyConverterService() }
-    single { createSherpaService() }
+    single { MockSherpaService() as SherpaService }
 }
 
 object ApiProperties {

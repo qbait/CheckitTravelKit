@@ -120,7 +120,7 @@ class CountryRepositoryImpl(
     }
 
     private fun currencyFromTo(from: Country, to: Country): String {
-        return "${from.currency}_${to.currency}"
+        return "${from.currency.code}_${to.currency.code}"
     }
 
     private fun visaFromTo(from: Country, to: Country): String {

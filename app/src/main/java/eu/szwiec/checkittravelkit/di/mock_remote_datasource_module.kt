@@ -6,7 +6,7 @@ import eu.szwiec.checkittravelkit.repository.remote.MockSherpaService
 import eu.szwiec.checkittravelkit.repository.remote.SherpaService
 import org.koin.dsl.module.module
 
-val mockRemoteDataSourceModule = module {
+val mockRemoteDatasourceModule = module {
     single { MockCurrencyConverterService() as CurrencyConverterService }
     single { MockSherpaService() as SherpaService }
 }
