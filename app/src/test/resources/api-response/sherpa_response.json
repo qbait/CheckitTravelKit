@@ -1,0 +1,16 @@
+[
+  {
+    "allowed_stay": "Freedom of movement",
+    "citizenship_destination_ID_type": "GB_PL_tourist",
+    "requirement": "NOT_REQUIRED",
+    "type": "tourist",
+    "textual": {
+      "class": "normal",
+      "text": [
+        "You don't need a visa.",
+        "You can travel to Poland for a limited stay.",
+        "Make sure to check other entry requirements and how long you can stay for."
+      ]
+    }
+  }
+]
