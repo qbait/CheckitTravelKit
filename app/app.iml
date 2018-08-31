@@ -210,6 +210,7 @@
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat-1.0.0-rc01" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.ow2.asm:asm:5.0.1@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.apache.maven:maven-plugin-registry:2.2.1@jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:mockwebserver:3.8.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton.timber:timber-4.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test:1.2.41@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.koin:koin-test:1.0.0-beta-6@jar" level="project" />

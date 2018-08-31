@@ -56,5 +56,6 @@ task clean(type: Delete) {
  versions.kluent = "1.40"
  versions.robolectric = "4.0-alpha-3-SNAPSHOT"
  versions.threetenabp = "1.3.2"
+ versions.mockwebserver = "3.8.1"
 
 

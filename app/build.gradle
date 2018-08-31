@@ -59,6 +59,7 @@ dependencies {
     implementation "com.github.mpkorstanje:simmetrics-core:$versions.simmetrics"
 
     testImplementation "junit:junit:$versions.junit"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockito_kotlin"
     testImplementation "org.koin:koin-test:$versions.koin"
     testImplementation "androidx.arch.core:core-testing:$versions.lifecycle"
