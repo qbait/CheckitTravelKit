@@ -1,4 +1,4 @@
-package eu.szwiec.checkittravelkit.util
+package eu.szwiec.checkittravelkit
 
 import eu.szwiec.checkittravelkit.repository.data.*
 

@@ -12,12 +12,6 @@ interface CountryDao {
     @Query("SELECT * FROM country WHERE name = :name")
     fun findByName(name: String): LiveData<Country>
 
-    @Query("SELECT id FROM country WHERE name = :name")
-    fun findIdByName(name: String): LiveData<String>
-
-    @Query("SELECT currency_code FROM country WHERE name = :name")
-    fun findCurrencyCodeByName(name: String): LiveData<String>
-
     @Query("SELECT COUNT(id) FROM country")
     fun countCountries(): Int
 

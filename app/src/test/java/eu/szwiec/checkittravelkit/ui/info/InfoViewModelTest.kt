@@ -8,11 +8,14 @@ import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import eu.szwiec.checkittravelkit.R
-import eu.szwiec.checkittravelkit.util.isValidFormat
+import eu.szwiec.checkittravelkit.poland
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
-import eu.szwiec.checkittravelkit.repository.data.*
-import eu.szwiec.checkittravelkit.util.poland
+import eu.szwiec.checkittravelkit.repository.data.Currency
+import eu.szwiec.checkittravelkit.repository.data.Rate
+import eu.szwiec.checkittravelkit.repository.data.Telephones
+import eu.szwiec.checkittravelkit.repository.data.Visa
+import eu.szwiec.checkittravelkit.util.isValidFormat
 import eu.szwiec.checkittravelkit.util.resId
 import org.amshove.kluent.*
 import org.junit.Test

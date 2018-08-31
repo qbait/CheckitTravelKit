@@ -1,22 +1,17 @@
 package eu.szwiec.checkittravelkit.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import eu.szwiec.checkittravelkit.prefs.Preferences
-import eu.szwiec.checkittravelkit.repository.data.Country
-import eu.szwiec.checkittravelkit.repository.data.Rate
-import eu.szwiec.checkittravelkit.repository.data.Visa
 import eu.szwiec.checkittravelkit.repository.local.CountriesJsonReader
 import eu.szwiec.checkittravelkit.repository.local.CountryDao
-import eu.szwiec.checkittravelkit.repository.remote.ApiSuccessResponse
 import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
 import eu.szwiec.checkittravelkit.repository.remote.SherpaAuthorization
 import eu.szwiec.checkittravelkit.repository.remote.SherpaService
 import eu.szwiec.checkittravelkit.util.InstantAppExecutors
-import eu.szwiec.checkittravelkit.util.NonNullLiveData
-import eu.szwiec.checkittravelkit.util.poland
-import eu.szwiec.checkittravelkit.util.thailand
 import org.junit.Rule
 import org.junit.Test
 

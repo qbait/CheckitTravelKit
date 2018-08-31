@@ -27,6 +27,10 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
     dataBinding.enabled = true
 }
 
@@ -69,6 +73,8 @@ dependencies {
         exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
     }
 
+    androidTestImplementation "androidx.arch.core:core-testing:$versions.lifecycle"
+    androidTestImplementation "org.amshove.kluent:kluent-android:$versions.kluent"
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 }
