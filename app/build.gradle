@@ -39,6 +39,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation "android.arch.work:work-runtime-ktx:$versions.work"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"

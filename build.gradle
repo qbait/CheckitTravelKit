@@ -44,6 +44,7 @@ ext.versions = [:]
 versions.appcompat = "1.0.0-rc01"
 versions.material = "1.0.0-rc01"
 versions.navigation = "1.0.0-alpha05"
+versions.work = "1.0.0-alpha08"
 versions.lifecycle = "2.0.0-rc01"
 versions.room = "2.0.0-rc01"
 versions.ktx = "1.0.0-rc01"

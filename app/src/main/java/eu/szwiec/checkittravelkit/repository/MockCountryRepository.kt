@@ -4,12 +4,9 @@ import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import eu.szwiec.checkittravelkit.repository.data.*
-import eu.szwiec.checkittravelkit.repository.data.Currency
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
 
 class MockCountryRepository : CountryRepository {
-    override fun setup() {
-    }
 
     override fun getCountryNames(): LiveData<List<String>> {
         return NonNullLiveData(listOf("Poland", "UK"))

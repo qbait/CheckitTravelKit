@@ -14,7 +14,6 @@ class SplashViewModel(private val preferences: Preferences, private val reposito
     }
 
     private fun setup(firstLaunch: Boolean) {
-        repository.setup()
         if (firstLaunch) {
             preferences.isFirstLaunch = false
         }
