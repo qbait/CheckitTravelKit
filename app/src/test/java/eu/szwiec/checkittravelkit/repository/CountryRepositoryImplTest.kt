@@ -6,7 +6,6 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import eu.szwiec.checkittravelkit.prefs.Preferences
-import eu.szwiec.checkittravelkit.repository.local.CountriesJsonReader
 import eu.szwiec.checkittravelkit.repository.local.CountryDao
 import eu.szwiec.checkittravelkit.repository.remote.CurrencyConverterService
 import eu.szwiec.checkittravelkit.repository.remote.SherpaAuthorization
@@ -21,13 +20,12 @@ class CountryRepositoryImplTest {
     val rule = InstantTaskExecutorRule()
 
     private val dao = mock<CountryDao>()
-    private val jsonReader = mock<CountriesJsonReader>()
     private val sherpaService = mock<SherpaService>()
     private val currencyConverterService = mock<CurrencyConverterService>()
     private val preferences = mock<Preferences>()
     private val sherpaAuthorization = mock<SherpaAuthorization>()
 
-    private val repository = CountryRepositoryImpl(InstantAppExecutors(), dao, jsonReader, sherpaService, currencyConverterService, preferences, sherpaAuthorization)
+    private val repository = CountryRepositoryImpl(InstantAppExecutors(), dao, sherpaService, currencyConverterService, preferences, sherpaAuthorization)
 
     @Test
     fun getCountryNames() {
