@@ -66,7 +66,6 @@ class InfoViewModel(private val context: Context, private val preferences: Prefe
         }
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun setup(country: Country) {
         countryName.value = country.name
         setupFavorite(country.name)
