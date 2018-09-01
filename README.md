@@ -17,37 +17,41 @@ Libraries Used
 * [Data Binding][0] for binding observables with UI elements.
 * [LiveData][1] for reactive style programming.
 * [Navigation][2] for in-app navigation.
-* [Room][3] for local storage.
-* [Koin][4] for dependency injection.
-* [Retrofit][5] for REST api communication.
-* [Moshi][6] for JSON deserialization.
-* [Glide][7] for image loading.
-* [Lottie][8] for splash animation.
-* [Crashlytics][9] for crash reports.
-* [Binding collection adapter][10] for binding collections to recyclerviews.
-* [Timber][11] for logging.
-* [Espresso][12] for UI tests.
-* [Mockito-Kotlin][13] for mocking in tests.
-* [Kluent][14] for fluent assertions.
-* [Robolectric][15] for painless unit testing.
+* [WorkManager][3] for managing background jobs.
+* [Room][4] for local storage.
+* [Koin][5] for dependency injection.
+* [Retrofit][6] for REST api communication.
+* [Moshi][7] for JSON deserialization.
+* [Glide][8] for image loading.
+* [Lottie][9] for splash animation.
+* [Crashlytics][10] for crash reports.
+* [Binding collection adapter][11] for binding collections to recyclerviews.
+* [Timber][12] for logging.
+* [Espresso][13] for UI tests.
+* [Mockito-Kotlin][14] for mocking in tests.
+* [Kluent][15] for fluent assertions.
+* [Robolectric][16] for painless unit testing.
+* [MockWebServer][17] for testing HTTP clients.
 
 
 [0]: https://developer.android.com/topic/libraries/data-binding/
 [1]: https://developer.android.com/topic/libraries/architecture/livedata
 [2]: https://developer.android.com/topic/libraries/architecture/navigation/
-[3]: https://developer.android.com/topic/libraries/architecture/room/
-[4]: https://github.com/InsertKoinIO/koin
-[5]: https://github.com/square/retrofit
-[6]: https://github.com/square/moshi
-[7]: https://github.com/bumptech/glide
-[8]: https://github.com/airbnb/lottie-android
-[9]: https://fabric.io/kits/android/crashlytics/
-[10]: https://github.com/evant/binding-collection-adapter
-[11]: https://github.com/JakeWharton/timber
-[12]: https://developer.android.com/training/testing/espresso/
-[13]: https://github.com/nhaarman/mockito-kotlin
-[14]: https://github.com/MarkusAmshove/Kluent
-[15]: https://github.com/robolectric/robolectric
+[3]: https://developer.android.com/topic/libraries/architecture/workmanager/
+[4]: https://developer.android.com/topic/libraries/architecture/room/
+[5]: https://github.com/InsertKoinIO/koin
+[6]: https://github.com/square/retrofit
+[7]: https://github.com/square/moshi
+[8]: https://github.com/bumptech/glide
+[9]: https://github.com/airbnb/lottie-android
+[10]: https://fabric.io/kits/android/crashlytics/
+[11]: https://github.com/evant/binding-collection-adapter
+[12]: https://github.com/JakeWharton/timber
+[13]: https://developer.android.com/training/testing/espresso/
+[14]: https://github.com/nhaarman/mockito-kotlin
+[15]: https://github.com/MarkusAmshove/Kluent
+[16]: https://github.com/robolectric/robolectric
+[17]: https://github.com/square/okhttp/tree/master/mockwebserver
 
 
 
