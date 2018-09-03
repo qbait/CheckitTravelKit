@@ -1,9 +1,8 @@
 Check It, Travel Kit
 =========================
-I used to be a digital nomad, everything what I needed to plan before travelling were crucial informations like visa or if tap water is safe to drink.
-There is no website to quickly access all these useful information and while traveling I even couldn't count on the internet so I decided to create the app for that.
+When I was a digital nomad, crucial travel information like visa requirements, vaccinations needed, and whether the local tap water was safe to drink, were what I needed to know while planning my travels. There is no single website to quickly access all of these useful information about the countries I'm travelling to, and while travelling, I could not always count on having internet access. So, I decided to create an app for this purpose. 
 
-The app is simple, however ready to scale. It shows a modern approach to develop an Android app using MVVM architecture and Jetpack components.
+The app is simple, but is ready to scale. It shows a modern approach to developing an Android app using MVVM architecture and Jetpack components. 
 
 Screenshots
 -----------
