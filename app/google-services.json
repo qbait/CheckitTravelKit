@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "743210498838",
+    "firebase_url": "https://check-it-travel-kit-30847.firebaseio.com",
+    "project_id": "check-it-travel-kit-30847",
+    "storage_bucket": "check-it-travel-kit-30847.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743210498838:android:93ea8c375c0faf3f",
+        "android_client_info": {
+          "package_name": "eu.szwiec.checkittravelkit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743210498838-99kv7hescbs7r6cllb7tl1bk7g1as11h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB28GZ-p2Rv_5xSN3OVKbMRUGpNzebBKAU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
