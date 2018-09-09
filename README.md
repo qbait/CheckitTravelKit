@@ -4,6 +4,14 @@ When I was a digital nomad, crucial travel information like visa requirements, v
 
 The app is simple, but is ready to scale. It shows a modern approach to developing an Android app using MVVM architecture and Jetpack components. 
 
+<a href="https://play.google.com/store/apps/details?id=eu.szwiec.checkittravelkit">
+  <img 
+       alt="Get it on Google Play"
+       src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" 
+       height=56px
+       />
+</a>
+
 Screenshots
 -----------
 
