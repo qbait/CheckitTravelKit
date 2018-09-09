@@ -8,7 +8,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-beta05'
+        classpath 'com.android.tools.build:gradle:3.2.0-rc02'
         classpath 'android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha05'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.0.1'
@@ -42,13 +42,13 @@ task clean(type: Delete) {
 
 ext.versions = [:]
 
-versions.appcompat = "1.0.0-rc01"
-versions.material = "1.0.0-rc01"
+versions.appcompat = "1.0.0-rc02"
+versions.material = "1.0.0-rc02"
 versions.navigation = "1.0.0-alpha05"
 versions.work = "1.0.0-alpha08"
 versions.lifecycle = "2.0.0-rc01"
 versions.room = "2.0.0-rc01"
-versions.ktx = "1.0.0-rc01"
+versions.ktx = "1.0.0-rc02"
 versions.constraint_layout = "1.1.1"
 versions.retrofit = "2.4.0"
 versions.binding_collection_adapter = "3.0.0-beta1"
@@ -57,7 +57,7 @@ versions.koin = "1.0.0-beta-6"
 versions.lottie = "2.5.6"
 versions.glide = "4.7.1"
 versions.crashlytics = "2.9.5"
-versions.firebase_core = "16.0.1"
+versions.firebase_core = "16.0.3"
 versions.moshi_kotlin = "1.6.0"
 versions.timber = "4.7.1"
 versions.simmetrics = "4.1.1"
