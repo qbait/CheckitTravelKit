@@ -7,6 +7,7 @@ import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.prefs.Preferences
 import eu.szwiec.checkittravelkit.repository.CountryRepository
 import eu.szwiec.checkittravelkit.util.NonNullLiveData
+import eu.szwiec.checkittravelkit.util.SingleLiveEvent
 
 sealed class State {
     object ChooseOrigin : State()
@@ -21,6 +22,7 @@ class SearchViewModel(private val context: Context, private val preferences: Pre
     val destination = NonNullLiveData("")
     val originHint = NonNullLiveData("")
     val countryNames = repository.getCountryNames()
+    val validationMessage = SingleLiveEvent<CharSequence>()
 
     fun initState() {
         if (preferences.origin.isEmpty()) {
@@ -49,15 +51,23 @@ class SearchViewModel(private val context: Context, private val preferences: Pre
     }
 
     fun submitOrigin() {
-        if (isValid(origin.value)) {
+        submit(origin.value) {
             setState(State.ChooseDestination)
             preferences.origin = origin.value
         }
     }
 
     fun submitDestination() {
-        if (isValid(destination.value)) {
+        submit(destination.value) {
             setState(State.ShowInfo(destination.value))
+        }
+    }
+
+    private fun submit(countryName: String, onSuccess: () -> Unit) {
+        if (isValid(countryName)) {
+            onSuccess.invoke()
+        } else {
+            validationMessage.value = context.getString(R.string.thats_not_a_country_name, countryName)
         }
     }
 

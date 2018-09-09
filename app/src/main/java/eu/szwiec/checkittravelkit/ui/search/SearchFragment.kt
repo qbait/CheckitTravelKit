@@ -14,6 +14,7 @@ import eu.szwiec.checkittravelkit.R
 import eu.szwiec.checkittravelkit.databinding.FragmentSearchBinding
 import eu.szwiec.checkittravelkit.ui.common.hideKeyboard
 import eu.szwiec.checkittravelkit.ui.common.navigateToInfo
+import eu.szwiec.checkittravelkit.ui.common.toast
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -59,6 +60,10 @@ class SearchFragment : Fragment() {
                     searchViewModel.setState(State.ChooseDestination)
                 }
             }
+        })
+
+        searchViewModel.validationMessage.observe(this, Observer { message ->
+            context?.toast(message)
         })
 
         favoritesViewModel.favorites.observe(this, Observer { })
