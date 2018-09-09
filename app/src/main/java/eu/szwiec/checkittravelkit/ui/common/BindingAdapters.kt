@@ -9,8 +9,8 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import eu.szwiec.checkittravelkit.R
-
 import eu.szwiec.checkittravelkit.databinding.PlugBinding
 import eu.szwiec.checkittravelkit.ui.info.Plug
 
@@ -49,4 +49,15 @@ fun setItems(view: AutoCompleteTextView, list: List<String>?) {
         val adapter = SearchableAdapter(view.context, list)
         view.setAdapter(adapter)
     }
+}
+
+@BindingAdapter("setIcon")
+fun setIcon(fab: FloatingActionButton, isFavorite: Boolean) {
+    val resId = if (isFavorite) R.drawable.ic_favorite_white_24dp else R.drawable.ic_favorite_border_white_24dp
+    val drawable = fab.context.getDrawable(resId)
+
+    //workaround for https://issuetracker.google.com/issues/111316656
+    fab.hide()
+    fab.setImageDrawable(drawable)
+    fab.show()
 }

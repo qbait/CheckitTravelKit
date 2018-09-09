@@ -74,7 +74,7 @@
             android:onClick="@{() -> viewModel.toggleFavorite()}"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|end"
-            android:src="@{viewModel.isFavorite ? @drawable/ic_favorite_white_24dp : @drawable/ic_favorite_border_white_24dp}" />
+            app:setIcon="@{viewModel.isFavorite}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
